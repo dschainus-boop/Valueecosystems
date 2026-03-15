@@ -185,13 +185,17 @@
   }
   .book-cover {
     width: 100%;
+    min-height: 380px;
     box-shadow:
       -8px 8px 30px rgba(0,0,0,0.15),
       -3px 3px 0px rgba(0,0,0,0.08),
       20px 20px 60px rgba(0,0,0,0.08);
     transform: perspective(800px) rotateY(-4deg);
     transition: transform 0.4s ease;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .book-wrapper:hover .book-cover {
     transform: perspective(800px) rotateY(-8deg) translateY(-4px);
@@ -978,7 +982,13 @@
   </div>
   <div class="hero-book">
     <div class="book-wrapper">
-      <img id="cover-img" class="book-cover" alt="Portada del libro" src="">
+      <div id="cover-img" class="book-cover" style="background:linear-gradient(160deg,#f5f2ed 0%,#ede8e2 40%,#e0d9d1 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;padding:2rem;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:#8a8880;margin-bottom:0.5rem;">Diego Schain</div>
+        <div style="width:1.5rem;height:1px;background:#c8a882;"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:#1a1a1a;text-align:center;line-height:1.4;">La Arquitectura<br><em>de los</em><br>Ecosistemas<br>de Valor</div>
+        <div style="width:1.5rem;height:1px;background:#c8a882;margin-top:0.3rem;"></div>
+        <div style="font-family:'Jost',sans-serif;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:#c8a882;margin-top:0.5rem;">Ingeniería de la Interdependencia</div>
+      </div>
       <div class="book-glow"></div>
     </div>
   </div>
