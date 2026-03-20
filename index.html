@@ -2351,7 +2351,7 @@ window.cvDownloadPDF=function(){
   <div class="footer-bottom"><div class="footer-copy">© 2025 Diego Schain. Todos los derechos reservados.</div></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── ACORDEONES ─────────────────────────────────────────────────────────────
 function accToggle(id) {
   var body = document.getElementById('body-'+id);
@@ -2381,11 +2381,14 @@ function accOpen(id) {
   if (!body) return;
   if (body.style.display !== 'block') accToggle(id);
   setTimeout(function(){
-    var sec = document.getElementById(id === 'tool' ? 'tool' : id+'-section');
+    var secId = id === 'tool' ? 'tool' : id+'-section';
+    var sec = document.getElementById(secId);
     if (sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
   }, 50);
 }
+</script>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── STATE ──────────────────────────────────────────────────────────────────
 var S = {step:0, deps:[], matrix:null, impact:null, riesgo:null};
 
