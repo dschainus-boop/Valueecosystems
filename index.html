@@ -299,6 +299,20 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
   .nav-links{display:none;}
   .opts.c2{grid-template-columns:1fr;}
 }
+
+/* ── ACORDEONES ── */
+.acc-section{border-bottom:1px solid var(--line);}
+.acc-header{display:flex;justify-content:space-between;align-items:center;padding:2.5rem 4rem;cursor:pointer;transition:background 0.2s;gap:2rem;}
+.acc-header:hover{background:rgba(26,26,26,0.03);}
+.acc-header-dark{background:var(--charcoal);}
+.acc-header-dark:hover{background:#222;}
+.acc-chevron{font-size:1.6rem;font-weight:200;color:var(--warm);line-height:1;flex-shrink:0;transition:transform 0.3s ease;font-family:'Jost',sans-serif;width:28px;text-align:center;}
+.acc-chevron.open{transform:rotate(45deg);}
+.acc-body{display:none;padding:0 4rem 3rem;animation:accIn 0.3s ease;}
+.acc-body-dark{background:var(--charcoal);color:var(--pearl);}
+@keyframes accIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1024px){.acc-header{padding:2rem 2.5rem;}.acc-body{padding:0 2.5rem 2.5rem;}}
+@media(max-width:640px){.acc-header{padding:1.5rem;}.acc-body{padding:0 1.5rem 2rem;}}
 </style>
 </head>
 <body>
@@ -309,7 +323,7 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
   <ul class="nav-links">
     <li><a onclick="document.getElementById('framework').scrollIntoView({behavior:'smooth'})">Framework</a></li>
     <li><a onclick="document.getElementById('cases').scrollIntoView({behavior:'smooth'})">Casos</a></li>
-    <li><a onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">Diagnóstico</a></li>
+    <li><a onclick="accOpen('tool')">Diagnóstico</a></li>
     <li><a onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})">Comunidad</a></li>
     <li><a onclick="document.getElementById('author').scrollIntoView({behavior:'smooth'})">Autor</a></li>
   </ul>
@@ -323,7 +337,7 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
     <div class="hero-quote">«Quien diseña la coordinación, diseña el poder.»</div>
     <p class="hero-desc">Una disciplina emergente para comprender, diagnosticar y diseñar arquitecturas de interdependencia que generan posiciones duraderas de poder empresarial.</p>
     <div class="hero-ctas">
-      <a class="btn-p" onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">Diagnosticar mi posición</a>
+      <a class="btn-p" onclick="accOpen('tool')">Diagnosticar mi posición</a>
       <a class="btn-s" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth'})">Unirse a la comunidad</a>
     </div>
   </div>
@@ -409,10 +423,16 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
 </div>
 
 <!-- DIAGNOSTIC -->
-<section id="tool" class="sec">
-  <div class="sec-tag">Diagnóstico Arquitectónico</div>
-  <h2 class="sec-title">¿Dónde está tu organización en el ecosistema?</h2>
-  <p class="sec-lead">Cuatro herramientas del libro aplicadas a tu contexto. Sigue la misma progresión conceptual de la obra: ver el sistema, entender tu posición, evaluar la estabilidad y diseñar la arquitectura.</p>
+<section id="tool" class="sec acc-section">
+  <div class="acc-header" onclick="accToggle('tool')">
+    <div>
+      <div class="sec-tag" style="margin-bottom:0.4rem;">Diagnóstico Arquitectónico</div>
+      <h2 class="sec-title" style="margin-bottom:0;">¿Dónde está tu organización en el ecosistema?</h2>
+    </div>
+    <div class="acc-chevron" id="chev-tool">+</div>
+  </div>
+  <div class="acc-body" id="body-tool">
+    <p class="sec-lead">Cuatro herramientas del libro aplicadas a tu contexto. Sigue la misma progresión conceptual de la obra: ver el sistema, entender tu posición, evaluar la estabilidad y diseñar la arquitectura.</p>
   <div class="tool-wrap">
     <div class="tabs">
       <div class="tab on" id="tab-0"><span class="tab-n">Paso 1</span>Mapa de Interdependencias</div>
@@ -712,6 +732,7 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
       </div>
     </div>
   </div>
+  </div><!-- /acc-body tool -->
 </section>
 
 <script>
@@ -830,7 +851,7 @@ window.dpaRestart=function(){
 };
 
 document.addEventListener('DOMContentLoaded', function(){
-  if(document.getElementById('dpa-qcontainer')) dpaRender(0);
+  // dpaRender se llama cuando el acordeón se abre por primera vez
 });
 </script>
 
@@ -1317,10 +1338,15 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 <!-- ══ SECCIÓN IDA ═══════════════════════════════════════════════════ -->
-<section id="ida-section">
-
-  <div class="ida-sec-tag">Índice de Densidad Arquitectónica</div>
-  <h2 class="ida-sec-title">Calcula el <em>IDA</em> de tu ecosistema</h2>
+<section id="ida-section" class="acc-section">
+  <div class="acc-header acc-header-dark" onclick="accToggle('ida')">
+    <div>
+      <div class="ida-sec-tag" style="margin-bottom:0.4rem;">Índice de Densidad Arquitectónica</div>
+      <h2 class="ida-sec-title" style="margin-bottom:0;">Calcula el <em>IDA</em> de tu ecosistema</h2>
+    </div>
+    <div class="acc-chevron acc-chevron-light" id="chev-ida">+</div>
+  </div>
+  <div class="acc-body" id="body-ida">
   <p class="ida-sec-lead">
     El IDA mide el grado en que las interdependencias que pasan por un actor son estructurales y no triviales.
     Ingresa hasta 5 actores j de tu sistema y asigna valores a cada variable. El índice se calcula en tiempo real.
@@ -1421,9 +1447,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     </div>
   </div>
-</section>
-
-<!-- ══ LÓGICA DEL MÓDULO IDA ═════════════════════════════════════════ -->
+  </div><!-- /acc-body ida -->
+</section> ═════════════════════════════════════════ -->
 <script>
 (function(){
 'use strict';
@@ -1499,10 +1524,15 @@ window.idaSetDelta = function(id, val) {
   var actor = actors.find(function(a){ return a.id === id; });
   if (!actor) return;
   actor.delta = parseFloat(val);
-  // Actualizar UI delta
-  document.querySelectorAll('[data-actorid="'+id+'"] .ida-delta-opt').forEach(function(el){
-    el.classList.toggle('selected', parseFloat(el.dataset.val) === actor.delta);
-  });
+  // Buscar el card del actor y actualizar solo sus opciones delta
+  var card = document.getElementById('ida-card-'+id);
+  if (card) {
+    var opts = card.querySelectorAll('.ida-delta-opt');
+    for (var i = 0; i < opts.length; i++) {
+      var optVal = parseFloat(opts[i].getAttribute('data-val'));
+      opts[i].classList.toggle('selected', Math.abs(optVal - actor.delta) < 0.001);
+    }
+  }
   idaCalc();
   idaUpdateResult();
   idaUpdateTable();
@@ -1713,9 +1743,7 @@ function idaUpdateTable() {
 
 /* ── Init con 2 actores por defecto ── */
 document.addEventListener('DOMContentLoaded', function(){
-  if (!document.getElementById('ida-actors-wrap')) return;
-  idaAddActor();
-  idaAddActor();
+  // idaAddActor se llama cuando el acordeón se abre por primera vez
 });
 
 })();
@@ -1941,9 +1969,15 @@ document.addEventListener('DOMContentLoaded', function(){
 }
 </style>
 
-<section id="canvas-section">
-  <div class="cv-sec-tag">Canvas Arquitectónico</div>
-  <h2 class="cv-sec-title">Diseña la <em>arquitectura</em><br>de tu ecosistema</h2>
+<section id="canvas-section" class="acc-section">
+  <div class="acc-header" onclick="accToggle('canvas')">
+    <div>
+      <div class="cv-sec-tag" style="margin-bottom:0.4rem;">Canvas Arquitectónico</div>
+      <h2 class="cv-sec-title" style="margin-bottom:0;">Diseña la <em>arquitectura</em> de tu ecosistema</h2>
+    </div>
+    <div class="acc-chevron" id="chev-canvas">+</div>
+  </div>
+  <div class="acc-body" id="body-canvas">
   <p class="cv-sec-lead">Ocho bloques que hacen visibles las interdependencias, roles y palancas de diseño de tu sistema. A la derecha puedes ver el canvas completo de Materiales El Roble como referencia. Completa los bloques con tu propio ecosistema y descarga el resultado como PDF.</p>
 
   <div class="cv-toolbar">
@@ -2131,6 +2165,7 @@ Ej: Comité estratégico — marzo 2026. Contexto: revisión de posición post-e
   </div>
 
   <div class="cv-toast" id="cv3-toast"></div>
+  </div><!-- /acc-body canvas -->
 </section>
 
 <!-- Las librerías de PDF se cargan dinámicamente al hacer clic en Descargar -->
@@ -2317,8 +2352,42 @@ window.cvDownloadPDF=function(){
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── ACORDEONES ─────────────────────────────────────────────────────────────
+function accToggle(id) {
+  var body = document.getElementById('body-'+id);
+  var chev = document.getElementById('chev-'+id);
+  if (!body || !chev) return;
+  var isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  chev.classList.toggle('open', !isOpen);
+  if (id === 'ida') {
+    body.style.background = !isOpen ? 'var(--charcoal)' : '';
+    body.style.color = !isOpen ? 'var(--pearl)' : '';
+  }
+  if (!isOpen) {
+    if (id === 'ida' && typeof idaAddActor === 'function') {
+      var wrap = document.getElementById('ida-actors-wrap');
+      if (wrap && wrap.children.length === 0) { idaAddActor(); idaAddActor(); }
+    }
+    if (id === 'tool' && typeof dpaRender === 'function') {
+      var qc = document.getElementById('dpa-qcontainer');
+      if (qc && !qc.innerHTML.trim()) dpaRender(0);
+    }
+  }
+}
+
+function accOpen(id) {
+  var body = document.getElementById('body-'+id);
+  if (!body) return;
+  if (body.style.display !== 'block') accToggle(id);
+  setTimeout(function(){
+    var sec = document.getElementById(id === 'tool' ? 'tool' : id+'-section');
+    if (sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 50);
+}
+
 // ── STATE ──────────────────────────────────────────────────────────────────
-const S = {step:0, deps:new Set(), matrix:null, impact:null, riesgo:null};
+var S = {step:0, deps:[], matrix:null, impact:null, riesgo:null};
 
 // ── NAVIGATION ─────────────────────────────────────────────────────────────
 function goTo(n) {
@@ -2332,33 +2401,46 @@ function goTo(n) {
 
 // ── SLIDERS ────────────────────────────────────────────────────────────────
 function updateMap(){
-  const a=+document.getElementById('s0').value;
-  const b=+document.getElementById('s1').value;
-  const c=+document.getElementById('s2').value;
-  const avg=(a+b+c)/3;
-  const lines=document.getElementById('map-lines');
-  const nodes=document.getElementById('map-nodes');
-  const lbl=document.getElementById('eco-type');
-  let type, count, op;
+  var a=+document.getElementById('s0').value;
+  var b=+document.getElementById('s1').value;
+  var c=+document.getElementById('s2').value;
+  var avg=(a+b+c)/3;
+  var lines=document.getElementById('map-lines');
+  var nodes=document.getElementById('map-nodes');
+  var lbl=document.getElementById('eco-type');
+  var type, count, op;
   if(avg<=3){type='Red de proveedores';count=3;op=0.22;}
   else if(avg<=6){type='Ecosistema en formación';count=5;op=0.45;}
   else{type='Ecosistema estructurado';count=7;op=0.7;}
-  lbl.textContent=type;
-  const pos=[[200,22],[290,60],[310,135],[260,185],[140,185],[90,135],[110,60]];
-  const names=['Proveedor A','Socio B','Regulador','Distribuidor','Partner C','Estándar','Plataforma'];
-  const r=Math.max(3,avg*0.8);
-  lines.innerHTML='';nodes.innerHTML='';
-  pos.slice(0,count).forEach((p,i)=>{
-    const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+  if(lbl) lbl.textContent=type;
+  var pos=[[200,22],[290,60],[310,135],[260,185],[140,185],[90,135],[110,60]];
+  var names=['Proveedor A','Socio B','Regulador','Distribuidor','Partner C','Estándar','Plataforma'];
+  var r=Math.max(3,avg*0.8);
+  if(lines) lines.innerHTML='';
+  if(nodes) nodes.innerHTML='';
+  var slice=pos.slice(0,count);
+  for(var i=0;i<slice.length;i++){
+    var p=slice[i];
+    var ln=document.createElementNS('http://www.w3.org/2000/svg','line');
     ln.setAttribute('x1',p[0]);ln.setAttribute('y1',p[1]);ln.setAttribute('x2','200');ln.setAttribute('y2','100');
-    ln.setAttribute('stroke',`rgba(200,168,130,${op})`);ln.setAttribute('stroke-width',r*0.4);
+    ln.setAttribute('stroke','rgba(200,168,130,'+op+')');ln.setAttribute('stroke-width',r*0.4);
     lines.appendChild(ln);
-    if(avg>6&&i<count-1){const j=(i+2)%count;const p2=pos[j];const cr=document.createElementNS('http://www.w3.org/2000/svg','line');cr.setAttribute('x1',p[0]);cr.setAttribute('y1',p[1]);cr.setAttribute('x2',p2[0]);cr.setAttribute('y2',p2[1]);cr.setAttribute('stroke',`rgba(200,168,130,${op*0.35})`);cr.setAttribute('stroke-width','0.8');lines.appendChild(cr);}
-    const ci=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    ci.setAttribute('cx',p[0]);ci.setAttribute('cy',p[1]);ci.setAttribute('r',r);ci.setAttribute('fill',`rgba(200,168,130,${op*0.8})`);nodes.appendChild(ci);
-    const tx=document.createElementNS('http://www.w3.org/2000/svg','text');
-    tx.setAttribute('x',p[0]);tx.setAttribute('y',p[1]<100?p[1]-r-3:p[1]+r+10);tx.setAttribute('text-anchor','middle');tx.setAttribute('font-size','7');tx.setAttribute('fill',`rgba(245,243,240,${op*0.65})`);tx.setAttribute('font-family','Jost,sans-serif');tx.textContent=names[i];nodes.appendChild(tx);
-  });
+    if(avg>6&&i<count-1){
+      var j=(i+2)%count;var p2=pos[j];
+      var cr=document.createElementNS('http://www.w3.org/2000/svg','line');
+      cr.setAttribute('x1',p[0]);cr.setAttribute('y1',p[1]);cr.setAttribute('x2',p2[0]);cr.setAttribute('y2',p2[1]);
+      cr.setAttribute('stroke','rgba(200,168,130,'+(op*0.35)+')');cr.setAttribute('stroke-width','0.8');
+      lines.appendChild(cr);
+    }
+    var ci=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    ci.setAttribute('cx',p[0]);ci.setAttribute('cy',p[1]);ci.setAttribute('r',r);
+    ci.setAttribute('fill','rgba(200,168,130,'+(op*0.8)+')');nodes.appendChild(ci);
+    var tx=document.createElementNS('http://www.w3.org/2000/svg','text');
+    tx.setAttribute('x',p[0]);tx.setAttribute('y',p[1]<100?p[1]-r-3:p[1]+r+10);
+    tx.setAttribute('text-anchor','middle');tx.setAttribute('font-size','7');
+    tx.setAttribute('fill','rgba(245,243,240,'+(op*0.65)+')');tx.setAttribute('font-family','Jost,sans-serif');
+    tx.textContent=names[i];nodes.appendChild(tx);
+  }
 }
 
 // ── PATRONES ───────────────────────────────────────────────────────────────
@@ -2394,71 +2476,97 @@ window.selPat = function(key, el) {
 };
 
 // ── DEPENDENCIES ───────────────────────────────────────────────────────────
-function toggleDep(el,k){el.classList.toggle('on');S.deps.has(k)?S.deps.delete(k):S.deps.add(k);}
-function selSingle(el,k,v){el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('on'));el.classList.add('on');S[k]=v;}
+function toggleDep(el,k){
+  el.classList.toggle('on');
+  var idx=S.deps.indexOf(k);
+  if(idx>-1){S.deps.splice(idx,1);}else{S.deps.push(k);}
+}
+function selSingle(el,k,v){
+  var opts=el.closest('.opts').querySelectorAll('.opt');
+  for(var i=0;i<opts.length;i++){opts[i].classList.remove('on');}
+  el.classList.add('on');
+  S[k]=v;
+}
 
 // ── MATRIX ─────────────────────────────────────────────────────────────────
-const POS_DESC={
+var POS_DESC={
   capturado:'<strong>Participante Capturado</strong>Alta dependencia, baja influencia. Tu organización opera con excelencia dentro de una arquitectura que otros diseñaron. El riesgo principal: cambios unilaterales en las reglas del sistema pueden afectarte sin requerir tu consentimiento.',
   orquestador:'<strong>Orquestador del Sistema</strong>Alta dependencia, alta influencia. Controlas la capa de experiencia o procesos críticos, pero te apoyas en arquitecturas que otros diseñan en capas más profundas. Tu poder sobre el cliente es real; tu dependencia de la infraestructura, también.',
   independiente:'<strong>Actor Independiente</strong>Baja dependencia, baja influencia. Resiliencia estructural alta. El riesgo no es la captura, sino la invisibilidad: puedes ser percibido como commodity si no haces explícita tu función de coordinación.',
   infraestructura:'<strong>Infraestructura Estructural</strong>Baja dependencia, alta influencia. Posición de mayor solidez arquitectónica. Tu riesgo principal es la sobre-extracción: cuando el arquitecto captura demasiado, activa la formación de alternativas y presión regulatoria.'
 };
 function selMat(el,p){
-  document.querySelectorAll('#mat .mc').forEach(c=>c.classList.remove('on'));el.classList.add('on');S.matrix=p;
-  document.querySelectorAll('#vmat .vmc').forEach(c=>c.classList.toggle('hl',c.dataset.p===p));
+  document.querySelectorAll('#mat .mc').forEach(function(c){c.classList.remove('on');});
+  el.classList.add('on'); S.matrix=p;
+  document.querySelectorAll('#vmat .vmc').forEach(function(c){c.classList.toggle('hl',c.dataset.p===p);});
   document.getElementById('vmat-desc').innerHTML=POS_DESC[p]||'';
 }
 
 // ── GAUGES ─────────────────────────────────────────────────────────────────
 function updGauge(arcId,valId,v){
-  const arc=document.getElementById(arcId);const val=document.getElementById(valId);
+  var arc=document.getElementById(arcId);var val=document.getElementById(valId);
   if(!arc||!val)return;
   arc.setAttribute('stroke-dashoffset',157-(v/10)*157);
   val.textContent=v;
-  const col=v<=3?'#8a8880':v<=6?'#c8a882':'#d4956a';
+  var col=v<=3?'#8a8880':v<=6?'#c8a882':'#d4956a';
   arc.setAttribute('stroke',col);val.setAttribute('fill',col);
 }
 function updStab(){
-  const a=+document.getElementById('sg0').value;
-  const b=+document.getElementById('sg1').value;
-  const c=+document.getElementById('sg2').value;
-  const avg=(a+b+c)/3;
+  var a=+document.getElementById('sg0').value;
+  var b=+document.getElementById('sg1').value;
+  var c=+document.getElementById('sg2').value;
+  var avg=(a+b+c)/3;
   document.getElementById('stab-fill').style.width=(avg/10*100)+'%';
-  const lbl=document.getElementById('stab-label');
-  if(avg<=3){lbl.textContent='Frágil';lbl.style.color='#8a8880';}
-  else if(avg<=6){lbl.textContent='Moderada';lbl.style.color='#c8a882';}
-  else{lbl.textContent='Robusta';lbl.style.color='#d4956a';}
+  var lbl=document.getElementById('stab-label');
+  if(lbl){
+    if(avg<=3){lbl.textContent='Frágil';lbl.style.color='#8a8880';}
+    else if(avg<=6){lbl.textContent='Moderada';lbl.style.color='#c8a882';}
+    else{lbl.textContent='Robusta';lbl.style.color='#d4956a';}
+  }
 }
 
 // ── CANVAS ─────────────────────────────────────────────────────────────────
 function updCanvas(){
-  let cnt=0;
-  for(let i=1;i<=8;i++){const ta=document.getElementById('cv'+i);const bl=document.getElementById('cvb'+i);if(ta&&bl){const f=ta.value.trim().length>0;bl.classList.toggle('filled',f);if(f)cnt++;}}
-  document.getElementById('cv-count').textContent=cnt+'/8 completados';
+  var cnt=0;
+  for(var uci=1;uci<=8;uci++){var uta=document.getElementById('cv'+uci);var ubl=document.getElementById('cvb'+uci);if(uta&&ubl){var uf=uta.value.trim().length>0;ubl.classList.toggle('filled',uf);if(uf)cnt++;}}
+  var uce=document.getElementById('cv-count');if(uce)uce.textContent=cnt+'/8 completados';
 }
 
 // ── RADAR ──────────────────────────────────────────────────────────────────
 function drawRadar(scores){
-  const svg=document.getElementById('radar-svg');if(!svg)return;
-  const cx=150,cy=140,maxR=85;
-  const labels=['Densidad\ndel ecosistema','Posición\narquitectónica','Estabilidad\nde incentivos','Canvas\narquitectónico','Gravedad\nsistémica'];
-  const vals=[scores.eco/10,scores.pos/10,scores.inc/10,scores.cv/10,(scores.eco*0.6+scores.pos*0.4)/10];
-  const n=labels.length;
-  const rr=document.getElementById('rr');const ra=document.getElementById('ra');const rl=document.getElementById('rl');
-  rr.innerHTML='';ra.innerHTML='';rl.innerHTML='';
-  [0.25,0.5,0.75,1].forEach(r=>{const ci=document.createElementNS('http://www.w3.org/2000/svg','circle');ci.setAttribute('cx',cx);ci.setAttribute('cy',cy);ci.setAttribute('r',maxR*r);ci.setAttribute('fill','none');ci.setAttribute('stroke','rgba(255,255,255,0.07)');ci.setAttribute('stroke-width','1');rr.appendChild(ci);});
-  const pts=[];
-  vals.forEach((v,i)=>{
-    const angle=(i/n)*2*Math.PI-Math.PI/2;
-    pts.push(`${cx+maxR*v*Math.cos(angle)},${cy+maxR*v*Math.sin(angle)}`);
-    const ax=cx+maxR*Math.cos(angle);const ay=cy+maxR*Math.sin(angle);
-    const axis=document.createElementNS('http://www.w3.org/2000/svg','line');
+  var svg=document.getElementById('radar-svg');if(!svg)return;
+  var cx=150,cy=140,maxR=85;
+  var labels=['Densidad\ndel ecosistema','Posición\narquitectónica','Estabilidad\nde incentivos','Canvas\narquitectónico','Gravedad\nsistémica'];
+  var vals=[scores.eco/10,scores.pos/10,scores.inc/10,scores.cv/10,(scores.eco*0.6+scores.pos*0.4)/10];
+  var n=labels.length;
+  var rrel=document.getElementById('rr');var rael=document.getElementById('ra');var rlel=document.getElementById('rl');
+  if(!rrel||!rael||!rlel)return;
+  rrel.innerHTML='';rael.innerHTML='';rlel.innerHTML='';
+  var rings=[0.25,0.5,0.75,1];
+  for(var ri=0;ri<rings.length;ri++){
+    var rci=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    rci.setAttribute('cx',cx);rci.setAttribute('cy',cy);rci.setAttribute('r',maxR*rings[ri]);
+    rci.setAttribute('fill','none');rci.setAttribute('stroke','rgba(255,255,255,0.07)');rci.setAttribute('stroke-width','1');
+    rrel.appendChild(rci);
+  }
+  var pts=[];
+  for(var vi=0;vi<vals.length;vi++){
+    var v=vals[vi];
+    var angle=(vi/n)*2*Math.PI-Math.PI/2;
+    pts.push((cx+maxR*v*Math.cos(angle))+','+(cy+maxR*v*Math.sin(angle)));
+    var ax=cx+maxR*Math.cos(angle);var ay=cy+maxR*Math.sin(angle);
+    var axis=document.createElementNS('http://www.w3.org/2000/svg','line');
     axis.setAttribute('x1',cx);axis.setAttribute('y1',cy);axis.setAttribute('x2',ax);axis.setAttribute('y2',ay);
-    axis.setAttribute('stroke','rgba(255,255,255,0.1)');axis.setAttribute('stroke-width','1');ra.appendChild(axis);
-    const lx=cx+(maxR+16)*Math.cos(angle);const ly=cy+(maxR+16)*Math.sin(angle);
-    labels[i].split('\n').forEach((line,li)=>{const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',lx);t.setAttribute('y',ly+li*11);t.setAttribute('text-anchor','middle');t.setAttribute('font-size','8');t.setAttribute('fill','rgba(245,243,240,0.42)');t.setAttribute('font-family','Jost,sans-serif');t.textContent=line;rl.appendChild(t);});
-  });
+    axis.setAttribute('stroke','rgba(255,255,255,0.1)');axis.setAttribute('stroke-width','1');rael.appendChild(axis);
+    var lx=cx+(maxR+16)*Math.cos(angle);var ly=cy+(maxR+16)*Math.sin(angle);
+    var lines=labels[vi].split('\n');
+    for(var li=0;li<lines.length;li++){
+      var t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',lx);t.setAttribute('y',ly+li*11);t.setAttribute('text-anchor','middle');
+      t.setAttribute('font-size','8');t.setAttribute('fill','rgba(245,243,240,0.42)');
+      t.setAttribute('font-family','Jost,sans-serif');t.textContent=lines[li];rlel.appendChild(t);
+    }
+  }
   document.getElementById('rp').setAttribute('points',pts.join(' '));
 }
 
@@ -2518,7 +2626,7 @@ function renderResult(posLabel,ecoType,stability,eco,inc,posScore,cvCount){
 }
 
 function resetDiag(){
-  S.step=0; S.deps.clear(); S.matrix=null; S.impact=null; S.riesgo=null; S.patron=null;
+  S.step=0; S.deps=[]; S.matrix=null; S.impact=null; S.riesgo=null; S.patron=null;
   for(var ri=0;ri<=5;ri++){
     var rp=document.getElementById('p'+ri); if(rp) rp.classList.remove('on');
     var rt=document.getElementById('tab-'+ri); if(rt) rt.classList.remove('on','done');
@@ -2536,15 +2644,15 @@ function resetDiag(){
   document.querySelectorAll('.pat-sel-dot').forEach(function(d){d.classList.remove('pat-dot-on');});
   var pr=document.getElementById('pat-result'); if(pr) pr.style.display='none';
   var pb=document.getElementById('pat-btn-next'); if(pb){pb.style.opacity='0.35';pb.style.pointerEvents='none';}
-  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('on'));
-  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('on'));
-  document.querySelectorAll('.vmc').forEach(c=>c.classList.remove('hl'));
+  document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('on');});
+  document.querySelectorAll('.mc').forEach(function(c){c.classList.remove('on');});
+  document.querySelectorAll('.vmc').forEach(function(c){c.classList.remove('hl');});
   document.querySelectorAll('.cv-block textarea').forEach(t=>t.value='');
   updCanvas();
 }
 
 // ── CASES DATA ─────────────────────────────────────────────────────────────
-const CASES={
+var CASES={
   salesforce:{sector:'Software empresarial · Capítulo 6',title:'Salesforce: de plataforma de producto a orquestador de sistema',sub:'Cómo Salesforce transitó de ser un proveedor de CRM a convertirse en el núcleo arquitectónico de un ecosistema de más de 10.000 socios globales.',patterns:['Quien diseña la coordinación','Inevitabilidad por valor','Legitimidad como diseño'],body:`<h3>El giro estratégico: de producto a plataforma</h3><p>Salesforce nace como proveedor de CRM en modalidad software-as-a-service. Su primera ruptura es tecnológica y contractual: sustituye licencias perpetuas por suscripciones. Pero el verdadero giro estratégico ocurre más tarde, cuando deja de definirse como "CRM en la nube" y articula una narrativa de plataforma. Introduce un modelo de datos común, un lenguaje propio (Apex), y un marketplace de aplicaciones (AppExchange). El CRM pasa de ser un producto a ser un módulo central de una arquitectura más amplia.</p><p>Desde la perspectiva de este libro, el desplazamiento es claro: Salesforce transita de competir como proveedor de un componente a ubicarse como núcleo arquitectónico de sistemas complejos de relación con el cliente. No se limita a participar en una industria; contribuye a definir su estructura de interdependencias.</p><h3>La arquitectura modular</h3><p>La arquitectura de Salesforce se apoya en tres pilares. Primero, un modelo de datos y metadatos unificado: Salesforce define objetos estándar que se convierten en un lenguaje común para representar la realidad comercial. Quien adopta Salesforce no solo compra software; adopta un esquema ontológico específico sobre qué es un "cliente" o una "oportunidad". Segundo, modularidad en "nubes" especializadas que comparten el mismo modelo de datos. Tercero, AppExchange como mecanismo de selección y legitimación que condiciona qué innovaciones son visibles y adoptables a escala.</p><h3>Las matemáticas de la lealtad en práctica</h3><p>Salesforce depende de una red extensa de integradores, consultoras e ISVs para que su propuesta de valor se materialice. Certificaciones, niveles de partnership, rebates e incentivos por influencia configuran una arquitectura de incentivos que busca que cooperar sea el Equilibrio de Nash para sus socios. En la práctica, las tensiones son constantes: el orquestador enfrenta la tentación de capturar servicios de alto margen; los partners pueden desviar oportunidades si perciben que la relación es injusta.</p><blockquote>"El paso de producto a plataforma no es meramente técnico, sino ontológico: quien define qué cuenta como 'cliente' define la forma en que otros pueden pensar y gestionar su realidad comercial."</blockquote><h3>Tensiones y límites</h3><p>Salesforce enfrenta el riesgo de fallo distributivo: la posibilidad de que la distribución de valor dentro de su ecosistema se perciba crecientemente como desequilibrada. La sostenibilidad de su posición dependerá de su capacidad para auto-limitar la extracción de valor de corto plazo y adaptarse a demandas de apertura y transparencia.</p>`},
   aws:{sector:'Infraestructura cloud · Capítulo 7',title:'AWS & Microsoft: el poder arquitectónico de la infraestructura',sub:'Cómo los hyperscalers de nube transitaron de proveedores de capacidad a arquitectos parciales de sistemas, ejerciendo un poder estructural invisible para la mayoría de los actores.',patterns:['Invisibilidad como estrategia','Dependencia de coordinación','Gramáticas de diseño'],body:`<h3>De proveedores de capacidad a arquitectos de sistemas</h3><p>En su fase inicial, los servicios de nube pública fueron presentados como una alternativa eficiente a la infraestructura propia. Con el tiempo, sobre la base de cómputo y almacenamiento se construye una constelación de capacidades: bases de datos gestionadas, herramientas de integración, identidad, seguridad e inteligencia artificial. La nube deja de ser "infraestructura barata" para convertirse en infraestructura organizadora. Esta evolución desplaza a AWS y Microsoft desde la posición de simples proveedores de capacidad hacia la de arquitectos parciales de sistemas.</p><h3>Dependencia de coordinación: por qué salir es tan costoso</h3><p>Una organización puede, en principio, migrar entre proveedores de nube. En la práctica, la dependencia rara vez es solo de producto. Tres elementos la vuelven estructural: el tejido de servicios complementarios, la historia relacional codificada en la plataforma, y las interdependencias cruzadas con ecosistemas de nivel superior.</p><h3>Poder de diseño: gramáticas arquitectónicas</h3><p>El poder de diseño de AWS y Microsoft se manifiesta en la definición de patrones arquitectónicos que se convierten en estándares de la industria. Conceptos como "microservicios", "arquitecturas sin servidor" o "data lakehouse" se materializan en catálogos de servicios y marcos de mejores prácticas. AWS y Microsoft no se limitan a ofrecer herramientas; ofrecen gramáticas de diseño. Quien las adopta internaliza una forma particular de entender qué es una "buena" arquitectura, reduciendo su espacio de alternativas futuras.</p><blockquote>"El lugar donde se ejerce el poder arquitectónico modifica su visibilidad: el control de la infraestructura puede permanecer relativamente invisible para actores no técnicos, aunque sus efectos sean igual o más profundos que los de las plataformas visibles."</blockquote>`},
   apple:{sector:'Plataformas de consumo · Capítulo 8',title:'Apple & Google: el poder arquitectónico en plataformas de consumo',sub:'Cómo el control de la interfaz cotidiana —el dispositivo, el sistema operativo, la tienda de aplicaciones— se convierte en la fuente de poder sistémico más visible y más disputada.',patterns:['Control de interfaces cotidianas','Visibilidad del poder','Matemáticas de la lealtad'],body:`<h3>De producto icónico a arquitectura de vida cotidiana</h3><p>Apple emerge como fabricante de hardware; Google, como motor de búsqueda. En ambos casos, la expansión hacia posiciones arquitectónicas se produce cuando convierten productos centrales en plataformas de consumo: iOS y Android como sistemas operativos móviles, App Store y Google Play como infraestructuras de distribución. La relación con el usuario pasa de ser episódica a ser continua, acompañando múltiples momentos de la vida cotidiana.</p><h3>Poder de diseño: interfaces y controles de acceso</h3><p>En el caso de Apple, la combinación de hardware, sistema operativo y tienda de aplicaciones permite un control muy fino de las interfaces de acceso a capacidades críticas: cámaras, sensores, localización, pagos, notificaciones. Las tiendas de aplicaciones definen jerarquías de visibilidad que afectan directamente la posibilidad de que un complemento sea encontrado, instalado y utilizado.</p><h3>Las matemáticas de la lealtad en tres dimensiones</h3><p>En plataformas de consumo coexisten tres tipos de lealtad. La del usuario final se construye mediante integración fluida entre servicios y portabilidad limitada. La del desarrollador se negocia en torno a condiciones económicas y previsibilidad de reglas. La de los intermediarios —operadores, fabricantes, anunciantes— mantiene relaciones de co-opetición.</p><blockquote>"En plataformas de consumo, el poder arquitectónico es más visible para el usuario porque se manifiesta en restricciones concretas. Al mismo tiempo, la dependencia de coordinación es más difusa, distribuida entre millones de usuarios y cientos de miles de desarrolladores."</blockquote>`},
@@ -2557,18 +2665,18 @@ const CASES={
 };
 
 function openCase(id){
-  const c=CASES[id];if(!c)return;
+  var c=CASES[id];if(!c)return;
   document.getElementById('mo-sector').textContent=c.sector;
   document.getElementById('mo-title').textContent=c.title;
   document.getElementById('mo-sub').textContent=c.sub;
   document.getElementById('mo-body').innerHTML=c.body;
-  document.getElementById('mo-patterns').innerHTML=c.patterns.map(p=>`<span class="ptag">${p}</span>`).join('');
+  document.getElementById('mo-patterns').innerHTML=c.patterns.map(function(p){return '<span class="ptag">'+p+'</span>';}).join('');
   document.getElementById('mo').classList.add('open');
   document.body.style.overflow='hidden';
   document.getElementById('mo-body').scrollTop=0;
 }
 function closeMo(){document.getElementById('mo').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMo();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMo();});
 
 // ── FORM ──────────────────────────────────────────────────────────────────
 async function submitForm(e){
