@@ -434,44 +434,182 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
       <div class="d-nav"><span class="d-nav-info">Paso 1 de 4</span><button class="btn-next" onclick="goTo(1)">Continuar →</button></div>
     </div>
 
-    <!-- P1 -->
+    <!-- P1 — Diagnóstico guiado de posición arquitectónica (9 preguntas) -->
     <div class="panel" id="p1">
       <p class="dq">¿Qué posición ocupa tu organización en el sistema?</p>
-      <p class="dctx">La Matriz de Posición Arquitectónica cruza influencia arquitectónica con dependencia del sistema. Selecciona la celda que mejor describe tu posición actual.</p>
-      <div class="mat-wrap">
-        <span class="ax-y">↑ Alta dependencia del sistema</span>
-        <div class="mat" id="mat">
-          <div class="mc" onclick="selMat(this,'capturado')" data-p="capturado"><div class="mc-n">Participante Capturado</div><div class="mc-d">Alta dependencia · Baja influencia</div></div>
-          <div class="mc" onclick="selMat(this,'orquestador')" data-p="orquestador"><div class="mc-n">Orquestador del Sistema</div><div class="mc-d">Alta dependencia · Alta influencia</div></div>
-          <div class="mc" onclick="selMat(this,'independiente')" data-p="independiente"><div class="mc-n">Actor Independiente</div><div class="mc-d">Baja dependencia · Baja influencia</div></div>
-          <div class="mc" onclick="selMat(this,'infraestructura')" data-p="infraestructura"><div class="mc-n">Infraestructura Estructural</div><div class="mc-d">Baja dependencia · Alta influencia</div></div>
+      <p class="dctx">Responde las siguientes preguntas para que el diagnóstico calcule tu posición en la Matriz Arquitectónica. Cada respuesta pondera dos ejes: influencia sobre la coordinación y dependencia del sistema.</p>
+
+      <!-- Barra de progreso interna -->
+      <div style="margin-bottom:1.8rem;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+          <span style="font-size:0.56rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,243,240,0.3);">Progreso</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--warm);" id="dpa-prog-txt">1 / 9</span>
         </div>
-        <span class="ax-x">Influencia arquitectónica →</span>
+        <div style="height:1px;background:rgba(255,255,255,0.08);overflow:hidden;">
+          <div id="dpa-prog-fill" style="height:100%;background:var(--warm);transition:width 0.5s ease;width:0%;"></div>
+        </div>
       </div>
-      <p class="dq" style="font-size:1rem;margin-bottom:0.8rem;">¿Qué ocurriría si tu organización desapareciera del sistema por 90 días?</p>
-      <div class="opts">
-        <div class="opt" onclick="selSingle(this,'impact','nada')"><span class="opt-l">A</span><span class="opt-t">Los demás actores lo resolverían rápidamente con alternativas disponibles</span></div>
-        <div class="opt" onclick="selSingle(this,'impact','algo')"><span class="opt-l">B</span><span class="opt-t">Habría fricción y demoras, pero el sistema continuaría funcionando</span></div>
-        <div class="opt" onclick="selSingle(this,'impact','mucho')"><span class="opt-l">C</span><span class="opt-t">Partes del sistema dejarían de funcionar o deberían rediseñarse</span></div>
-        <div class="opt" onclick="selSingle(this,'impact','colapso')"><span class="opt-l">D</span><span class="opt-t">El ecosistema completo entraría en crisis sin nuestra función de coordinación</span></div>
+
+      <!-- Contenedor de pregunta -->
+      <div id="dpa-qcontainer"></div>
+
+      <!-- Navegación interna del quiz -->
+      <div class="d-nav" id="dpa-nav">
+        <span class="d-nav-info" id="dpa-nav-info">Selecciona una opción para continuar</span>
+        <button class="btn-next" id="dpa-btn-next" style="opacity:0.3;pointer-events:none;" onclick="dpaNext()">Siguiente →</button>
       </div>
-      <div class="viz">
-        <div class="viz-title">Posición arquitectónica seleccionada</div>
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center;">
-          <div style="position:relative;padding:0 0 2rem 2.2rem;">
-            <div class="viz-mat" id="vmat">
-              <div class="vmc" data-p="capturado"><div class="vmc-l">Participante<br>Capturado</div></div>
-              <div class="vmc" data-p="orquestador"><div class="vmc-l">Orquestador<br>del Sistema</div></div>
-              <div class="vmc" data-p="independiente"><div class="vmc-l">Actor<br>Independiente</div></div>
-              <div class="vmc" data-p="infraestructura"><div class="vmc-l">Infraestructura<br>Estructural</div></div>
-            </div>
-            <div style="position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,240,0.18);white-space:nowrap;">Dependencia ↑</div>
-            <div style="position:absolute;bottom:0.3rem;left:50%;transform:translateX(-50%);font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,240,0.18);">Influencia →</div>
+
+      <!-- Resultado interno (se muestra al terminar las 9 preguntas) -->
+      <div id="dpa-result-inline" style="display:none;">
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--warm);margin-bottom:0.4rem;">Tu posición arquitectónica</div>
+          <div id="dpa-result-name" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--pearl);margin-bottom:0.8rem;"></div>
+          <div id="dpa-result-desc" style="font-size:0.84rem;line-height:1.8;color:rgba(245,243,240,0.65);margin-bottom:1.2rem;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);margin-bottom:1.2rem;">
+          <div style="background:rgba(255,255,255,0.03);padding:1rem 1.1rem;">
+            <div style="font-size:0.54rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,240,0.3);margin-bottom:0.5rem;">Fortalezas estructurales</div>
+            <div id="dpa-result-fort" style="font-size:0.8rem;line-height:1.7;color:rgba(245,243,240,0.6);"></div>
           </div>
-          <div class="viz-pos-desc" id="vmat-desc">Selecciona tu posición en la matriz para ver el análisis.</div>
+          <div style="background:rgba(255,255,255,0.03);padding:1rem 1.1rem;">
+            <div style="font-size:0.54rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,240,0.3);margin-bottom:0.5rem;">Riesgos arquitectónicos</div>
+            <div id="dpa-result-risk" style="font-size:0.8rem;line-height:1.7;color:rgba(245,243,240,0.6);"></div>
+          </div>
+        </div>
+        <div style="background:rgba(200,168,130,0.06);border:1px solid rgba(200,168,130,0.15);padding:1.2rem 1.4rem;margin-bottom:1.5rem;">
+          <div style="font-size:0.54rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--warm);margin-bottom:0.8rem;">Movimientos posibles desde esta posición</div>
+          <div id="dpa-result-moves" style="font-size:0.82rem;line-height:1.75;color:rgba(245,243,240,0.65);"></div>
+        </div>
+        <!-- Matriz visual con cuadrante destacado -->
+        <div style="position:relative;padding:0 0 1.8rem 2.2rem;margin-bottom:1rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);height:180px;">
+            <div id="dpa-mc-cap" style="background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.65rem;color:rgba(245,243,240,0.28);padding:0.5rem;transition:all 0.3s;">Participante<br>Capturado</div>
+            <div id="dpa-mc-orq" style="background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.65rem;color:rgba(245,243,240,0.28);padding:0.5rem;transition:all 0.3s;">Orquestador<br>del Sistema</div>
+            <div id="dpa-mc-auto" style="background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.65rem;color:rgba(245,243,240,0.28);padding:0.5rem;transition:all 0.3s;">Actor<br>Independiente</div>
+            <div id="dpa-mc-infra" style="background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.65rem;color:rgba(245,243,240,0.28);padding:0.5rem;transition:all 0.3s;">Infraestructura<br>Estructural</div>
+          </div>
+          <div style="position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:0.46rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,240,0.18);white-space:nowrap;">Dependencia ↑</div>
+          <div style="position:absolute;bottom:0.2rem;left:50%;transform:translateX(-50%);font-size:0.46rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,240,0.18);">Influencia →</div>
+        </div>
+        <div class="d-nav">
+          <button class="btn-back" onclick="dpaRestart()">← Repetir diagnóstico</button>
+          <button class="btn-next" onclick="goTo(2);S.matrix=dpa_quadrant;">Continuar →</button>
         </div>
       </div>
-      <div class="d-nav"><button class="btn-back" onclick="goTo(0)">← Volver</button><button class="btn-next" onclick="goTo(2)">Continuar →</button></div>
+
+      <script>
+      (function(){
+        'use strict';
+        var DPA_Q=[
+          {eje:'A',text:'¿Quién define las reglas de participación en tu ecosistema?',sub:'Piensa en quién establece los estándares, las interfaces y los criterios de admisión que otros deben seguir.',opts:[{t:'Nosotros las definimos y otros deben adoptarlas para participar.',a:3,d:0},{t:'Influimos en su diseño junto a otros actores relevantes.',a:2,d:0},{t:'Las aceptamos tal como están; tenemos poca capacidad de modificarlas.',a:1,d:0},{t:'Simplemente seguimos las reglas que otros han fijado.',a:0,d:0}]},
+          {eje:'D',text:'¿Qué ocurriría con tu modelo de negocio si el sistema en el que participas dejara de existir?',sub:'Considera cuánto de tu operación, ingresos y propuesta de valor depende de la arquitectura actual.',opts:[{t:'Colapsaría. Nuestra propuesta de valor depende completamente de ese sistema.',a:0,d:3},{t:'Se dañaría seriamente; necesitaríamos uno a dos años para reorientarnos.',a:0,d:2},{t:'Sufriríamos un impacto, pero podríamos reconvertirnos en pocos meses.',a:0,d:1},{t:'Podríamos operar en otros ecosistemas sin pérdida estructural significativa.',a:0,d:0}]},
+          {eje:'A',text:'Cuando el sistema necesita evolucionar tecnológicamente, ¿cuál es tu rol?',sub:'Piensa en quién lidera la hoja de ruta y quién se adapta a ella.',opts:[{t:'Diseñamos la hoja de ruta; el ecosistema la sigue.',a:3,d:0},{t:'Participamos activamente en definirla con otros actores clave.',a:2,d:0},{t:'Nos adaptamos a la hoja de ruta que otros definen.',a:1,d:0},{t:'Simplemente adoptamos lo que se estabiliza como estándar.',a:0,d:0}]},
+          {eje:'D',text:'¿Qué tan costoso sería para tus socios o clientes reemplazarte por otro actor?',sub:'Considera el tiempo, la inversión y las disrupciones operativas que implicaría esa sustitución.',opts:[{t:'Muy costoso: implicaría reconstruir procesos e integraciones durante más de un año.',a:0,d:3},{t:'Significativo: tomaría varios meses y requeriría esfuerzo organizacional considerable.',a:0,d:2},{t:'Moderado: podrían hacerlo en semanas con costos manejables.',a:0,d:1},{t:'Bajo: somos fácilmente sustituibles en el corto plazo.',a:0,d:0}]},
+          {eje:'A',text:'¿Cómo se coordinan los demás actores del sistema en relación a tu organización?',sub:'Piensa en si otros actores adaptan su comportamiento en función de lo que tú haces o defines.',opts:[{t:'Diseñamos los estándares e interfaces que organizan la interacción de todos.',a:3,d:0},{t:'Somos un nodo relevante; otros nos consultan antes de tomar decisiones importantes.',a:2,d:0},{t:'Operamos dentro de la coordinación que otros diseñan; nuestra influencia es local.',a:1,d:0},{t:'Somos uno más; el sistema funciona con o sin nuestra participación activa.',a:0,d:0}]},
+          {eje:'D',text:'¿Cuánto de tu operación diaria depende de infraestructuras, datos o capacidades que controla otro actor?',sub:'Considera plataformas tecnológicas, redes de distribución, estándares de acceso al cliente.',opts:[{t:'Más del 80%: casi toda nuestra operación depende de recursos que otros controlan.',a:0,d:3},{t:'Entre el 50% y el 80%: hay dependencias críticas que no podemos reemplazar fácilmente.',a:0,d:2},{t:'Entre el 20% y el 50%: dependemos en algunos procesos clave, pero tenemos alternativas.',a:0,d:1},{t:'Menos del 20%: somos mayormente autosuficientes en las capacidades que importan.',a:0,d:0}]},
+          {eje:'A',text:'¿Podría el ecosistema funcionar sin tu organización?',sub:'Sé honesto: ¿qué tan difícil sería reconstruir lo que aportas con otro actor?',opts:[{t:'No: seríamos muy difíciles de reemplazar; el sistema requeriría reconstruirse parcialmente.',a:3,d:0},{t:'Con dificultad: tomaría tiempo y recursos significativos encontrar un sustituto.',a:2,d:0},{t:'Eventualmente sí, aunque habría disrupciones en el corto plazo.',a:1,d:0},{t:'Sí, sin dificultad relevante; hay actores que podrían asumir nuestro rol.',a:0,d:0}]},
+          {eje:'D',text:'¿Qué tan fácil sería para tu organización operar en un ecosistema diferente al actual?',sub:'Considera cuánto de tus activos, capacidades y relaciones son específicas al sistema actual.',opts:[{t:'Muy difícil: nuestros activos y capacidades están co-especializados con este sistema.',a:0,d:3},{t:'Difícil: podríamos hacerlo, pero con pérdida importante de valor en la transición.',a:0,d:2},{t:'Moderado: algunas capacidades son transferibles y podríamos reorientarnos con esfuerzo.',a:0,d:1},{t:'Relativamente fácil: nuestras capacidades son generales y aplicables en distintos contextos.',a:0,d:0}]},
+          {eje:'A',text:'Cuando tomas decisiones que afectan las condiciones del ecosistema, ¿qué ocurre?',sub:'Piensa en cómo reaccionan los demás actores ante tus movimientos estratégicos.',opts:[{t:'Los demás actores deben adaptarse; nuestras decisiones reconfiguran el sistema.',a:3,d:0},{t:'Generamos debate e influimos; hay negociación pero nuestro peso es relevante.',a:2,d:0},{t:'Tenemos impacto en nuestro entorno inmediato, pero el sistema sigue su dinámica propia.',a:1,d:0},{t:'Nuestras decisiones tienen impacto principalmente sobre nuestra propia operación.',a:0,d:0}]}
+        ];
+        var DPA_DATA={
+          infra:{name:'Infraestructura Estructural',desc:'Tu organización diseña las reglas, estándares o plataformas que otros necesitan para operar. Tienes baja dependencia del sistema porque eres parte de su núcleo: en cierto sentido, eres el sistema. Capturas valor a través de comisiones, datos, posicionamiento preferencial o acceso a la inflación del ecosistema.',fort:'Capacidad de estructurar la interacción. Influencia sobre las condiciones de participación de todos los actores. Posibilidad de capturar parte del valor que el ecosistema genera colectivamente.',risk:'Presión regulatoria creciente. Riesgo de fallo distributivo si la captura de valor se percibe como excesiva. Tentación de sobre-explotar la posición en el corto plazo erosionando la base que la sostiene.',moves:['Ampliar el círculo de actores que perciben beneficios claros en tu continuidad.','Invertir en legitimidad y gobernanza: los arquitectos duraderos co-diseñan las reglas con quienes las habitan.','Auto-limitar la extracción de valor para no acelerar la formación de alternativas rivales.'],cell:'dpa-mc-infra',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'},
+          orq:{name:'Orquestador del Sistema',desc:'Controlas la narrativa y la experiencia del cliente, pero te apoyas en arquitecturas que otros diseñan. Tu poder proviene de la proximidad al usuario final y de la capacidad de integrar múltiples actores en torno a una experiencia coherente.',fort:'Control del momento de verdad con el cliente. Capacidad de coreografiar la experiencia. Influencia sobre qué actores y soluciones se vuelven visibles para el usuario final.',risk:'Vulnerabilidad ante cambios en la arquitectura subyacente que no controlas. Si la plataforma que usas reconfigura sus condiciones, tu capacidad de curar la experiencia puede verse limitada.',moves:['Profundizar la relación con el cliente para reducir la dependencia de arquitecturas ajenas.','Entrar de forma selectiva en capas de coordinación: diseña tu propia plataforma de datos o de partners en el dominio donde eres más fuerte.','Identificar qué activos de la experiencia son genuinamente tuyos y cuáles pertenecen al ecosistema.'],cell:'dpa-mc-orq',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'},
+          auto:{name:'Actor Independiente',desc:'Tu modelo de negocio no depende críticamente de una arquitectura específica y puedes operar en múltiples ecosistemas simultáneamente. Tienes libertad estratégica, pero tu influencia sobre las reglas del sistema es limitada.',fort:'Resiliencia ante cambios en cualquier ecosistema particular. Capacidad de reorientar la oferta cuando cambian las condiciones. Relevancia técnica no atada a un sistema específico.',risk:'Tendencia a subestimar el propio poder o a no hacer explícita la centralidad. Captura de valor limitada si no construyes posición arquitectónica en algún dominio.',moves:['Hacer explícita tu centralidad: si el sistema te necesita más de lo que crees, ese es el punto de palanca.','Asumir más rol de diseño en los estándares, gobernanza o roadmaps tecnológicos que se apoyan en ti.','Elegir deliberadamente un dominio donde profundizar la dependencia arquitectónica antes de que otro lo defina.'],cell:'dpa-mc-auto',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'},
+          cap:{name:'Participante Capturado',desc:'Tu lógica de negocio está fuertemente anclada a arquitecturas que no controlas. Puedes ser grande, rentable y admirado, pero eres vulnerable a cambios en las reglas que otros definen. El costo de salida del sistema es alto, pero también lo es el costo de quedarte si las condiciones se deterioran.',fort:'Excelencia operativa dentro del sistema. Proximidad al cliente. Capacidad de ejecución eficiente dentro de las reglas existentes.',risk:'Vulnerabilidad estructural ante cambios unilaterales en las reglas del sistema. Dependencia de la hoja de ruta tecnológica de otros actores. Margen de maniobra estratégico limitado.',moves:['Aumentar gradualmente la influencia arquitectónica: definir estándares propios en ciertas interfaces o liderar iniciativas de coordinación.','Construir capas de plataforma sobre tu propia operación que generen dependencia de otros hacia ti.','Diversificar las dependencias críticas para que ningún actor tenga poder unilateral sobre tu operación.'],cell:'dpa-mc-cap',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'}
+        };
+
+        var dpa_cur=0, dpa_ans=[], dpa_sc={a:0,d:0};
+        window.dpa_quadrant='auto';
+
+        function dpaRender(idx){
+          var q=DPA_Q[idx];
+          var html='<div style="opacity:0;transform:translateY(8px);transition:opacity 0.3s ease,transform 0.3s ease;" id="dpa-qcard">';
+          html+='<div style="font-size:0.54rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,243,240,0.3);margin-bottom:0.6rem;">Pregunta <span style="color:var(--warm);">'+(idx+1)+'</span> de '+DPA_Q.length+'</div>';
+          html+='<p class="dq" style="margin-bottom:0.3rem;">'+q.text+'</p>';
+          html+='<p class="dctx" style="margin-bottom:1.2rem;font-style:italic;">'+q.sub+'</p>';
+          html+='<div class="opts">';
+          q.opts.forEach(function(o,i){
+            html+='<div class="opt" id="dpa-o'+i+'" onclick="dpaSelect('+i+')"><span class="opt-l">'+String.fromCharCode(65+i)+'</span><span class="opt-t">'+o.t+'</span></div>';
+          });
+          html+='</div></div>';
+          document.getElementById('dpa-qcontainer').innerHTML=html;
+          setTimeout(function(){var c=document.getElementById('dpa-qcard');if(c){c.style.opacity='1';c.style.transform='translateY(0)';}},30);
+          document.getElementById('dpa-prog-fill').style.width=(idx/DPA_Q.length*100)+'%';
+          document.getElementById('dpa-prog-txt').textContent=(idx+1)+' / '+DPA_Q.length;
+          dpaUpdBtn(false);
+          if(dpa_ans[idx]!==undefined) dpaSelect(dpa_ans[idx],false);
+        }
+
+        window.dpaSelect=function(i,save){
+          if(save===undefined) save=true;
+          document.querySelectorAll('#p1 .opt').forEach(function(el){el.classList.remove('on');});
+          var el=document.getElementById('dpa-o'+i);
+          if(el) el.classList.add('on');
+          if(save) dpa_ans[dpa_cur]=i;
+          dpaUpdBtn(true);
+        };
+
+        function dpaUpdBtn(on){
+          var b=document.getElementById('dpa-btn-next');
+          var last=dpa_cur===DPA_Q.length-1;
+          b.style.opacity=on?'1':'0.3';
+          b.style.pointerEvents=on?'all':'none';
+          b.textContent=last?'Ver mi posición →':'Siguiente →';
+          document.getElementById('dpa-nav-info').textContent=on?(last?'Listo para calcular tu posición':'Presiona para continuar'):'Selecciona una opción para continuar';
+        }
+
+        window.dpaNext=function(){
+          if(dpa_ans[dpa_cur]===undefined) return;
+          var o=DPA_Q[dpa_cur].opts[dpa_ans[dpa_cur]];
+          dpa_sc.a+=o.a; dpa_sc.d+=o.d;
+          if(dpa_cur<DPA_Q.length-1){dpa_cur++;dpaRender(dpa_cur);}
+          else dpaShowResult();
+        };
+
+        function dpaShowResult(){
+          var maxA=DPA_Q.filter(function(q){return q.eje==='A';}).length*3;
+          var maxD=DPA_Q.filter(function(q){return q.eje==='D';}).length*3;
+          var hiA=dpa_sc.a>=maxA*0.45;
+          var hiD=dpa_sc.d>=maxD*0.45;
+          var key=hiA&&!hiD?'infra':hiA&&hiD?'orq':!hiA&&!hiD?'auto':'cap';
+          window.dpa_quadrant=key;
+          var d=DPA_DATA[key];
+          document.getElementById('dpa-qcontainer').style.display='none';
+          document.getElementById('dpa-nav').style.display='none';
+          var movesHtml=d.moves.map(function(m,i){return '<div style="display:flex;gap:0.7rem;align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;color:var(--warm);min-width:14px;">'+(i+1)+'</span><span>'+m+'</span></div>';}).join('');
+          document.getElementById('dpa-result-name').textContent=d.name;
+          document.getElementById('dpa-result-desc').textContent=d.desc;
+          document.getElementById('dpa-result-fort').textContent=d.fort;
+          document.getElementById('dpa-result-risk').textContent=d.risk;
+          document.getElementById('dpa-result-moves').innerHTML=movesHtml;
+          ['cap','orq','auto','infra'].forEach(function(k){
+            var el=document.getElementById('dpa-mc-'+k);
+            if(el){el.style.background='rgba(255,255,255,0.03)';el.style.color='rgba(245,243,240,0.28)';el.style.fontWeight='300';el.style.border='none';}
+          });
+          var active=document.getElementById(d.cell);
+          if(active){active.style.background='rgba(200,168,130,0.18)';active.style.color='var(--warm)';active.style.fontWeight='500';active.style.border='2px solid rgba(200,168,130,0.4)';}
+          var r=document.getElementById('dpa-result-inline');
+          r.style.display='block';
+          r.style.animation='fi 0.35s ease';
+          // Sincronizar con la matriz del sitio para que el perfil final también lo refleje
+          if(typeof selMat==='function'){
+            var matKey={infra:'infraestructura',orq:'orquestador',auto:'independiente',cap:'capturado'}[key];
+            var mc=document.querySelector('#mat [data-p="'+matKey+'"]');
+            if(mc) selMat(mc,matKey);
+          }
+        }
+
+        window.dpaRestart=function(){
+          dpa_cur=0;dpa_ans=[];dpa_sc={a:0,d:0};
+          document.getElementById('dpa-result-inline').style.display='none';
+          document.getElementById('dpa-qcontainer').style.display='block';
+          document.getElementById('dpa-nav').style.display='flex';
+          dpaRender(0);
+        };
+
+        dpaRender(0);
+      })();
+      </script>
     </div>
 
     <!-- P2 -->
