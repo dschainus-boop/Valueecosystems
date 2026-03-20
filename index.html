@@ -97,6 +97,25 @@ h1 em{font-style:italic;color:var(--warm);}
 .ptag{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);border:1px solid var(--line);padding:0.3rem 0.7rem;background:var(--white);}
 
 /* DIAGNOSTIC */
+/* PATRONES */
+.pat-card{border:1px solid var(--dk);background:rgba(255,255,255,0.03);cursor:pointer;transition:all 0.2s;overflow:hidden;}
+.pat-card:hover{border-color:rgba(200,168,130,0.3);background:rgba(255,255,255,0.05);}
+.pat-card.pat-selected{border-color:var(--warm);background:rgba(200,168,130,0.08);}
+.pat-head{display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem 0.8rem;position:relative;}
+.pat-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:rgba(200,168,130,0.25);line-height:1;min-width:1.4rem;flex-shrink:0;margin-top:0.1rem;}
+.pat-card.pat-selected .pat-num{color:var(--warm);}
+.pat-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;color:var(--pearl);line-height:1.25;margin-bottom:0.2rem;}
+.pat-case{font-size:0.57rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,240,0.28);}
+.pat-sel-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(200,168,130,0.3);background:transparent;transition:all 0.2s;flex-shrink:0;margin-left:auto;margin-top:0.4rem;}
+.pat-dot-on{background:var(--warm);border-color:var(--warm);}
+.pat-body{padding:0 1.2rem 1rem 3.4rem;display:none;}
+.pat-card.pat-selected .pat-body,.pat-card:hover .pat-body{display:block;}
+.pat-desc{font-size:0.82rem;line-height:1.72;color:rgba(245,243,240,0.55);margin-bottom:0.9rem;}
+.pat-indicators{display:flex;flex-direction:column;gap:0.35rem;}
+.pat-ind-title{font-size:0.52rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,243,240,0.22);margin-bottom:0.2rem;}
+.pat-ind{font-size:0.76rem;line-height:1.6;color:rgba(245,243,240,0.4);padding-left:0.8rem;border-left:1px solid rgba(200,168,130,0.2);}
+.pat-card.pat-selected .pat-ind{color:rgba(245,243,240,0.58);}
+.pat-card.pat-selected .pat-ind{border-left-color:rgba(200,168,130,0.4);}
 #tool{background:var(--charcoal);color:var(--pearl);}
 #tool .sec-tag{color:var(--warm);}
 #tool .sec-title{color:var(--pearl);}
@@ -400,7 +419,8 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
       <div class="tab" id="tab-1"><span class="tab-n">Paso 2</span>Posición Arquitectónica</div>
       <div class="tab" id="tab-2"><span class="tab-n">Paso 3</span>Estabilidad de Incentivos</div>
       <div class="tab" id="tab-3"><span class="tab-n">Paso 4</span>Canvas Arquitectónico</div>
-      <div class="tab" id="tab-4"><span class="tab-n">Resultado</span>Perfil del Ecosistema</div>
+      <div class="tab" id="tab-4"><span class="tab-n">Paso 5</span>Patrones del Sistema</div>
+      <div class="tab" id="tab-5"><span class="tab-n">Resultado</span>Perfil del Ecosistema</div>
     </div>
 
     <!-- P0 -->
@@ -497,119 +517,7 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
         </div>
       </div>
 
-      <script>
-      (function(){
-        'use strict';
-        var DPA_Q=[
-          {eje:'A',text:'¿Quién define las reglas de participación en tu ecosistema?',sub:'Piensa en quién establece los estándares, las interfaces y los criterios de admisión que otros deben seguir.',opts:[{t:'Nosotros las definimos y otros deben adoptarlas para participar.',a:3,d:0},{t:'Influimos en su diseño junto a otros actores relevantes.',a:2,d:0},{t:'Las aceptamos tal como están; tenemos poca capacidad de modificarlas.',a:1,d:0},{t:'Simplemente seguimos las reglas que otros han fijado.',a:0,d:0}]},
-          {eje:'D',text:'¿Qué ocurriría con tu modelo de negocio si el sistema en el que participas dejara de existir?',sub:'Considera cuánto de tu operación, ingresos y propuesta de valor depende de la arquitectura actual.',opts:[{t:'Colapsaría. Nuestra propuesta de valor depende completamente de ese sistema.',a:0,d:3},{t:'Se dañaría seriamente; necesitaríamos uno a dos años para reorientarnos.',a:0,d:2},{t:'Sufriríamos un impacto, pero podríamos reconvertirnos en pocos meses.',a:0,d:1},{t:'Podríamos operar en otros ecosistemas sin pérdida estructural significativa.',a:0,d:0}]},
-          {eje:'A',text:'Cuando el sistema necesita evolucionar tecnológicamente, ¿cuál es tu rol?',sub:'Piensa en quién lidera la hoja de ruta y quién se adapta a ella.',opts:[{t:'Diseñamos la hoja de ruta; el ecosistema la sigue.',a:3,d:0},{t:'Participamos activamente en definirla con otros actores clave.',a:2,d:0},{t:'Nos adaptamos a la hoja de ruta que otros definen.',a:1,d:0},{t:'Simplemente adoptamos lo que se estabiliza como estándar.',a:0,d:0}]},
-          {eje:'D',text:'¿Qué tan costoso sería para tus socios o clientes reemplazarte por otro actor?',sub:'Considera el tiempo, la inversión y las disrupciones operativas que implicaría esa sustitución.',opts:[{t:'Muy costoso: implicaría reconstruir procesos e integraciones durante más de un año.',a:0,d:3},{t:'Significativo: tomaría varios meses y requeriría esfuerzo organizacional considerable.',a:0,d:2},{t:'Moderado: podrían hacerlo en semanas con costos manejables.',a:0,d:1},{t:'Bajo: somos fácilmente sustituibles en el corto plazo.',a:0,d:0}]},
-          {eje:'A',text:'¿Cómo se coordinan los demás actores del sistema en relación a tu organización?',sub:'Piensa en si otros actores adaptan su comportamiento en función de lo que tú haces o defines.',opts:[{t:'Diseñamos los estándares e interfaces que organizan la interacción de todos.',a:3,d:0},{t:'Somos un nodo relevante; otros nos consultan antes de tomar decisiones importantes.',a:2,d:0},{t:'Operamos dentro de la coordinación que otros diseñan; nuestra influencia es local.',a:1,d:0},{t:'Somos uno más; el sistema funciona con o sin nuestra participación activa.',a:0,d:0}]},
-          {eje:'D',text:'¿Cuánto de tu operación diaria depende de infraestructuras, datos o capacidades que controla otro actor?',sub:'Considera plataformas tecnológicas, redes de distribución, estándares de acceso al cliente.',opts:[{t:'Más del 80%: casi toda nuestra operación depende de recursos que otros controlan.',a:0,d:3},{t:'Entre el 50% y el 80%: hay dependencias críticas que no podemos reemplazar fácilmente.',a:0,d:2},{t:'Entre el 20% y el 50%: dependemos en algunos procesos clave, pero tenemos alternativas.',a:0,d:1},{t:'Menos del 20%: somos mayormente autosuficientes en las capacidades que importan.',a:0,d:0}]},
-          {eje:'A',text:'¿Podría el ecosistema funcionar sin tu organización?',sub:'Sé honesto: ¿qué tan difícil sería reconstruir lo que aportas con otro actor?',opts:[{t:'No: seríamos muy difíciles de reemplazar; el sistema requeriría reconstruirse parcialmente.',a:3,d:0},{t:'Con dificultad: tomaría tiempo y recursos significativos encontrar un sustituto.',a:2,d:0},{t:'Eventualmente sí, aunque habría disrupciones en el corto plazo.',a:1,d:0},{t:'Sí, sin dificultad relevante; hay actores que podrían asumir nuestro rol.',a:0,d:0}]},
-          {eje:'D',text:'¿Qué tan fácil sería para tu organización operar en un ecosistema diferente al actual?',sub:'Considera cuánto de tus activos, capacidades y relaciones son específicas al sistema actual.',opts:[{t:'Muy difícil: nuestros activos y capacidades están co-especializados con este sistema.',a:0,d:3},{t:'Difícil: podríamos hacerlo, pero con pérdida importante de valor en la transición.',a:0,d:2},{t:'Moderado: algunas capacidades son transferibles y podríamos reorientarnos con esfuerzo.',a:0,d:1},{t:'Relativamente fácil: nuestras capacidades son generales y aplicables en distintos contextos.',a:0,d:0}]},
-          {eje:'A',text:'Cuando tomas decisiones que afectan las condiciones del ecosistema, ¿qué ocurre?',sub:'Piensa en cómo reaccionan los demás actores ante tus movimientos estratégicos.',opts:[{t:'Los demás actores deben adaptarse; nuestras decisiones reconfiguran el sistema.',a:3,d:0},{t:'Generamos debate e influimos; hay negociación pero nuestro peso es relevante.',a:2,d:0},{t:'Tenemos impacto en nuestro entorno inmediato, pero el sistema sigue su dinámica propia.',a:1,d:0},{t:'Nuestras decisiones tienen impacto principalmente sobre nuestra propia operación.',a:0,d:0}]}
-        ];
-        var DPA_DATA={
-          infra:{name:'Infraestructura Estructural',desc:'Tu organización diseña las reglas, estándares o plataformas que otros necesitan para operar. Tienes baja dependencia del sistema porque eres parte de su núcleo: en cierto sentido, eres el sistema. Capturas valor a través de comisiones, datos, posicionamiento preferencial o acceso a la inflación del ecosistema.',fort:'Capacidad de estructurar la interacción. Influencia sobre las condiciones de participación de todos los actores. Posibilidad de capturar parte del valor que el ecosistema genera colectivamente.',risk:'Presión regulatoria creciente. Riesgo de fallo distributivo si la captura de valor se percibe como excesiva. Tentación de sobre-explotar la posición en el corto plazo erosionando la base que la sostiene.',moves:['Ampliar el círculo de actores que perciben beneficios claros en tu continuidad.','Invertir en legitimidad y gobernanza: los arquitectos duraderos co-diseñan las reglas con quienes las habitan.','Auto-limitar la extracción de valor para no acelerar la formación de alternativas rivales.'],cell:'dpa-mc-infra',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'},
-          orq:{name:'Orquestador del Sistema',desc:'Controlas la narrativa y la experiencia del cliente, pero te apoyas en arquitecturas que otros diseñan. Tu poder proviene de la proximidad al usuario final y de la capacidad de integrar múltiples actores en torno a una experiencia coherente.',fort:'Control del momento de verdad con el cliente. Capacidad de coreografiar la experiencia. Influencia sobre qué actores y soluciones se vuelven visibles para el usuario final.',risk:'Vulnerabilidad ante cambios en la arquitectura subyacente que no controlas. Si la plataforma que usas reconfigura sus condiciones, tu capacidad de curar la experiencia puede verse limitada.',moves:['Profundizar la relación con el cliente para reducir la dependencia de arquitecturas ajenas.','Entrar de forma selectiva en capas de coordinación: diseña tu propia plataforma de datos o de partners en el dominio donde eres más fuerte.','Identificar qué activos de la experiencia son genuinamente tuyos y cuáles pertenecen al ecosistema.'],cell:'dpa-mc-orq',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'},
-          auto:{name:'Actor Independiente',desc:'Tu modelo de negocio no depende críticamente de una arquitectura específica y puedes operar en múltiples ecosistemas simultáneamente. Tienes libertad estratégica, pero tu influencia sobre las reglas del sistema es limitada.',fort:'Resiliencia ante cambios en cualquier ecosistema particular. Capacidad de reorientar la oferta cuando cambian las condiciones. Relevancia técnica no atada a un sistema específico.',risk:'Tendencia a subestimar el propio poder o a no hacer explícita la centralidad. Captura de valor limitada si no construyes posición arquitectónica en algún dominio.',moves:['Hacer explícita tu centralidad: si el sistema te necesita más de lo que crees, ese es el punto de palanca.','Asumir más rol de diseño en los estándares, gobernanza o roadmaps tecnológicos que se apoyan en ti.','Elegir deliberadamente un dominio donde profundizar la dependencia arquitectónica antes de que otro lo defina.'],cell:'dpa-mc-auto',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'},
-          cap:{name:'Participante Capturado',desc:'Tu lógica de negocio está fuertemente anclada a arquitecturas que no controlas. Puedes ser grande, rentable y admirado, pero eres vulnerable a cambios en las reglas que otros definen. El costo de salida del sistema es alto, pero también lo es el costo de quedarte si las condiciones se deterioran.',fort:'Excelencia operativa dentro del sistema. Proximidad al cliente. Capacidad de ejecución eficiente dentro de las reglas existentes.',risk:'Vulnerabilidad estructural ante cambios unilaterales en las reglas del sistema. Dependencia de la hoja de ruta tecnológica de otros actores. Margen de maniobra estratégico limitado.',moves:['Aumentar gradualmente la influencia arquitectónica: definir estándares propios en ciertas interfaces o liderar iniciativas de coordinación.','Construir capas de plataforma sobre tu propia operación que generen dependencia de otros hacia ti.','Diversificar las dependencias críticas para que ningún actor tenga poder unilateral sobre tu operación.'],cell:'dpa-mc-cap',warmColor:'rgba(200,168,130,0.22)',warmBorder:'rgba(200,168,130,0.5)'}
-        };
-
-        var dpa_cur=0, dpa_ans=[], dpa_sc={a:0,d:0};
-        window.dpa_quadrant='auto';
-
-        function dpaRender(idx){
-          var q=DPA_Q[idx];
-          var html='<div style="opacity:0;transform:translateY(8px);transition:opacity 0.3s ease,transform 0.3s ease;" id="dpa-qcard">';
-          html+='<div style="font-size:0.54rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,243,240,0.3);margin-bottom:0.6rem;">Pregunta <span style="color:var(--warm);">'+(idx+1)+'</span> de '+DPA_Q.length+'</div>';
-          html+='<p class="dq" style="margin-bottom:0.3rem;">'+q.text+'</p>';
-          html+='<p class="dctx" style="margin-bottom:1.2rem;font-style:italic;">'+q.sub+'</p>';
-          html+='<div class="opts">';
-          q.opts.forEach(function(o,i){
-            html+='<div class="opt" id="dpa-o'+i+'" onclick="dpaSelect('+i+')"><span class="opt-l">'+String.fromCharCode(65+i)+'</span><span class="opt-t">'+o.t+'</span></div>';
-          });
-          html+='</div></div>';
-          document.getElementById('dpa-qcontainer').innerHTML=html;
-          setTimeout(function(){var c=document.getElementById('dpa-qcard');if(c){c.style.opacity='1';c.style.transform='translateY(0)';}},30);
-          document.getElementById('dpa-prog-fill').style.width=(idx/DPA_Q.length*100)+'%';
-          document.getElementById('dpa-prog-txt').textContent=(idx+1)+' / '+DPA_Q.length;
-          dpaUpdBtn(false);
-          if(dpa_ans[idx]!==undefined) dpaSelect(dpa_ans[idx],false);
-        }
-
-        window.dpaSelect=function(i,save){
-          if(save===undefined) save=true;
-          document.querySelectorAll('#p1 .opt').forEach(function(el){el.classList.remove('on');});
-          var el=document.getElementById('dpa-o'+i);
-          if(el) el.classList.add('on');
-          if(save) dpa_ans[dpa_cur]=i;
-          dpaUpdBtn(true);
-        };
-
-        function dpaUpdBtn(on){
-          var b=document.getElementById('dpa-btn-next');
-          var last=dpa_cur===DPA_Q.length-1;
-          b.style.opacity=on?'1':'0.3';
-          b.style.pointerEvents=on?'all':'none';
-          b.textContent=last?'Ver mi posición →':'Siguiente →';
-          document.getElementById('dpa-nav-info').textContent=on?(last?'Listo para calcular tu posición':'Presiona para continuar'):'Selecciona una opción para continuar';
-        }
-
-        window.dpaNext=function(){
-          if(dpa_ans[dpa_cur]===undefined) return;
-          var o=DPA_Q[dpa_cur].opts[dpa_ans[dpa_cur]];
-          dpa_sc.a+=o.a; dpa_sc.d+=o.d;
-          if(dpa_cur<DPA_Q.length-1){dpa_cur++;dpaRender(dpa_cur);}
-          else dpaShowResult();
-        };
-
-        function dpaShowResult(){
-          var maxA=DPA_Q.filter(function(q){return q.eje==='A';}).length*3;
-          var maxD=DPA_Q.filter(function(q){return q.eje==='D';}).length*3;
-          var hiA=dpa_sc.a>=maxA*0.45;
-          var hiD=dpa_sc.d>=maxD*0.45;
-          var key=hiA&&!hiD?'infra':hiA&&hiD?'orq':!hiA&&!hiD?'auto':'cap';
-          window.dpa_quadrant=key;
-          var d=DPA_DATA[key];
-          document.getElementById('dpa-qcontainer').style.display='none';
-          document.getElementById('dpa-nav').style.display='none';
-          var movesHtml=d.moves.map(function(m,i){return '<div style="display:flex;gap:0.7rem;align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;color:var(--warm);min-width:14px;">'+(i+1)+'</span><span>'+m+'</span></div>';}).join('');
-          document.getElementById('dpa-result-name').textContent=d.name;
-          document.getElementById('dpa-result-desc').textContent=d.desc;
-          document.getElementById('dpa-result-fort').textContent=d.fort;
-          document.getElementById('dpa-result-risk').textContent=d.risk;
-          document.getElementById('dpa-result-moves').innerHTML=movesHtml;
-          ['cap','orq','auto','infra'].forEach(function(k){
-            var el=document.getElementById('dpa-mc-'+k);
-            if(el){el.style.background='rgba(255,255,255,0.03)';el.style.color='rgba(245,243,240,0.28)';el.style.fontWeight='300';el.style.border='none';}
-          });
-          var active=document.getElementById(d.cell);
-          if(active){active.style.background='rgba(200,168,130,0.18)';active.style.color='var(--warm)';active.style.fontWeight='500';active.style.border='2px solid rgba(200,168,130,0.4)';}
-          var r=document.getElementById('dpa-result-inline');
-          r.style.display='block';
-          r.style.animation='fi 0.35s ease';
-          // Sincronizar con la matriz del sitio para que el perfil final también lo refleje
-          if(typeof selMat==='function'){
-            var matKey={infra:'infraestructura',orq:'orquestador',auto:'independiente',cap:'capturado'}[key];
-            var mc=document.querySelector('#mat [data-p="'+matKey+'"]');
-            if(mc) selMat(mc,matKey);
-          }
-        }
-
-        window.dpaRestart=function(){
-          dpa_cur=0;dpa_ans=[];dpa_sc={a:0,d:0};
-          document.getElementById('dpa-result-inline').style.display='none';
-          document.getElementById('dpa-qcontainer').style.display='block';
-          document.getElementById('dpa-nav').style.display='flex';
-          dpaRender(0);
-        };
-
-        dpaRender(0);
-      })();
-      </script>
+      <!-- script movido abajo -->
     </div>
 
     <!-- P2 -->
@@ -657,11 +565,140 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
         <div class="cv-block" id="cvb8"><div class="cv-n">8</div><span class="cv-label">Ambición de posición futura</span><textarea id="cv8" placeholder="¿Qué rol arquitectónico queremos jugar en 5 años?" oninput="updCanvas()"></textarea></div>
       </div>
       <div class="cv-prog"><span class="cv-prog-l">Completa los bloques para activar el análisis</span><span class="cv-count" id="cv-count">0/8 completados</span></div>
-      <div class="d-nav"><button class="btn-back" onclick="goTo(2)">← Volver</button><button class="btn-next" onclick="genResult()">Generar perfil →</button></div>
+      <div class="d-nav"><button class="btn-back" onclick="goTo(2)">← Volver</button><button class="btn-next" onclick="goTo(4)">Continuar →</button></div>
     </div>
 
-    <!-- P4 Result -->
+    <!-- P4 Patrones -->
     <div class="panel" id="p4">
+      <p class="dq">¿Qué patrón predomina en tu sistema?</p>
+      <p class="dctx">El Cap. 15 identifica cinco patrones recurrentes de arquitectura. Cada uno describe una lógica distinta de cómo se organiza el poder y la coordinación. Lee las descripciones y selecciona el que mejor caracteriza tu ecosistema.</p>
+
+      <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1.5rem;" id="pat-cards">
+
+        <div class="pat-card" id="pat-monopolio" onclick="selPat('monopolio',this)">
+          <div class="pat-head">
+            <div class="pat-num">I</div>
+            <div>
+              <div class="pat-name">Monopolio de Orquestación</div>
+              <div class="pat-case">Casos: AWS, ARM, Visa · Cap. 15.1</div>
+            </div>
+            <div class="pat-sel-dot" id="dot-monopolio"></div>
+          </div>
+          <div class="pat-body">
+            <div class="pat-desc">Un único actor controla la capa de coordinación del sistema. Los demás participan bajo sus reglas sin capacidad de negociarlas. El poder es asimétrico y estructural.</div>
+            <div class="pat-indicators">
+              <div class="pat-ind-title">Indicadores clave</div>
+              <div class="pat-ind">El actor focal define estándares que todos adoptan sin alternativa viable</div>
+              <div class="pat-ind">Los costos de salida del sistema son mayores al 70% del valor capturado</div>
+              <div class="pat-ind">No existe un segundo actor capaz de ofrecer la función de coordinación</div>
+              <div class="pat-ind">El IDA del actor focal supera 0.60</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pat-card" id="pat-contestacion" onclick="selPat('contestacion',this)">
+          <div class="pat-head">
+            <div class="pat-num">II</div>
+            <div>
+              <div class="pat-name">Contestación Arquitectónica</div>
+              <div class="pat-case">Casos: ARM vs. RISC-V, Destinos vs. Booking · Cap. 15.2</div>
+            </div>
+            <div class="pat-sel-dot" id="dot-contestacion"></div>
+          </div>
+          <div class="pat-body">
+            <div class="pat-desc">Un actor externo construye una arquitectura alternativa que compite con la existente. No compite dentro del sistema: compite con él. El poder del orquestador actual está en disputa.</div>
+            <div class="pat-indicators">
+              <div class="pat-ind-title">Indicadores clave</div>
+              <div class="pat-ind">Existe un actor construyendo estándares o interfaces propias que no dependen del orquestador actual</div>
+              <div class="pat-ind">Actores clave evalúan migrar o participar en el sistema alternativo</div>
+              <div class="pat-ind">El costo percibido de la alternativa está bajando activamente</div>
+              <div class="pat-ind">Hay tensión pública sobre las condiciones del orquestador (regulación, márgenes, acceso)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pat-card" id="pat-captura" onclick="selPat('captura',this)">
+          <div class="pat-head">
+            <div class="pat-num">III</div>
+            <div>
+              <div class="pat-name">Captura Progresiva</div>
+              <div class="pat-case">Casos: Disney operadores, Participante Capturado · Cap. 15.3</div>
+            </div>
+            <div class="pat-sel-dot" id="dot-captura"></div>
+          </div>
+          <div class="pat-body">
+            <div class="pat-desc">Un actor que comenzó como participante autónomo fue aumentando su dependencia del sistema hasta quedar estructuralmente capturado. El proceso fue gradual e imperceptible en cada etapa.</div>
+            <div class="pat-indicators">
+              <div class="pat-ind-title">Indicadores clave</div>
+              <div class="pat-ind">La proporción de ingresos dependientes del sistema aumentó sostenidamente en los últimos 3–5 años</div>
+              <div class="pat-ind">Los activos clave (datos, clientes, procesos) están co-especializados con el sistema actual</div>
+              <div class="pat-ind">Cambiar de sistema requeriría reconstruir capacidades críticas desde cero</div>
+              <div class="pat-ind">El actor acepta condiciones que antes habría rechazado porque el costo de salida es demasiado alto</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pat-card" id="pat-emergencia" onclick="selPat('emergencia',this)">
+          <div class="pat-head">
+            <div class="pat-num">IV</div>
+            <div>
+              <div class="pat-name">Emergencia Arquitectónica</div>
+              <div class="pat-case">Casos: El Roble Momento 1→2, CENS · Cap. 15.4</div>
+            </div>
+            <div class="pat-sel-dot" id="dot-emergencia"></div>
+          </div>
+          <div class="pat-body">
+            <div class="pat-desc">Un actor sin mandato formal construye pacientemente una posición de infraestructura estructural. Parte de cero y acumula poder arquitectónico a través de funciones de coordinación que otros adoptan voluntariamente.</div>
+            <div class="pat-indicators">
+              <div class="pat-ind-title">Indicadores clave</div>
+              <div class="pat-ind">El actor no tiene poder formal ni mandato regulatorio para coordinar el sistema</div>
+              <div class="pat-ind">Otros actores adoptan sus estándares, protocolos o servicios voluntariamente</div>
+              <div class="pat-ind">El IDA del actor ha crecido en los últimos años sin que haya habido fusiones ni adquisiciones</div>
+              <div class="pat-ind">El sistema funcionaría con dificultad si este actor desapareciera, aunque nadie lo reconoce explícitamente</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pat-card" id="pat-colapso" onclick="selPat('colapso',this)">
+          <div class="pat-head">
+            <div class="pat-num">V</div>
+            <div>
+              <div class="pat-name">Colapso por Deserción</div>
+              <div class="pat-case">Casos: Sobreturismo, Ecosistemas con dilema del prisionero · Cap. 15.5</div>
+            </div>
+            <div class="pat-sel-dot" id="dot-colapso"></div>
+          </div>
+          <div class="pat-body">
+            <div class="pat-desc">La arquitectura de incentivos empuja a los actores a desertar racionalmente, aunque la deserción colectiva destruya el sistema que todos necesitan. El problema no es la mala fe: es el diseño.</div>
+            <div class="pat-indicators">
+              <div class="pat-ind-title">Indicadores clave</div>
+              <div class="pat-ind">Actores clave obtienen más valor operando fuera del sistema que dentro de él</div>
+              <div class="pat-ind">Los beneficios del sistema se concentran en pocos actores mientras los costos se distribuyen en muchos</div>
+              <div class="pat-ind">Hay señales de comportamiento oportunista creciente (free-riding, incumplimientos, salidas)</div>
+              <div class="pat-ind">El sistema es valorado colectivamente pero nadie lo defiende individualmente</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Resultado del patrón seleccionado -->
+      <div id="pat-result" style="display:none;">
+        <div style="border-left:2px solid var(--warm);padding:1rem 1.2rem;background:rgba(200,168,130,0.06);margin-bottom:1.5rem;">
+          <div style="font-size:0.54rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--warm);margin-bottom:0.4rem;">Patrón seleccionado</div>
+          <div id="pat-result-name" style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--pearl);margin-bottom:0.5rem;"></div>
+          <div id="pat-result-impl" style="font-size:0.82rem;line-height:1.75;color:rgba(245,243,240,0.6);"></div>
+        </div>
+      </div>
+
+      <div class="d-nav">
+        <button class="btn-back" onclick="goTo(3)">← Volver</button>
+        <button class="btn-next" id="pat-btn-next" style="opacity:0.35;pointer-events:none;" onclick="genResult()">Generar perfil →</button>
+      </div>
+    </div>
+
+    <!-- P5 Result -->
+    <div class="panel" id="p5">
       <div class="loading" id="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div><span class="loading-t">Analizando tu arquitectura de ecosistema...</span></div>
       <div class="res" id="res">
         <div class="res-hd"><div class="res-label">◆ Perfil del Ecosistema — Diagnóstico Arquitectónico</div><div class="res-title" id="res-title"></div><div class="res-sub" id="res-sub"></div></div>
@@ -676,6 +713,1541 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
     </div>
   </div>
 </section>
+
+<script>
+/* ── Diagnóstico guiado de posición arquitectónica ── */
+var DPA_Q=[
+  {eje:'A',text:'¿Quién define las reglas de participación en tu ecosistema?',sub:'Piensa en quién establece los estándares, las interfaces y los criterios de admisión que otros deben seguir.',opts:[{t:'Nosotros las definimos y otros deben adoptarlas para participar.',a:3,d:0},{t:'Influimos en su diseño junto a otros actores relevantes.',a:2,d:0},{t:'Las aceptamos tal como están; tenemos poca capacidad de modificarlas.',a:1,d:0},{t:'Simplemente seguimos las reglas que otros han fijado.',a:0,d:0}]},
+  {eje:'D',text:'¿Qué ocurriría con tu modelo de negocio si el sistema en el que participas dejara de existir?',sub:'Considera cuánto de tu operación, ingresos y propuesta de valor depende de la arquitectura actual.',opts:[{t:'Colapsaría. Nuestra propuesta de valor depende completamente de ese sistema.',a:0,d:3},{t:'Se dañaría seriamente; necesitaríamos uno a dos años para reorientarnos.',a:0,d:2},{t:'Sufriríamos un impacto, pero podríamos reconvertirnos en pocos meses.',a:0,d:1},{t:'Podríamos operar en otros ecosistemas sin pérdida estructural significativa.',a:0,d:0}]},
+  {eje:'A',text:'Cuando el sistema necesita evolucionar tecnológicamente, ¿cuál es tu rol?',sub:'Piensa en quién lidera la hoja de ruta y quién se adapta a ella.',opts:[{t:'Diseñamos la hoja de ruta; el ecosistema la sigue.',a:3,d:0},{t:'Participamos activamente en definirla con otros actores clave.',a:2,d:0},{t:'Nos adaptamos a la hoja de ruta que otros definen.',a:1,d:0},{t:'Simplemente adoptamos lo que se estabiliza como estándar.',a:0,d:0}]},
+  {eje:'D',text:'¿Qué tan costoso sería para tus socios o clientes reemplazarte por otro actor?',sub:'Considera el tiempo, la inversión y las disrupciones operativas que implicaría esa sustitución.',opts:[{t:'Muy costoso: implicaría reconstruir procesos e integraciones durante más de un año.',a:0,d:3},{t:'Significativo: tomaría varios meses y requeriría esfuerzo organizacional considerable.',a:0,d:2},{t:'Moderado: podrían hacerlo en semanas con costos manejables.',a:0,d:1},{t:'Bajo: somos fácilmente sustituibles en el corto plazo.',a:0,d:0}]},
+  {eje:'A',text:'¿Cómo se coordinan los demás actores del sistema en relación a tu organización?',sub:'Piensa en si otros actores adaptan su comportamiento en función de lo que tú haces o defines.',opts:[{t:'Diseñamos los estándares e interfaces que organizan la interacción de todos.',a:3,d:0},{t:'Somos un nodo relevante; otros nos consultan antes de tomar decisiones importantes.',a:2,d:0},{t:'Operamos dentro de la coordinación que otros diseñan; nuestra influencia es local.',a:1,d:0},{t:'Somos uno más; el sistema funciona con o sin nuestra participación activa.',a:0,d:0}]},
+  {eje:'D',text:'¿Cuánto de tu operación diaria depende de infraestructuras, datos o capacidades que controla otro actor?',sub:'Considera plataformas tecnológicas, redes de distribución, estándares de acceso al cliente.',opts:[{t:'Más del 80%: casi toda nuestra operación depende de recursos que otros controlan.',a:0,d:3},{t:'Entre el 50% y el 80%: hay dependencias críticas que no podemos reemplazar fácilmente.',a:0,d:2},{t:'Entre el 20% y el 50%: dependemos en algunos procesos clave, pero tenemos alternativas.',a:0,d:1},{t:'Menos del 20%: somos mayormente autosuficientes en las capacidades que importan.',a:0,d:0}]},
+  {eje:'A',text:'¿Podría el ecosistema funcionar sin tu organización?',sub:'Sé honesto: ¿qué tan difícil sería reconstruir lo que aportas con otro actor?',opts:[{t:'No: seríamos muy difíciles de reemplazar; el sistema requeriría reconstruirse parcialmente.',a:3,d:0},{t:'Con dificultad: tomaría tiempo y recursos significativos encontrar un sustituto.',a:2,d:0},{t:'Eventualmente sí, aunque habría disrupciones en el corto plazo.',a:1,d:0},{t:'Sí, sin dificultad relevante; hay actores que podrían asumir nuestro rol.',a:0,d:0}]},
+  {eje:'D',text:'¿Qué tan fácil sería para tu organización operar en un ecosistema diferente al actual?',sub:'Considera cuánto de tus activos, capacidades y relaciones son específicas al sistema actual.',opts:[{t:'Muy difícil: nuestros activos y capacidades están co-especializados con este sistema.',a:0,d:3},{t:'Difícil: podríamos hacerlo, pero con pérdida importante de valor en la transición.',a:0,d:2},{t:'Moderado: algunas capacidades son transferibles y podríamos reorientarnos con esfuerzo.',a:0,d:1},{t:'Relativamente fácil: nuestras capacidades son generales y aplicables en distintos contextos.',a:0,d:0}]},
+  {eje:'A',text:'Cuando tomas decisiones que afectan las condiciones del ecosistema, ¿qué ocurre?',sub:'Piensa en cómo reaccionan los demás actores ante tus movimientos estratégicos.',opts:[{t:'Los demás actores deben adaptarse; nuestras decisiones reconfiguran el sistema.',a:3,d:0},{t:'Generamos debate e influimos; hay negociación pero nuestro peso es relevante.',a:2,d:0},{t:'Tenemos impacto en nuestro entorno inmediato, pero el sistema sigue su dinámica propia.',a:1,d:0},{t:'Nuestras decisiones tienen impacto principalmente sobre nuestra propia operación.',a:0,d:0}]}
+];
+var DPA_DATA={
+  infra:{name:'Infraestructura Estructural',desc:'Tu organización diseña las reglas, estándares o plataformas que otros necesitan para operar. Tienes baja dependencia del sistema porque eres parte de su núcleo: en cierto sentido, eres el sistema.',fort:'Capacidad de estructurar la interacción. Influencia sobre las condiciones de participación de todos los actores. Posibilidad de capturar parte del valor que el ecosistema genera colectivamente.',risk:'Presión regulatoria creciente. Riesgo de fallo distributivo si la captura de valor se percibe como excesiva. Tentación de sobre-explotar la posición en el corto plazo.',moves:['Ampliar el círculo de actores que perciben beneficios claros en tu continuidad.','Invertir en legitimidad y gobernanza: los arquitectos duraderos co-diseñan las reglas con quienes las habitan.','Auto-limitar la extracción de valor para no acelerar la formación de alternativas rivales.'],cell:'dpa-mc-infra'},
+  orq:{name:'Orquestador del Sistema',desc:'Controlas la narrativa y la experiencia del cliente, pero te apoyas en arquitecturas que otros diseñan. Tu poder proviene de la proximidad al usuario final y de la capacidad de integrar múltiples actores en torno a una experiencia coherente.',fort:'Control del momento de verdad con el cliente. Capacidad de coreografiar la experiencia. Influencia sobre qué actores y soluciones se vuelven visibles para el usuario final.',risk:'Vulnerabilidad ante cambios en la arquitectura subyacente que no controlas. Si la plataforma que usas reconfigura sus condiciones, tu capacidad de curar la experiencia puede verse limitada.',moves:['Profundizar la relación con el cliente para reducir la dependencia de arquitecturas ajenas.','Entrar de forma selectiva en capas de coordinación propias.','Identificar qué activos de la experiencia son genuinamente tuyos y cuáles pertenecen al ecosistema.'],cell:'dpa-mc-orq'},
+  auto:{name:'Actor Independiente',desc:'Tu modelo de negocio no depende críticamente de una arquitectura específica y puedes operar en múltiples ecosistemas simultáneamente. Tienes libertad estratégica, pero tu influencia sobre las reglas del sistema es limitada.',fort:'Resiliencia ante cambios en cualquier ecosistema particular. Capacidad de reorientar la oferta cuando cambian las condiciones. Relevancia técnica no atada a un sistema específico.',risk:'Tendencia a subestimar el propio poder o a no hacer explícita la centralidad. Captura de valor limitada si no construyes posición arquitectónica en algún dominio.',moves:['Hacer explícita tu centralidad: si el sistema te necesita más de lo que crees, ese es el punto de palanca.','Asumir más rol de diseño en los estándares o roadmaps tecnológicos.','Elegir deliberadamente un dominio donde profundizar la dependencia arquitectónica.'],cell:'dpa-mc-auto'},
+  cap:{name:'Participante Capturado',desc:'Tu lógica de negocio está fuertemente anclada a arquitecturas que no controlas. Eres vulnerable a cambios en las reglas que otros definen. El costo de salida del sistema es alto, pero también lo es el costo de quedarte si las condiciones se deterioran.',fort:'Excelencia operativa dentro del sistema. Proximidad al cliente. Capacidad de ejecución eficiente dentro de las reglas existentes.',risk:'Vulnerabilidad estructural ante cambios unilaterales en las reglas. Dependencia de la hoja de ruta tecnológica de otros actores. Margen de maniobra estratégico limitado.',moves:['Aumentar gradualmente la influencia arquitectónica: definir estándares propios en ciertas interfaces.','Construir capas de plataforma sobre tu propia operación que generen dependencia de otros hacia ti.','Diversificar las dependencias críticas para que ningún actor tenga poder unilateral.'],cell:'dpa-mc-cap'}
+};
+var dpa_cur=0, dpa_ans=[], dpa_sc={a:0,d:0};
+window.dpa_quadrant='auto';
+
+function dpaRender(idx){
+  var q=DPA_Q[idx];
+  var html='<div style="opacity:0;transform:translateY(8px);transition:opacity 0.3s ease,transform 0.3s ease;" id="dpa-qcard">';
+  html+='<div style="font-size:0.54rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(245,243,240,0.3);margin-bottom:0.6rem;">Pregunta <span style="color:var(--warm);">'+(idx+1)+'</span> de '+DPA_Q.length+'</div>';
+  html+='<p class="dq" style="margin-bottom:0.3rem;">'+q.text+'</p>';
+  html+='<p class="dctx" style="margin-bottom:1.2rem;font-style:italic;">'+q.sub+'</p>';
+  html+='<div class="opts">';
+  q.opts.forEach(function(o,i){
+    html+='<div class="opt" id="dpa-o'+i+'" onclick="dpaSelect('+i+')"><span class="opt-l">'+String.fromCharCode(65+i)+'</span><span class="opt-t">'+o.t+'</span></div>';
+  });
+  html+='</div></div>';
+  document.getElementById('dpa-qcontainer').innerHTML=html;
+  setTimeout(function(){var c=document.getElementById('dpa-qcard');if(c){c.style.opacity='1';c.style.transform='translateY(0)';}},30);
+  document.getElementById('dpa-prog-fill').style.width=(idx/DPA_Q.length*100)+'%';
+  document.getElementById('dpa-prog-txt').textContent=(idx+1)+' / '+DPA_Q.length;
+  dpaUpdBtn(false);
+  if(dpa_ans[idx]!==undefined) dpaSelect(dpa_ans[idx],false);
+}
+
+window.dpaSelect=function(i,save){
+  if(save===undefined) save=true;
+  document.querySelectorAll('#p1 .opt').forEach(function(el){el.classList.remove('on');});
+  var el=document.getElementById('dpa-o'+i);
+  if(el) el.classList.add('on');
+  if(save) dpa_ans[dpa_cur]=i;
+  dpaUpdBtn(true);
+};
+
+function dpaUpdBtn(on){
+  var b=document.getElementById('dpa-btn-next');
+  if(!b) return;
+  var last=dpa_cur===DPA_Q.length-1;
+  b.style.opacity=on?'1':'0.3';
+  b.style.pointerEvents=on?'all':'none';
+  b.textContent=last?'Ver mi posición →':'Siguiente →';
+  var info=document.getElementById('dpa-nav-info');
+  if(info) info.textContent=on?(last?'Listo para calcular tu posición':'Presiona para continuar'):'Selecciona una opción para continuar';
+}
+
+window.dpaNext=function(){
+  if(dpa_ans[dpa_cur]===undefined) return;
+  var o=DPA_Q[dpa_cur].opts[dpa_ans[dpa_cur]];
+  dpa_sc.a+=o.a; dpa_sc.d+=o.d;
+  if(dpa_cur<DPA_Q.length-1){dpa_cur++;dpaRender(dpa_cur);}
+  else dpaShowResult();
+};
+
+function dpaShowResult(){
+  var maxA=DPA_Q.filter(function(q){return q.eje==='A';}).length*3;
+  var maxD=DPA_Q.filter(function(q){return q.eje==='D';}).length*3;
+  var hiA=dpa_sc.a>=maxA*0.45;
+  var hiD=dpa_sc.d>=maxD*0.45;
+  var key=hiA&&!hiD?'infra':hiA&&hiD?'orq':!hiA&&!hiD?'auto':'cap';
+  window.dpa_quadrant=key;
+  var d=DPA_DATA[key];
+  var qc=document.getElementById('dpa-qcontainer');
+  var nav=document.getElementById('dpa-nav');
+  if(qc) qc.style.display='none';
+  if(nav) nav.style.display='none';
+  var movesHtml=d.moves.map(function(m,i){
+    return '<div style="display:flex;gap:0.7rem;align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);"><span style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;color:var(--warm);min-width:14px;">'+(i+1)+'</span><span>'+m+'</span></div>';
+  }).join('');
+  document.getElementById('dpa-result-name').textContent=d.name;
+  document.getElementById('dpa-result-desc').textContent=d.desc;
+  document.getElementById('dpa-result-fort').textContent=d.fort;
+  document.getElementById('dpa-result-risk').textContent=d.risk;
+  document.getElementById('dpa-result-moves').innerHTML=movesHtml;
+  ['cap','orq','auto','infra'].forEach(function(k){
+    var el=document.getElementById('dpa-mc-'+k);
+    if(el){el.style.background='rgba(255,255,255,0.03)';el.style.color='rgba(245,243,240,0.28)';el.style.fontWeight='300';el.style.border='none';}
+  });
+  var active=document.getElementById(d.cell);
+  if(active){active.style.background='rgba(200,168,130,0.18)';active.style.color='var(--warm)';active.style.fontWeight='500';active.style.border='2px solid rgba(200,168,130,0.4)';}
+  var r=document.getElementById('dpa-result-inline');
+  if(r){r.style.display='block';r.style.animation='fi 0.35s ease';}
+  if(typeof selMat==='function'){
+    var matKey={infra:'infraestructura',orq:'orquestador',auto:'independiente',cap:'capturado'}[key];
+    var mc=document.querySelector('#mat [data-p="'+matKey+'"]');
+    if(mc) selMat(mc,matKey);
+  }
+}
+
+window.dpaRestart=function(){
+  dpa_cur=0;dpa_ans=[];dpa_sc={a:0,d:0};
+  var r=document.getElementById('dpa-result-inline');
+  var qc=document.getElementById('dpa-qcontainer');
+  var nav=document.getElementById('dpa-nav');
+  if(r) r.style.display='none';
+  if(qc) qc.style.display='block';
+  if(nav) nav.style.display='flex';
+  dpaRender(0);
+};
+
+document.addEventListener('DOMContentLoaded', function(){
+  if(document.getElementById('dpa-qcontainer')) dpaRender(0);
+});
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════
+     MÓDULO IDA — CALCULADORA DE DENSIDAD ARQUITECTÓNICA
+     Sección para insertar en index.html de valueecosystems.net
+     Insertar después de la sección #tool y antes de #community
+     ════════════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── Variables del módulo (heredan identidad del sitio) ── */
+#ida-section {
+  --ida-pearl:    #f5f3f0;
+  --ida-white:    #fefefe;
+  --ida-bg2:      #f9f8f6;
+  --ida-charcoal: #1a1a1a;
+  --ida-graphite: #2d2d2d;
+  --ida-mist:     #8a8880;
+  --ida-warm:     #c8a882;
+  --ida-glow:     #d4956a;
+  --ida-line:     rgba(26,26,26,0.1);
+  --ida-line2:    rgba(26,26,26,0.05);
+  --ida-dk:       rgba(255,255,255,0.08);
+}
+
+#ida-section {
+  padding: 6rem 4rem;
+  background: var(--charcoal, #1a1a1a);
+  color: var(--pearl, #f5f3f0);
+}
+
+/* ── Encabezado ── */
+.ida-sec-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ida-warm);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.ida-sec-tag::before { content: '◆'; font-size: 0.4rem; }
+
+.ida-sec-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--ida-pearl);
+  margin-bottom: 0.8rem;
+}
+.ida-sec-title em { font-style: italic; color: var(--ida-warm); }
+
+.ida-sec-lead {
+  font-size: 0.88rem;
+  color: rgba(245,243,240,0.5);
+  line-height: 1.85;
+  max-width: 62ch;
+  margin-bottom: 0.8rem;
+}
+
+.ida-formula-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,168,130,0.2);
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 3rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--ida-warm);
+  font-style: italic;
+}
+.ida-formula-strip span {
+  font-size: 0.6rem;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  color: rgba(245,243,240,0.3);
+  font-family: 'Jost', sans-serif;
+}
+
+/* ── Layout principal ── */
+.ida-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ── Panel izquierdo: actores ── */
+.ida-actors-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Cabecera de actores ── */
+.ida-actors-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.ida-actors-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245,243,240,0.3);
+}
+.ida-add-btn {
+  background: transparent;
+  border: 1px solid rgba(200,168,130,0.3);
+  color: var(--ida-warm);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ida-add-btn:hover { background: rgba(200,168,130,0.1); border-color: var(--ida-warm); }
+.ida-add-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ── Tarjeta de actor ── */
+.ida-actor-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: border-color 0.2s;
+}
+.ida-actor-card:hover { border-color: rgba(200,168,130,0.25); }
+
+.ida-actor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+}
+.ida-actor-head-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.ida-actor-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: rgba(200,168,130,0.3);
+  line-height: 1;
+  min-width: 20px;
+}
+.ida-actor-name-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  color: var(--ida-pearl);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 300;
+  padding: 0.2rem 0.4rem;
+  width: 180px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ida-actor-name-input:focus { border-bottom-color: var(--ida-warm); }
+.ida-actor-name-input::placeholder { color: rgba(245,243,240,0.2); }
+
+.ida-actor-score {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--ida-warm);
+  min-width: 40px;
+  text-align: right;
+}
+.ida-actor-score span {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: rgba(245,243,240,0.25);
+  font-family: 'Jost', sans-serif;
+  display: block;
+  text-align: right;
+  margin-top: 1px;
+}
+
+.ida-actor-del {
+  background: none;
+  border: none;
+  color: rgba(245,243,240,0.15);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0 0.3rem;
+  transition: color 0.2s;
+  margin-left: 0.5rem;
+}
+.ida-actor-del:hover { color: rgba(200,168,130,0.6); }
+
+/* ── Body de sliders ── */
+.ida-actor-body {
+  padding: 1.2rem 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* ── Slider row ── */
+.ida-slider-row { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.ida-slider-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.ida-slider-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,243,240,0.38);
+}
+.ida-slider-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--ida-warm);
+  line-height: 1;
+}
+
+/* slider track */
+.ida-slider {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 2px;
+  background: rgba(255,255,255,0.1);
+  outline: none;
+  cursor: pointer;
+}
+.ida-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px;
+  background: var(--ida-warm);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ida-slider::-webkit-slider-thumb:hover { background: var(--ida-glow); }
+.ida-slider::-moz-range-thumb {
+  width: 13px; height: 13px;
+  background: var(--ida-warm);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+/* descriptor ordinal */
+.ida-descriptor {
+  font-size: 0.73rem;
+  color: rgba(245,243,240,0.35);
+  line-height: 1.5;
+  font-style: italic;
+  min-height: 2.2em;
+  transition: color 0.2s;
+}
+.ida-descriptor.active { color: rgba(245,243,240,0.55); }
+
+.ida-slider-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.15rem;
+}
+.ida-slider-ends span {
+  font-size: 0.53rem;
+  color: rgba(245,243,240,0.18);
+  letter-spacing: 0.06em;
+}
+
+/* ── Factor delta ── */
+.ida-delta-row {
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.ida-delta-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+}
+.ida-delta-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.ida-delta-opt:hover { border-color: rgba(200,168,130,0.25); }
+.ida-delta-opt.selected {
+  border-color: var(--ida-warm);
+  background: rgba(200,168,130,0.07);
+}
+.ida-delta-opt-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--ida-warm);
+  min-width: 38px;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+.ida-delta-opt-desc {
+  font-size: 0.74rem;
+  color: rgba(245,243,240,0.45);
+  line-height: 1.5;
+}
+.ida-delta-opt.selected .ida-delta-opt-desc { color: rgba(245,243,240,0.7); }
+
+/* ── Panel derecho: resultado ── */
+.ida-result-panel {
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ida-result-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.5rem 1.6rem;
+}
+
+.ida-result-label {
+  font-size: 0.56rem;
+  letter-spacing:0.16em;
+  text-transform: uppercase;
+  color: rgba(245,243,240,0.3);
+  margin-bottom: 0.3rem;
+}
+
+.ida-result-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--ida-warm);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.ida-result-sub {
+  font-size: 0.72rem;
+  color: rgba(245,243,240,0.3);
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+}
+
+/* barra de comparación */
+.ida-comp-title {
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,243,240,0.25);
+  margin-bottom: 0.8rem;
+}
+.ida-comp-item {
+  margin-bottom: 0.7rem;
+}
+.ida-comp-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+.ida-comp-name {
+  font-size: 0.72rem;
+  color: rgba(245,243,240,0.5);
+}
+.ida-comp-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: rgba(245,243,240,0.4);
+}
+.ida-comp-track {
+  height: 2px;
+  background: rgba(255,255,255,0.07);
+  overflow: hidden;
+}
+.ida-comp-fill {
+  height: 100%;
+  background: rgba(255,255,255,0.15);
+  transition: width 0.4s ease;
+}
+.ida-comp-item.ida-user .ida-comp-name { color: var(--ida-warm); }
+.ida-comp-item.ida-user .ida-comp-val  { color: var(--ida-warm); }
+.ida-comp-item.ida-user .ida-comp-fill { background: var(--ida-warm); }
+
+/* ── Interpretación ── */
+.ida-interp {
+  background: rgba(200,168,130,0.06);
+  border: 1px solid rgba(200,168,130,0.15);
+  padding: 1.1rem 1.3rem;
+}
+.ida-interp-tag {
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ida-warm);
+  margin-bottom: 0.5rem;
+}
+.ida-interp-text {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: rgba(245,243,240,0.55);
+}
+
+/* ── Tabla resumen de actores ── */
+.ida-table-wrap {
+  margin-top: 2.5rem;
+}
+.ida-table-title {
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245,243,240,0.3);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.ida-table-title::before { content: '◆'; font-size: 0.35rem; color: var(--ida-warm); }
+
+.ida-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+.ida-table th {
+  text-align: left;
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,243,240,0.25);
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-weight: 300;
+}
+.ida-table td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: rgba(245,243,240,0.6);
+  font-family: 'Jost', sans-serif;
+  vertical-align: middle;
+}
+.ida-table td:first-child { color: rgba(245,243,240,0.85); }
+.ida-table td.ida-td-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: rgba(200,168,130,0.7);
+  text-align: right;
+}
+.ida-table td.ida-td-num.ida-hi { color: var(--ida-warm); }
+.ida-table tr:last-child td { border-bottom: none; }
+
+/* ── Nota metodológica ── */
+.ida-nota {
+  margin-top: 1.5rem;
+  border-left: 2px solid rgba(200,168,130,0.3);
+  padding: 0.8rem 1.1rem;
+  font-size: 0.76rem;
+  color: rgba(245,243,240,0.3);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  #ida-section { padding: 5rem 2.5rem; }
+  .ida-layout { grid-template-columns: 1fr; }
+  .ida-result-panel { position: static; }
+}
+@media (max-width: 640px) {
+  #ida-section { padding: 4rem 1.5rem; }
+  .ida-actor-name-input { width: 130px; }
+}
+</style>
+
+<!-- ══ SECCIÓN IDA ═══════════════════════════════════════════════════ -->
+<section id="ida-section">
+
+  <div class="ida-sec-tag">Índice de Densidad Arquitectónica</div>
+  <h2 class="ida-sec-title">Calcula el <em>IDA</em> de tu ecosistema</h2>
+  <p class="ida-sec-lead">
+    El IDA mide el grado en que las interdependencias que pasan por un actor son estructurales y no triviales.
+    Ingresa hasta 5 actores j de tu sistema y asigna valores a cada variable. El índice se calcula en tiempo real.
+  </p>
+  <div class="ida-formula-strip">
+    IDA(i) = Σⱼ [α · C · (1 − S)] / N · δ
+    <span>fórmula completa — Apéndice A</span>
+  </div>
+
+  <div class="ida-layout">
+
+    <!-- ── Izquierda: actores ── -->
+    <div>
+      <div class="ida-actors-header">
+        <span class="ida-actors-label">Actores j del sistema</span>
+        <button class="ida-add-btn" id="ida-add-btn" onclick="idaAddActor()">+ Añadir actor</button>
+      </div>
+      <div class="ida-actors-wrap" id="ida-actors-wrap"></div>
+
+      <!-- Tabla resumen -->
+      <div class="ida-table-wrap">
+        <div class="ida-table-title">Resumen por actor</div>
+        <table class="ida-table">
+          <thead>
+            <tr>
+              <th>Actor j</th>
+              <th style="text-align:right">α</th>
+              <th style="text-align:right">C</th>
+              <th style="text-align:right">S</th>
+              <th style="text-align:right">α·C·(1−S)</th>
+            </tr>
+          </thead>
+          <tbody id="ida-table-body"></tbody>
+        </table>
+        <div class="ida-nota">
+          Los valores son estimaciones ordinales calibradas con descriptores conductuales. El IDA no es una medición absoluta —
+          su valor está en la conversación que habilita y en la comparación relativa entre actores y casos de referencia.
+          Ver Guía de Aplicación del IDA (Apéndice B).
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Derecha: resultado ── -->
+    <div class="ida-result-panel">
+
+      <div class="ida-result-box">
+        <div class="ida-result-label">IDA ajustado de tu organización</div>
+        <div class="ida-result-value" id="ida-val">—</div>
+        <div class="ida-result-sub" id="ida-sub">Ingresa al menos un actor para calcular</div>
+
+        <div class="ida-comp-title">Comparación con casos del libro</div>
+
+        <div class="ida-comp-item ida-user">
+          <div class="ida-comp-head">
+            <span class="ida-comp-name" id="ida-user-name">Tu ecosistema</span>
+            <span class="ida-comp-val" id="ida-user-val">—</span>
+          </div>
+          <div class="ida-comp-track"><div class="ida-comp-fill" id="ida-user-bar" style="width:0%"></div></div>
+        </div>
+
+        <div class="ida-comp-item">
+          <div class="ida-comp-head">
+            <span class="ida-comp-name">ARM Holdings</span>
+            <span class="ida-comp-val">0.70</span>
+          </div>
+          <div class="ida-comp-track"><div class="ida-comp-fill" style="width:70%"></div></div>
+        </div>
+
+        <div class="ida-comp-item">
+          <div class="ida-comp-head">
+            <span class="ida-comp-name">Disney (MagicBand)</span>
+            <span class="ida-comp-val">0.45</span>
+          </div>
+          <div class="ida-comp-track"><div class="ida-comp-fill" style="width:45%"></div></div>
+        </div>
+
+        <div class="ida-comp-item">
+          <div class="ida-comp-head">
+            <span class="ida-comp-name">El Roble — Momento 2</span>
+            <span class="ida-comp-val">0.42</span>
+          </div>
+          <div class="ida-comp-track"><div class="ida-comp-fill" style="width:42%"></div></div>
+        </div>
+
+        <div class="ida-comp-item">
+          <div class="ida-comp-head">
+            <span class="ida-comp-name">El Roble — Momento 1</span>
+            <span class="ida-comp-val">0.02</span>
+          </div>
+          <div class="ida-comp-track"><div class="ida-comp-fill" style="width:2%"></div></div>
+        </div>
+      </div>
+
+      <div class="ida-interp" id="ida-interp" style="display:none;">
+        <div class="ida-interp-tag">Interpretación</div>
+        <div class="ida-interp-text" id="ida-interp-text"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ LÓGICA DEL MÓDULO IDA ═════════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── Descriptores ordinales por variable ── */
+var ALPHA_DESC = [
+  {range:[0,0.2],   text:'Sin adaptación específica — reorientación inmediata posible (semanas)'},
+  {range:[0.2,0.4], text:'Adaptaciones menores — transición en semanas o pocos meses'},
+  {range:[0.4,0.6], text:'Inversiones significativas — reorientación requiere 6 meses a 1 año'},
+  {range:[0.6,0.8], text:'Modelo operativo reorganizado — rediseño profundo de 1 a 2 años'},
+  {range:[0.8,1.0], text:'Co-especialización total — reconstruir desde cero (más de 2 años)'}
+];
+var C_DESC = [
+  {range:[0,0.2],   text:'Menos del 20% de actividad — impacto menor y compensable'},
+  {range:[0.2,0.4], text:'20–40% de actividad — dificultades manejables en el corto plazo'},
+  {range:[0.4,0.6], text:'40–60% o proceso habilitador — reestructuración significativa'},
+  {range:[0.6,0.8], text:'60–80% o punto de paso — viabilidad comprometida en semanas'},
+  {range:[0.8,1.0], text:'Más del 80% o colapso operativo inmediato sin este flujo'}
+];
+var S_DESC = [
+  {range:[0,0.2],   text:'Sin alternativa viable — dependencia irreversible en el horizonte'},
+  {range:[0.2,0.4], text:'Alternativa parcial — migración mayor a 1 año con degradación'},
+  {range:[0.4,0.6], text:'Alternativa viable — 6 a 12 meses con costos significativos'},
+  {range:[0.6,0.8], text:'Múltiples alternativas — menos de 6 meses con costos moderados'},
+  {range:[0.8,1.0], text:'Sustituible en semanas sin pérdida estructural'}
+];
+var DELTA_OPTS = [
+  {val:1.00, label:'δ = 1.00', desc:'Solo nodo transaccional — sin función de coordinación'},
+  {val:1.07, label:'δ = 1.05–1.10', desc:'Una función informal de coordinación reconocida'},
+  {val:1.12, label:'δ = 1.10–1.15', desc:'Dos o tres funciones formalizadas de coordinación'},
+  {val:1.17, label:'δ = 1.15–1.20', desc:'Cuatro o más funciones sostenidas y reconocidas'},
+  {val:1.22, label:'δ > 1.20', desc:'Arquitecto institucional del sistema'}
+];
+
+/* ── Estado ── */
+var actors = [];
+var nextId = 1;
+
+/* ── Obtener descriptor ── */
+function getDesc(descs, val) {
+  for (var i = 0; i < descs.length; i++) {
+    if (val <= descs[i].range[1] || i === descs.length - 1) return descs[i].text;
+  }
+  return descs[descs.length-1].text;
+}
+
+/* ── Agregar actor ── */
+window.idaAddActor = function() {
+  if (actors.length >= 5) return;
+  var id = nextId++;
+  actors.push({ id: id, name: 'Actor ' + id, alpha: 0.5, c: 0.5, s: 0.5, delta: 1.00 });
+  idaRender();
+};
+
+/* ── Eliminar actor ── */
+window.idaDelActor = function(id) {
+  actors = actors.filter(function(a){ return a.id !== id; });
+  idaRender();
+};
+
+/* ── Actualizar valor ── */
+window.idaUpdate = function(id, field, val) {
+  var actor = actors.find(function(a){ return a.id === id; });
+  if (!actor) return;
+  actor[field] = parseFloat(val);
+  idaCalc();
+  idaUpdateCard(id);
+  idaUpdateResult();
+  idaUpdateTable();
+};
+
+window.idaSetDelta = function(id, val) {
+  var actor = actors.find(function(a){ return a.id === id; });
+  if (!actor) return;
+  actor.delta = parseFloat(val);
+  // Actualizar UI delta
+  document.querySelectorAll('[data-actorid="'+id+'"] .ida-delta-opt').forEach(function(el){
+    el.classList.toggle('selected', parseFloat(el.dataset.val) === actor.delta);
+  });
+  idaCalc();
+  idaUpdateResult();
+  idaUpdateTable();
+};
+
+window.idaSetName = function(id, val) {
+  var actor = actors.find(function(a){ return a.id === id; });
+  if (!actor) return;
+  actor.name = val || ('Actor ' + id);
+  idaUpdateResult();
+  idaUpdateTable();
+};
+
+/* ── Calcular IDA ── */
+function idaCalc() {
+  if (actors.length === 0) return null;
+  var N = actors.length;
+  var sumDelta = 0;
+  actors.forEach(function(a) {
+    var contrib = a.alpha * a.c * (1 - a.s);
+    sumDelta += contrib * a.delta;
+  });
+  return sumDelta / N;
+}
+
+/* ── Render completo ── */
+function idaRender() {
+  var wrap = document.getElementById('ida-actors-wrap');
+  wrap.innerHTML = '';
+  actors.forEach(function(a, idx) {
+    wrap.innerHTML += idaCardHTML(a, idx);
+  });
+  // Bind name inputs
+  actors.forEach(function(a) {
+    var inp = document.getElementById('ida-name-'+a.id);
+    if (inp) {
+      inp.addEventListener('input', function(){ idaSetName(a.id, this.value); });
+      // Update descriptors on load
+      idaUpdateCard(a.id);
+    }
+  });
+  var btn = document.getElementById('ida-add-btn');
+  if (btn) btn.disabled = actors.length >= 5;
+  idaCalc();
+  idaUpdateResult();
+  idaUpdateTable();
+}
+
+/* ── HTML de tarjeta ── */
+function idaCardHTML(a, idx) {
+  var deltaOptsHtml = DELTA_OPTS.map(function(d) {
+    return '<div class="ida-delta-opt'+(a.delta===d.val?' selected':'')+'" data-actorid="'+a.id+'" data-val="'+d.val+'" onclick="idaSetDelta('+a.id+','+d.val+')">'
+      +'<span class="ida-delta-opt-val">'+d.label+'</span>'
+      +'<span class="ida-delta-opt-desc">'+d.desc+'</span>'
+      +'</div>';
+  }).join('');
+
+  return '<div class="ida-actor-card" id="ida-card-'+a.id+'">'
+    +'<div class="ida-actor-head">'
+      +'<div class="ida-actor-head-left">'
+        +'<div class="ida-actor-num">'+(idx+1)+'</div>'
+        +'<input class="ida-actor-name-input" id="ida-name-'+a.id+'" placeholder="Nombre del actor" value="'+a.name+'">'
+      +'</div>'
+      +'<div style="display:flex;align-items:center;gap:0.5rem;">'
+        +'<div class="ida-actor-score"><span id="ida-contrib-'+a.id+'">—</span><span>α·C·(1−S)</span></div>'
+        +'<button class="ida-actor-del" onclick="idaDelActor('+a.id+')" title="Eliminar">×</button>'
+      +'</div>'
+    +'</div>'
+    +'<div class="ida-actor-body">'
+
+      // α
+      +'<div class="ida-slider-row">'
+        +'<div class="ida-slider-top">'
+          +'<span class="ida-slider-label">α — Especificidad de inversión</span>'
+          +'<span class="ida-slider-val" id="ida-av-'+a.id+'">'+a.alpha.toFixed(2)+'</span>'
+        +'</div>'
+        +'<input class="ida-slider" type="range" min="0" max="1" step="0.05" value="'+a.alpha
+          +'" oninput="document.getElementById(\'ida-av-'+a.id+'\').textContent=parseFloat(this.value).toFixed(2);idaUpdate('+a.id+',\'alpha\',this.value);idaDescUpdate(\'ida-ad-'+a.id+'\',alphaDescGlobal,this.value);">'
+        +'<div class="ida-slider-ends"><span>0 — sin adaptación</span><span>1 — co-especialización total</span></div>'
+        +'<div class="ida-descriptor" id="ida-ad-'+a.id+'">'+getDesc(ALPHA_DESC, a.alpha)+'</div>'
+      +'</div>'
+
+      // C
+      +'<div class="ida-slider-row">'
+        +'<div class="ida-slider-top">'
+          +'<span class="ida-slider-label">C — Criticidad del flujo</span>'
+          +'<span class="ida-slider-val" id="ida-cv-'+a.id+'">'+a.c.toFixed(2)+'</span>'
+        +'</div>'
+        +'<input class="ida-slider" type="range" min="0" max="1" step="0.05" value="'+a.c
+          +'" oninput="document.getElementById(\'ida-cv-'+a.id+'\').textContent=parseFloat(this.value).toFixed(2);idaUpdate('+a.id+',\'c\',this.value);idaDescUpdate(\'ida-cd-'+a.id+'\',cDescGlobal,this.value);">'
+        +'<div class="ida-slider-ends"><span>0 — flujo marginal</span><span>1 — colapso operativo</span></div>'
+        +'<div class="ida-descriptor" id="ida-cd-'+a.id+'">'+getDesc(C_DESC, a.c)+'</div>'
+      +'</div>'
+
+      // S
+      +'<div class="ida-slider-row">'
+        +'<div class="ida-slider-top">'
+          +'<span class="ida-slider-label">S — Sustituibilidad percibida</span>'
+          +'<span class="ida-slider-val" id="ida-sv-'+a.id+'">'+a.s.toFixed(2)+'</span>'
+        +'</div>'
+        +'<input class="ida-slider" type="range" min="0" max="1" step="0.05" value="'+a.s
+          +'" oninput="document.getElementById(\'ida-sv-'+a.id+'\').textContent=parseFloat(this.value).toFixed(2);idaUpdate('+a.id+',\'s\',this.value);idaDescUpdate(\'ida-sd-'+a.id+'\',sDescGlobal,this.value);">'
+        +'<div class="ida-slider-ends"><span>0 — irremplazable</span><span>1 — sustituible en semanas</span></div>'
+        +'<div class="ida-descriptor" id="ida-sd-'+a.id+'">'+getDesc(S_DESC, a.s)+'</div>'
+      +'</div>'
+
+      // δ
+      +'<div class="ida-delta-row">'
+        +'<div class="ida-slider-label" style="margin-bottom:0.2rem;">δ — Factor de coordinación sistémica</div>'
+        +'<div class="ida-delta-options">'+deltaOptsHtml+'</div>'
+      +'</div>'
+
+    +'</div>'
+  +'</div>';
+}
+
+/* ── Actualizar descriptores en tiempo real ── */
+window.alphaDescGlobal = ALPHA_DESC;
+window.cDescGlobal = C_DESC;
+window.sDescGlobal = S_DESC;
+
+window.idaDescUpdate = function(elId, descs, val) {
+  var el = document.getElementById(elId);
+  if (!el) return;
+  el.textContent = getDesc(descs, parseFloat(val));
+  el.classList.add('active');
+};
+
+/* ── Actualizar contrib en tarjeta ── */
+function idaUpdateCard(id) {
+  var actor = actors.find(function(a){ return a.id === id; });
+  if (!actor) return;
+  var contrib = actor.alpha * actor.c * (1 - actor.s);
+  var el = document.getElementById('ida-contrib-'+id);
+  if (el) el.textContent = contrib.toFixed(3);
+}
+
+/* ── Actualizar resultado ── */
+function idaUpdateResult() {
+  var ida = idaCalc();
+  var valEl = document.getElementById('ida-val');
+  var subEl = document.getElementById('ida-sub');
+  var userBar = document.getElementById('ida-user-bar');
+  var userVal = document.getElementById('ida-user-val');
+  var interp = document.getElementById('ida-interp');
+  var interpText = document.getElementById('ida-interp-text');
+
+  if (ida === null || actors.length === 0) {
+    if (valEl) valEl.textContent = '—';
+    if (subEl) subEl.textContent = 'Ingresa al menos un actor para calcular';
+    if (userBar) userBar.style.width = '0%';
+    if (userVal) userVal.textContent = '—';
+    if (interp) interp.style.display = 'none';
+    return;
+  }
+
+  var rounded = Math.min(ida, 1).toFixed(2);
+  if (valEl) valEl.textContent = rounded;
+  if (userVal) userVal.textContent = rounded;
+  if (userBar) userBar.style.width = Math.min(ida * 100, 100) + '%';
+
+  // Sub-label
+  var label = '';
+  if (ida < 0.15) label = 'Densidad baja — interdependencias débiles o transaccionales';
+  else if (ida < 0.35) label = 'Densidad moderada — algunas dependencias estructurales';
+  else if (ida < 0.55) label = 'Densidad significativa — arquitectura con peso real';
+  else if (ida < 0.70) label = 'Densidad alta — posición arquitectónica consolidada';
+  else label = 'Densidad muy alta — arquitecto estructural del sistema';
+  if (subEl) subEl.textContent = label;
+
+  // Interpretación
+  var text = '';
+  if (ida < 0.15) {
+    text = 'Tu IDA sugiere que las interdependencias actuales son principalmente transaccionales. Los actores j podrían reorientarse hacia otros nodos sin costos estructurales significativos. Esta posición ofrece resiliencia pero limita la captura de valor arquitectónico.';
+  } else if (ida < 0.35) {
+    text = 'Existe densidad arquitectónica moderada. Algunas relaciones generan dependencia real, pero el sistema puede funcionar con sustitutos. Hay espacio para profundizar la co-especialización en las relaciones más críticas.';
+  } else if (ida < 0.55) {
+    text = 'Tu posición presenta densidad arquitectónica significativa, comparable a Disney (0.45) y El Roble en Momento 2 (0.42). Las interdependencias que pasan por ti son estructurales y difíciles de reemplazar en el horizonte relevante.';
+  } else if (ida < 0.70) {
+    text = 'Densidad arquitectónica alta. Tu organización ocupa una posición de coordinación estructural relevante en el sistema. Este rango implica responsabilidad distributiva: la captura excesiva puede activar la formación de alternativas.';
+  } else {
+    text = 'IDA en el rango de ARM Holdings (0.70): posición de arquitecto estructural del sistema. Las interdependencias que pasan por ti son profundas, co-especializadas y difíciles de reemplazar. La gobernanza y la legitimidad son activos críticos a gestionar.';
+  }
+  if (interpText) interpText.textContent = text;
+  if (interp) interp.style.display = 'block';
+}
+
+/* ── Actualizar tabla ── */
+function idaUpdateTable() {
+  var tbody = document.getElementById('ida-table-body');
+  if (!tbody) return;
+  if (actors.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="color:rgba(245,243,240,0.2);font-style:italic;font-size:0.78rem;padding:1rem 0.8rem;">Sin actores ingresados</td></tr>';
+    return;
+  }
+  tbody.innerHTML = actors.map(function(a) {
+    var contrib = a.alpha * a.c * (1 - a.s);
+    var hi = contrib > 0.3 ? ' ida-hi' : '';
+    return '<tr>'
+      +'<td>'+a.name+'</td>'
+      +'<td class="ida-td-num">'+a.alpha.toFixed(2)+'</td>'
+      +'<td class="ida-td-num">'+a.c.toFixed(2)+'</td>'
+      +'<td class="ida-td-num">'+a.s.toFixed(2)+'</td>'
+      +'<td class="ida-td-num'+hi+'">'+contrib.toFixed(3)+'</td>'
+    +'</tr>';
+  }).join('');
+}
+
+/* ── Init con 2 actores por defecto ── */
+document.addEventListener('DOMContentLoaded', function(){
+  if (!document.getElementById('ida-actors-wrap')) return;
+  idaAddActor();
+  idaAddActor();
+});
+
+})();
+</script>
+
+
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     MÓDULO 3 — CANVAS ARQUITECTÓNICO v3
+     Placeholder rico + panel lateral fijo con caso El Roble
+     ════════════════════════════════════════════════════════════════ -->
+
+<style>
+#canvas-section {
+  padding: 6rem 4rem;
+  background: var(--bg2, #f9f8f6);
+  color: var(--charcoal, #1a1a1a);
+}
+.cv-sec-tag {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--warm, #c8a882); display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.9rem;
+}
+.cv-sec-tag::before { content: '◆'; font-size: 0.4rem; }
+.cv-sec-title {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 300; line-height: 1.2; color: var(--charcoal, #1a1a1a); margin-bottom: 0.8rem;
+}
+.cv-sec-title em { font-style: italic; color: var(--warm, #c8a882); }
+.cv-sec-lead { font-size: 0.88rem; color: var(--mist, #8a8880); line-height: 1.85; max-width: 60ch; margin-bottom: 2.5rem; }
+
+/* Toolbar */
+.cv-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.cv-progress-info { display: flex; align-items: center; gap: 1.2rem; }
+.cv-prog-count { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist, #8a8880); }
+.cv-prog-count span { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--warm, #c8a882); margin-right: 0.2rem; }
+.cv-prog-bar-wrap { width: 120px; height: 2px; background: rgba(26,26,26,0.08); overflow: hidden; }
+.cv-prog-bar-fill { height: 100%; background: var(--warm,#c8a882); transition: width 0.4s ease; width: 0%; }
+.cv-actions { display: flex; gap: 0.8rem; }
+.cv-btn-pdf {
+  background: var(--charcoal,#1a1a1a); color: var(--pearl,#f5f3f0);
+  font-family: 'Jost', sans-serif; font-size: 0.65rem; letter-spacing: 0.16em;
+  text-transform: uppercase; padding: 0.8rem 1.8rem; border: none; cursor: pointer; transition: background 0.2s;
+}
+.cv-btn-pdf:hover { background: var(--graphite,#2d2d2d); }
+.cv-btn-pdf:disabled { opacity: 0.35; cursor: not-allowed; }
+.cv-btn-clear {
+  background: transparent; color: var(--mist,#8a8880); font-family: 'Jost', sans-serif;
+  font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0.8rem 1.4rem; border: 1px solid rgba(26,26,26,0.12); cursor: pointer; transition: all 0.2s;
+}
+.cv-btn-clear:hover { color: var(--charcoal,#1a1a1a); border-color: rgba(26,26,26,0.3); }
+
+/* Layout */
+.cv-main-layout { display: grid; grid-template-columns: 1fr 290px; gap: 2rem; align-items: start; }
+
+/* Canvas */
+.cv-canvas-header {
+  background: var(--charcoal,#1a1a1a); padding: 1.2rem 1.8rem;
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;
+}
+.cv-canvas-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 300; color: var(--pearl,#f5f3f0); }
+.cv-canvas-subtitle { font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,243,240,0.28); margin-top: 0.15rem; }
+.cv-ecosystem-input {
+  background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.15);
+  color: var(--pearl,#f5f3f0); font-family: 'Jost', sans-serif; font-size: 0.82rem;
+  font-weight: 300; padding: 0.3rem 0.5rem; width: 200px; outline: none; transition: border-color 0.2s; text-align: right;
+}
+.cv-ecosystem-input:focus { border-bottom-color: var(--warm,#c8a882); }
+.cv-ecosystem-input::placeholder { color: rgba(245,243,240,0.2); }
+
+.cv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(26,26,26,0.08); }
+
+.cv-block {
+  background: var(--white,#fefefe); padding: 1.2rem 1.3rem 1rem;
+  display: flex; flex-direction: column; min-height: 175px; position: relative;
+  transition: background 0.18s; border: 2px solid transparent;
+}
+.cv-block:focus-within { border-color: rgba(200,168,130,0.4); background: #fdfcfa; }
+.cv-block.filled .cv-block-num { color: rgba(200,168,130,0.4); }
+
+.cv-block-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300;
+  color: rgba(200,168,130,0.15); line-height: 1; margin-bottom: 0.3rem; transition: color 0.3s;
+}
+.cv-block-label {
+  font-size: 0.58rem; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--warm,#c8a882); margin-bottom: 0.5rem; line-height: 1.4;
+}
+
+/* Textarea con placeholder rico */
+.cv-textarea {
+  flex: 1; background: transparent; border: none;
+  border-top: 1px solid rgba(26,26,26,0.07); padding: 0.5rem 0 0;
+  color: var(--charcoal,#1a1a1a); font-family: 'Jost', sans-serif; font-size: 0.8rem;
+  font-weight: 300; line-height: 1.75; resize: none; outline: none; width: 100%; min-height: 80px;
+}
+/* Placeholder en gris claro, tamaño y línea similar al texto real */
+.cv-textarea::placeholder {
+  color: rgba(26,26,26,0.22);
+  font-style: normal;
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.cv-check {
+  position: absolute; top: 0.8rem; right: 0.8rem;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(200,168,130,0.15); transition: background 0.3s;
+}
+.cv-block.filled .cv-check { background: var(--warm,#c8a882); }
+
+/* Bloque central */
+.cv-block-center { background: var(--charcoal,#1a1a1a); }
+.cv-block-center:focus-within { border-color: var(--warm,#c8a882); background: #222; }
+.cv-block-center .cv-block-num { color: rgba(200,168,130,0.18); }
+.cv-block-center.filled .cv-block-num { color: rgba(200,168,130,0.4); }
+.cv-block-center .cv-textarea { color: var(--pearl,#f5f3f0); border-top-color: rgba(255,255,255,0.1); }
+.cv-block-center .cv-textarea::placeholder { color: rgba(245,243,240,0.2); }
+.cv-block-center .cv-check { background: rgba(200,168,130,0.12); }
+.cv-block-center.filled .cv-check { background: var(--warm,#c8a882); }
+
+/* Bloque meta */
+.cv-block-meta { background: rgba(200,168,130,0.05); border-left: 2px solid rgba(200,168,130,0.25) !important; }
+
+.cv-canvas-footer {
+  background: rgba(26,26,26,0.04); border-top: 1px solid rgba(26,26,26,0.07);
+  padding: 0.7rem 1.8rem; display: flex; justify-content: space-between; align-items: center;
+}
+.cv-footer-note { font-size: 0.6rem; color: var(--mist,#8a8880); font-style: italic; }
+.cv-footer-brand { font-family: 'Cormorant Garamond',serif; font-size: 0.72rem; color: rgba(26,26,26,0.28); font-style: italic; }
+
+/* Panel lateral El Roble */
+.cv-ref-panel {
+  position: sticky; top: 5.5rem;
+  background: var(--charcoal,#1a1a1a);
+  color: var(--pearl,#f5f3f0);
+  padding: 0;
+  overflow: hidden;
+}
+.cv-ref-header {
+  padding: 1rem 1.3rem 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(200,168,130,0.08);
+}
+.cv-ref-eyebrow {
+  font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--warm,#c8a882); margin-bottom: 0.3rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.cv-ref-eyebrow::before { content: '◆'; font-size: 0.32rem; }
+.cv-ref-title {
+  font-family: 'Cormorant Garamond',serif; font-size: 1.05rem; font-weight: 300;
+  color: var(--pearl,#f5f3f0); line-height: 1.25;
+}
+.cv-ref-subtitle { font-size: 0.65rem; color: rgba(245,243,240,0.35); margin-top: 0.2rem; }
+
+.cv-ref-body {
+  max-height: 72vh;
+  overflow-y: auto;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,168,130,0.2) transparent;
+}
+.cv-ref-body::-webkit-scrollbar { width: 3px; }
+.cv-ref-body::-webkit-scrollbar-thumb { background: rgba(200,168,130,0.2); border-radius: 2px; }
+
+.cv-ref-block {
+  padding: 0.9rem 1.3rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.15s;
+}
+.cv-ref-block:last-child { border-bottom: none; }
+.cv-ref-block:hover { background: rgba(255,255,255,0.03); }
+
+.cv-ref-block-num {
+  font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--warm,#c8a882); margin-bottom: 0.25rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.cv-ref-block-label {
+  font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(245,243,240,0.28); margin-bottom: 0.4rem;
+}
+.cv-ref-block-text {
+  font-size: 0.74rem; line-height: 1.68;
+  color: rgba(245,243,240,0.52);
+}
+
+.cv-ref-footer {
+  padding: 0.8rem 1.3rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.1);
+}
+.cv-ref-footer-text {
+  font-size: 0.65rem; color: rgba(245,243,240,0.25); font-style: italic; line-height: 1.5;
+}
+
+/* Toast */
+.cv-toast {
+  position: fixed; bottom: 2rem; right: 2rem;
+  background: var(--charcoal,#1a1a1a); color: var(--pearl,#f5f3f0);
+  font-family: 'Jost',sans-serif; font-size: 0.75rem; letter-spacing: 0.08em;
+  padding: 0.9rem 1.5rem; z-index: 999; opacity: 0; transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none;
+}
+.cv-toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width:1200px) { .cv-main-layout { grid-template-columns: 1fr 250px; } }
+@media (max-width:1024px) {
+  #canvas-section { padding: 5rem 2.5rem; }
+  .cv-main-layout { grid-template-columns: 1fr; }
+  .cv-ref-panel { position: static; max-height: none; }
+  .cv-ref-body { max-height: 400px; }
+  .cv-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width:640px) {
+  #canvas-section { padding: 4rem 1.5rem; }
+  .cv-grid { grid-template-columns: 1fr; }
+  .cv-toolbar { flex-direction: column; align-items: flex-start; }
+  .cv-canvas-header { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+  .cv-ecosystem-input { text-align: left; width: 100%; }
+}
+</style>
+
+<section id="canvas-section">
+  <div class="cv-sec-tag">Canvas Arquitectónico</div>
+  <h2 class="cv-sec-title">Diseña la <em>arquitectura</em><br>de tu ecosistema</h2>
+  <p class="cv-sec-lead">Ocho bloques que hacen visibles las interdependencias, roles y palancas de diseño de tu sistema. A la derecha puedes ver el canvas completo de Materiales El Roble como referencia. Completa los bloques con tu propio ecosistema y descarga el resultado como PDF.</p>
+
+  <div class="cv-toolbar">
+    <div class="cv-progress-info">
+      <div class="cv-prog-count"><span id="cv3-count">0</span>/ 8 bloques</div>
+      <div class="cv-prog-bar-wrap"><div class="cv-prog-bar-fill" id="cv3-prog-fill"></div></div>
+    </div>
+    <div class="cv-actions">
+      <button class="cv-btn-clear" onclick="cvClear()">Limpiar</button>
+      <button class="cv-btn-pdf" id="cv3-pdf-btn" onclick="cvDownloadPDF()" disabled>↓ Descargar PDF</button>
+    </div>
+  </div>
+
+  <div class="cv-main-layout">
+
+    <!-- Canvas a completar -->
+    <div>
+      <div id="cv3-canvas">
+        <div class="cv-canvas-header">
+          <div>
+            <div class="cv-canvas-title">Canvas Arquitectónico de Ecosistemas de Valor</div>
+            <div class="cv-canvas-subtitle">La Arquitectura de los Ecosistemas de Valor — Diego Schain</div>
+          </div>
+          <input class="cv-ecosystem-input" id="cv3-ecosystem" placeholder="Nombre del ecosistema" oninput="cvUpdateProgress()">
+        </div>
+
+        <div class="cv-grid">
+
+          <div class="cv-block" id="cvb3-1">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">1</div>
+            <div class="cv-block-label">Propuesta de valor sistémico</div>
+            <textarea class="cv-textarea" id="cv3-1" oninput="cvBlockUpdate(1)"
+              placeholder="¿Qué valor existe solo cuando el sistema funciona como un todo?
+
+Ej: acceso a crédito, logística integrada y catálogo técnico que ningún actor de la cadena podría ofrecer de forma aislada."></textarea>
+          </div>
+
+          <div class="cv-block" id="cvb3-2">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">2</div>
+            <div class="cv-block-label">Actores clave y roles</div>
+            <textarea class="cv-textarea" id="cv3-2" oninput="cvBlockUpdate(2)"
+              placeholder="¿Quién es focal, complementador, infraestructura?
+
+Ej: actor focal (nosotros), contratistas locales (complementadores), proveedores de materiales (infraestructura), clientes finales (demanda agregada)."></textarea>
+          </div>
+
+          <div class="cv-block" id="cvb3-3">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">3</div>
+            <div class="cv-block-label">Interdependencias críticas</div>
+            <textarea class="cv-textarea" id="cv3-3" oninput="cvBlockUpdate(3)"
+              placeholder="¿Qué vínculos, si se cortaran, harían inviable el sistema?
+
+Ej: crédito a contratistas (sin él no pueden operar), acceso a catálogo técnico (sin él pierden competitividad), recomendaciones de contratistas (sin ellas perdemos tráfico cualificado)."></textarea>
+          </div>
+
+          <div class="cv-block" id="cvb3-4">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">4</div>
+            <div class="cv-block-label">Estándares e interfaces</div>
+            <textarea class="cv-textarea" id="cv3-4" oninput="cvBlockUpdate(4)"
+              placeholder="¿Sobre qué definiciones comunes se apoya la coordinación?
+
+Ej: sistema de crédito propio como protocolo de confianza, catálogo técnico como lenguaje común entre contratistas y clientes, red de despacho como interfaz logística compartida."></textarea>
+          </div>
+
+          <div class="cv-block cv-block-center" id="cvb3-5">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">5</div>
+            <div class="cv-block-label" style="color:var(--warm,#c8a882);">Posición arquitectónica</div>
+            <textarea class="cv-textarea" id="cv3-5" oninput="cvBlockUpdate(5)"
+              placeholder="¿Cuál es tu rol en la coordinación? ¿Qué cuadrante ocupas?
+
+Ej: Infraestructura Estructural. IDA estimado 0.42. Los contratistas no pueden sustituirnos en el horizonte de 12 meses sin pérdida operativa severa. Nuestra baja dependencia del sistema nos da libertad arquitectónica."></textarea>
+          </div>
+
+          <div class="cv-block" id="cvb3-6">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">6</div>
+            <div class="cv-block-label">Palancas de diseño</div>
+            <textarea class="cv-textarea" id="cv3-6" oninput="cvBlockUpdate(6)"
+              placeholder="¿Qué puedes realmente diseñar o influir?
+
+Ej: condiciones del crédito (tasa, plazo, cupo), política de catálogo (qué incluir y con qué márgenes), red de despacho (zonas y tiempos), estándares de certificación para nuevos contratistas."></textarea>
+          </div>
+
+          <div class="cv-block" id="cvb3-7">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">7</div>
+            <div class="cv-block-label">Riesgos arquitectónicos</div>
+            <textarea class="cv-textarea" id="cv3-7" oninput="cvBlockUpdate(7)"
+              placeholder="¿Dónde puede romperse la arquitectura?
+
+Ej: entrada de distribuidor nacional con crédito subsidiado (alternativa emergente), sobre-extracción de márgenes que erosiona lealtad de contratistas, pérdida de capacidad logística en zonas clave."></textarea>
+          </div>
+
+          <div class="cv-block" id="cvb3-8">
+            <div class="cv-check"></div>
+            <div class="cv-block-num">8</div>
+            <div class="cv-block-label">Ambición de posición futura</div>
+            <textarea class="cv-textarea" id="cv3-8" oninput="cvBlockUpdate(8)"
+              placeholder="¿Qué rol arquitectónico quieres jugar en 3–5 años?
+
+Ej: consolidar posición de Infraestructura Estructural ampliando el sistema de crédito a nuevos gremios, desarrollar plataforma digital de gestión de obras como nueva capa de coordinación, elevar IDA hacia 0.55–0.60."></textarea>
+          </div>
+
+          <div class="cv-block cv-block-meta">
+            <div class="cv-block-num" style="color:rgba(200,168,130,0.18);font-size:1.4rem;">◆</div>
+            <div class="cv-block-label">Sesión de trabajo</div>
+            <textarea class="cv-textarea" id="cv3-meta" oninput="cvUpdateProgress()"
+              style="border-top-color:rgba(200,168,130,0.15);"
+              placeholder="Equipo, fecha y contexto de este ejercicio.
+
+Ej: Comité estratégico — marzo 2026. Contexto: revisión de posición post-expansión regional."></textarea>
+          </div>
+
+        </div>
+
+        <div class="cv-canvas-footer">
+          <span class="cv-footer-note">«Quien diseña la coordinación, diseña el poder.»</span>
+          <span class="cv-footer-brand">La Arquitectura de los Ecosistemas de Valor — valueecosystems.net</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel lateral: El Roble como referencia -->
+    <div class="cv-ref-panel">
+      <div class="cv-ref-header">
+        <div class="cv-ref-eyebrow">Caso de referencia — Cap. 9</div>
+        <div class="cv-ref-title">Materiales El Roble</div>
+        <div class="cv-ref-subtitle">Canvas completo — Momento 2 · IDA 0.42</div>
+      </div>
+
+      <div class="cv-ref-body">
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">1 — Propuesta de valor sistémico</div>
+          <div class="cv-ref-block-text">Acceso integrado a materiales, crédito y asesoría técnica que permite a los contratistas locales operar proyectos que no podrían financiar ni gestionar de forma independiente.</div>
+        </div>
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">2 — Actores clave y roles</div>
+          <div class="cv-ref-block-text">El Roble como actor focal. Contratistas locales como complementadores (generan demanda y reputación). Clientes finales como demanda agregada. Proveedores mayoristas como infraestructura de abastecimiento.</div>
+        </div>
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">3 — Interdependencias críticas</div>
+          <div class="cv-ref-block-text">Línea de crédito a contratistas (sin ella, los contratistas no pueden aceptar obras de mayor escala). Catálogo técnico (sin él, los contratistas pierden competitividad frente a grandes distribuidores). Red de recomendación mutua (sin ella, El Roble pierde tráfico cualificado).</div>
+        </div>
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">4 — Estándares e interfaces</div>
+          <div class="cv-ref-block-text">Sistema de crédito propio como protocolo de confianza entre actores. Catálogo técnico como lenguaje común. Red de despacho como interfaz logística que todos dan por sentada.</div>
+        </div>
+
+        <div class="cv-ref-block" style="background:rgba(200,168,130,0.06); border-left:2px solid rgba(200,168,130,0.3);">
+          <div class="cv-ref-block-label" style="color:var(--warm,#c8a882);">5 — Posición arquitectónica</div>
+          <div class="cv-ref-block-text" style="color:rgba(245,243,240,0.65);">Infraestructura Estructural. IDA ajustado 0.42. Los contratistas no pueden sustituir a El Roble en menos de 12 meses sin pérdida operativa severa. La posición descansa en la co-especialización acumulada, no en el precio.</div>
+        </div>
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">6 — Palancas de diseño</div>
+          <div class="cv-ref-block-text">Condiciones del crédito (cupo, plazo, tasa). Política de catálogo (qué incluir y con qué margen). Zonas y tiempos de despacho. Estándares de admisión para nuevos contratistas al sistema.</div>
+        </div>
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">7 — Riesgos arquitectónicos</div>
+          <div class="cv-ref-block-text">Entrada de distribuidor nacional con crédito subsidiado (alternativa emergente). Sobre-extracción de márgenes que erosiona la lealtad de los contratistas. Pérdida de capacidad logística en zonas donde la presencia es débil.</div>
+        </div>
+
+        <div class="cv-ref-block">
+          <div class="cv-ref-block-label">8 — Ambición de posición futura</div>
+          <div class="cv-ref-block-text">Ampliar el sistema de crédito a nuevos gremios (electricistas, gasistas). Desarrollar plataforma digital de gestión de obras como nueva capa de coordinación. Objetivo: elevar IDA hacia 0.55–0.60 en 5 años.</div>
+        </div>
+
+      </div>
+
+      <div class="cv-ref-footer">
+        <div class="cv-ref-footer-text">Este canvas corresponde al Momento 2 de El Roble, cuando la ferretería ya había construido su posición arquitectónica. En el Momento 1, su IDA era 0.02.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cv-toast" id="cv3-toast"></div>
+</section>
+
+<!-- Las librerías de PDF se cargan dinámicamente al hacer clic en Descargar -->
+<script>
+(function(){
+'use strict';
+var TOTAL=8;
+
+window.cvBlockUpdate=function(n){
+  var ta=document.getElementById('cv3-'+n);
+  var bl=document.getElementById('cvb3-'+n);
+  if(!ta||!bl) return;
+  bl.classList.toggle('filled',ta.value.trim().length>0);
+  cvUpdateProgress();
+};
+
+window.cvUpdateProgress=function(){
+  var count=0;
+  for(var i=1;i<=TOTAL;i++){var ta=document.getElementById('cv3-'+i);if(ta&&ta.value.trim().length>0)count++;}
+  var ce=document.getElementById('cv3-count');
+  var fe=document.getElementById('cv3-prog-fill');
+  var pb=document.getElementById('cv3-pdf-btn');
+  if(ce) ce.textContent=count;
+  if(fe) fe.style.width=(count/TOTAL*100)+'%';
+  if(pb) pb.disabled=count===0;
+};
+
+window.cvClear=function(){
+  if(!confirm('¿Limpiar todos los bloques del Canvas?')) return;
+  for(var i=1;i<=TOTAL;i++){
+    var ta=document.getElementById('cv3-'+i);
+    var bl=document.getElementById('cvb3-'+i);
+    if(ta) ta.value='';
+    if(bl) bl.classList.remove('filled');
+  }
+  ['cv3-meta','cv3-ecosystem'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  cvUpdateProgress();
+};
+
+function cvToast(msg){
+  var t=document.getElementById('cv3-toast');
+  if(!t) return;
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+function cvLoadLib(src,cb){
+  var s=document.createElement('script');
+  s.src=src;
+  s.onload=function(){cb(null);};
+  s.onerror=function(){cb(new Error('Error cargando '+src));};
+  document.head.appendChild(s);
+}
+
+function cvDoRender(btn){
+  if(btn) btn.textContent='Generando...';
+  var canvasEl=document.getElementById('cv3-canvas');
+  if(!canvasEl){if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}return;}
+  var tas=canvasEl.querySelectorAll('textarea');
+  var origH=[];
+  tas.forEach(function(ta,i){origH[i]=ta.style.height;ta.style.height=ta.scrollHeight+'px';});
+  var jsPDF_lib=window.jspdf?window.jspdf.jsPDF:(window.jsPDF||null);
+  html2canvas(canvasEl,{scale:2,useCORS:true,backgroundColor:'#f9f8f6',logging:false})
+  .then(function(cvs){
+    tas.forEach(function(ta,i){ta.style.height=origH[i];});
+    var imgData=cvs.toDataURL('image/png');
+    var imgW=cvs.width,imgH=cvs.height;
+    if(!jsPDF_lib){
+      var link=document.createElement('a');
+      link.download='Canvas_Arquitectonico.png';link.href=imgData;link.click();
+      if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}
+      cvToast('Descargado como imagen PNG');return;
+    }
+    var orient=imgW>imgH?'landscape':'portrait';
+    var pdf=new jsPDF_lib({orientation:orient,unit:'mm',format:'a3'});
+    var pw=pdf.internal.pageSize.getWidth(),ph=pdf.internal.pageSize.getHeight(),m=8;
+    var ratio=Math.min((pw-m*2)/(imgW/2),(ph-m*2)/(imgH/2));
+    var fw=(imgW/2)*ratio,fh=(imgH/2)*ratio;
+    pdf.addImage(imgData,'PNG',m+(pw-m*2-fw)/2,m+(ph-m*2-fh)/2,fw,fh);
+    var eco=document.getElementById('cv3-ecosystem');
+    var fn='Canvas_Arquitectonico'+(eco&&eco.value.trim()?'_'+eco.value.trim().replace(/\s+/g,'_'):'');
+    pdf.save(fn+'.pdf');
+    if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}
+    cvToast('Canvas descargado correctamente');
+  })
+  .catch(function(err){
+    tas.forEach(function(ta,i){ta.style.height=origH[i];});
+    console.error(err);
+    if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}
+    cvToast('Error al generar el PDF. Intenta nuevamente.');
+  });
+}
+
+window.cvDownloadPDF=function(){
+  var btn=document.getElementById('cv3-pdf-btn');
+  if(btn){btn.disabled=true;btn.textContent='Cargando...';}
+  var H2C='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+  var JSPDF='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  if(window.html2canvas&&(window.jspdf||window.jsPDF)){
+    cvDoRender(btn);
+  } else if(window.html2canvas){
+    cvLoadLib(JSPDF,function(err){
+      if(err){if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}cvToast('Error de conexión');return;}
+      cvDoRender(btn);
+    });
+  } else {
+    cvLoadLib(H2C,function(err){
+      if(err){if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}cvToast('Error de conexión');return;}
+      cvLoadLib(JSPDF,function(err2){
+        if(err2){if(btn){btn.disabled=false;btn.textContent='\u2193 Descargar PDF';}cvToast('Error de conexión');return;}
+        cvDoRender(btn);
+      });
+    });
+  }
+};
+})();
+</script>
 
 <!-- COMMUNITY -->
 <section id="community" class="sec sec-alt">
@@ -750,10 +2322,11 @@ const S = {step:0, deps:new Set(), matrix:null, impact:null, riesgo:null};
 
 // ── NAVIGATION ─────────────────────────────────────────────────────────────
 function goTo(n) {
-  if(n===1 && !S.matrix){alert('Por favor selecciona tu posición en la matriz.');return;}
-  document.getElementById('p'+S.step).classList.remove('on');
-  document.getElementById('p'+n).classList.add('on');
-  for(let i=0;i<=4;i++){const t=document.getElementById('tab-'+i);t.classList.remove('on','done');if(i<n)t.classList.add('done');else if(i===n)t.classList.add('on');}
+  var cur=document.getElementById('p'+S.step);
+  var nxt=document.getElementById('p'+n);
+  if(cur) cur.classList.remove('on');
+  if(nxt) nxt.classList.add('on');
+  for(var i=0;i<=5;i++){var t=document.getElementById('tab-'+i);if(t){t.classList.remove('on','done');if(i<n)t.classList.add('done');else if(i===n)t.classList.add('on');}}
   S.step=n;
 }
 
@@ -787,6 +2360,38 @@ function updateMap(){
     tx.setAttribute('x',p[0]);tx.setAttribute('y',p[1]<100?p[1]-r-3:p[1]+r+10);tx.setAttribute('text-anchor','middle');tx.setAttribute('font-size','7');tx.setAttribute('fill',`rgba(245,243,240,${op*0.65})`);tx.setAttribute('font-family','Jost,sans-serif');tx.textContent=names[i];nodes.appendChild(tx);
   });
 }
+
+// ── PATRONES ───────────────────────────────────────────────────────────────
+var PAT_DATA = {
+  monopolio:{name:'Monopolio de Orquestación',impl:'Tu sistema está organizado en torno a un actor que controla la capa de coordinación de forma estructural. La pregunta estratégica no es si esa posición es legítima, sino cuánto valor puede capturarse antes de que la percepción de injusticia active la formación de alternativas. La gobernanza y la distribución de valor son los activos más frágiles de esta posición.'},
+  contestacion:{name:'Contestación Arquitectónica',impl:'Tu sistema está en transición. El poder del orquestador actual ya no es incontestado y existe una arquitectura alternativa en construcción. El momento estratégico clave es ahora: antes de que la alternativa alcance masa crítica. La pregunta es si el orquestador actual puede rediseñar sus condiciones lo suficientemente rápido para hacer innecesaria la alternativa.'},
+  captura:{name:'Captura Progresiva',impl:'La dependencia de tu organización respecto al sistema ha crecido de forma gradual hasta volverse estructural. El riesgo no es inmediato pero sí real: cualquier cambio unilateral en las reglas del sistema te afecta sin que puedas responder simétricamente. El movimiento clave es identificar en qué dimensión puedes construir influencia arquitectónica antes de que la captura sea total.'},
+  emergencia:{name:'Emergencia Arquitectónica',impl:'Tu organización está construyendo poder arquitectónico sin mandato formal. Ese proceso es lento pero sostenible si se gestiona bien. El riesgo principal es la invisibilidad: si otros actores no reconocen tu función de coordinación, no te defenderán cuando llegue la presión. Hacer visible tu centralidad — sin ser percibido como amenaza — es el equilibrio más difícil de mantener.'},
+  colapso:{name:'Colapso por Deserción',impl:'La arquitectura de incentivos de tu sistema está empujando a los actores a comportamientos que, en agregado, destruyen el sistema que todos necesitan. El problema no es la mala fe de ningún actor: es el diseño. El rediseño de incentivos requiere un actor con suficiente legitimidad para proponer reglas que todos acepten. Identificar quién puede jugar ese rol es la primera decisión arquitectónica urgente.'}
+};
+var S_patron = null;
+
+window.selPat = function(key, el) {
+  S_patron = key;
+  // Desseleccionar todas
+  document.querySelectorAll('.pat-card').forEach(function(c){c.classList.remove('pat-selected');});
+  document.querySelectorAll('.pat-sel-dot').forEach(function(d){d.classList.remove('pat-dot-on');});
+  // Seleccionar esta
+  el.classList.add('pat-selected');
+  var dot = document.getElementById('dot-'+key);
+  if(dot) dot.classList.add('pat-dot-on');
+  // Mostrar resultado
+  var d = PAT_DATA[key];
+  var pr = document.getElementById('pat-result');
+  var prn = document.getElementById('pat-result-name');
+  var pri = document.getElementById('pat-result-impl');
+  if(prn) prn.textContent = d.name;
+  if(pri) pri.textContent = d.impl;
+  if(pr) pr.style.display = 'block';
+  // Activar botón
+  var pb = document.getElementById('pat-btn-next');
+  if(pb){pb.style.opacity='1';pb.style.pointerEvents='all';}
+};
 
 // ── DEPENDENCIES ───────────────────────────────────────────────────────────
 function toggleDep(el,k){el.classList.toggle('on');S.deps.has(k)?S.deps.delete(k):S.deps.add(k);}
@@ -858,82 +2463,79 @@ function drawRadar(scores){
 }
 
 // ── GENERATE RESULT ────────────────────────────────────────────────────────
-async function genResult(){
-  goTo(4);
-  const loading=document.getElementById('loading');
-  const res=document.getElementById('res');
-  loading.classList.add('on');
-  res.classList.remove('on');
+function genResult(){
+  goTo(5);
+  var loading=document.getElementById('loading');
+  var res=document.getElementById('res');
+  if(loading) loading.classList.add('on');
+  if(res) res.classList.remove('on');
 
-  const eco=Math.round((+document.getElementById('s0').value + +document.getElementById('s1').value + +document.getElementById('s2').value)/3);
-  const inc=Math.round((+document.getElementById('sg0').value + +document.getElementById('sg1').value + +document.getElementById('sg2').value)/3);
-  const posScore={capturado:4,orquestador:7,independiente:5,infraestructura:9}[S.matrix]||5;
-  const cvCount=[1,2,3,4,5,6,7,8].filter(i=>{const e=document.getElementById('cv'+i);return e&&e.value.trim().length>0;}).length;
-  const ecoType=eco<=3?'Red de proveedores':eco<=6?'Ecosistema en formación':'Ecosistema estructurado';
-  const stability=inc<=3?'Frágil':inc<=6?'Moderada':'Robusta';
-  const posLabel={capturado:'Participante Capturado',orquestador:'Orquestador del Sistema',independiente:'Actor Independiente',infraestructura:'Infraestructura Estructural'}[S.matrix]||'No definida';
-  const cv1=document.getElementById('cv1')?.value.trim()||'';
-  const cv6=document.getElementById('cv6')?.value.trim()||'';
-  const cv8=document.getElementById('cv8')?.value.trim()||'';
-  const deps=Array.from(S.deps).join(', ')||'no especificadas';
+  var s0=document.getElementById('s0'), s1=document.getElementById('s1'), s2=document.getElementById('s2');
+  var sg0=document.getElementById('sg0'), sg1=document.getElementById('sg1'), sg2=document.getElementById('sg2');
+  var eco=s0&&s1&&s2?Math.round((+s0.value + +s1.value + +s2.value)/3):5;
+  var inc=sg0&&sg1&&sg2?Math.round((+sg0.value + +sg1.value + +sg2.value)/3):5;
+  var posMap={capturado:4,orquestador:7,independiente:5,infraestructura:9};
+  var posScore=posMap[S.matrix]||5;
+  var cvCount=0;
+  for(var ci=1;ci<=8;ci++){var ce=document.getElementById('cv'+ci);if(ce&&ce.value.trim().length>0)cvCount++;}
+  var ecoType=eco<=3?'Red de proveedores':eco<=6?'Ecosistema en formación':'Ecosistema estructurado';
+  var stability=inc<=3?'Frágil':inc<=6?'Moderada':'Robusta';
+  var posLabelMap={capturado:'Participante Capturado',orquestador:'Orquestador del Sistema',independiente:'Actor Independiente',infraestructura:'Infraestructura Estructural'};
+  var posLabel=posLabelMap[S.matrix]||'No definida';
 
-  const prompt=`Eres un asesor estratégico experto en arquitectura de ecosistemas, basado en el framework del libro "La Arquitectura de los Ecosistemas de Valor" de Diego Schain (tesis: "Quien diseña la coordinación, diseña el poder.").
-
-Un equipo directivo completó el diagnóstico arquitectónico:
-- Tipo de sistema: ${ecoType} (densidad promedio: ${eco}/10)
-- Dependencias presentes: ${deps}
-- Posición arquitectónica: ${posLabel}
-- Estabilidad de incentivos: ${stability} (promedio: ${inc}/10)
-- Riesgo principal identificado: ${S.riesgo||'no especificado'}
-- Propuesta de valor sistémico: ${cv1||'no completado'}
-- Palancas de diseño: ${cv6||'no completado'}
-- Ambición futura: ${cv8||'no completado'}
-
-Genera un análisis en español de 4-5 párrafos que:
-1. Interprete qué tipo de sistema tienen y qué implica estratégicamente
-2. Analice su posición arquitectónica y los riesgos específicos que implica
-3. Evalúe la estabilidad de incentivos y el riesgo más crítico
-4. Identifique 2-3 palancas de diseño concretas y priorizadas
-5. Cierre con una pregunta estratégica clave que deberían responder en las próximas semanas
-
-Usa lenguaje directo y ejecutivo. Interpreta los datos, no los repitas. Responde en español.`;
-
-  try {
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
-    const data=await resp.json();
-    const text=data.content?.find(b=>b.type==='text')?.text||'';
-    loading.classList.remove('on');
-    renderResult(posLabel,ecoType,stability,eco,inc,posScore,cvCount,text);
-  } catch(e){
-    loading.classList.remove('on');
-    renderResult(posLabel,ecoType,stability,eco,inc,posScore,cvCount,'');
-  }
+  setTimeout(function(){
+    if(loading) loading.classList.remove('on');
+    renderResult(posLabel,ecoType,stability,eco,inc,posScore,cvCount);
+  }, 800);
 }
 
-function renderResult(posLabel,ecoType,stability,eco,inc,posScore,cvCount,aiText){
-  document.getElementById('res-title').textContent=posLabel+' · '+ecoType;
-  document.getElementById('res-sub').textContent='Diagnóstico basado en los cuatro marcos analíticos de La Arquitectura de los Ecosistemas de Valor';
-  document.getElementById('res-scores').innerHTML=`<div class="score"><div class="score-n">${eco}/10</div><div class="score-l">Densidad del ecosistema</div></div><div class="score"><div class="score-n">${inc}/10</div><div class="score-l">Estabilidad de incentivos</div></div><div class="score"><div class="score-n">${stability}</div><div class="score-l">Resiliencia sistémica</div></div>`;
-  drawRadar({eco,pos:posScore,inc,cv:cvCount*1.25});
-  if(aiText){
-    document.getElementById('res-body').innerHTML=aiText.split('\n\n').filter(p=>p.trim()).map(p=>`<p>${p.trim()}</p>`).join('');
-  } else {
-    const POS_ANALYSIS={capturado:{r:'Alta dependencia del sistema, baja influencia arquitectónica. Tu organización es vulnerable a cambios unilaterales en las reglas del sistema.',m:'Construir gradualmente influencia de segundo orden: identificar estándares o interfaces donde sea posible proponer definiciones que otros adopten.'},orquestador:{r:'Alta dependencia y alta influencia, pero apoyado en arquitecturas que otros diseñan en capas más profundas.',m:'Profundizar el control de datos propios sobre el comportamiento del sistema para negociar desde posición más simétrica.'},independiente:{r:'Resiliencia estructural alta pero riesgo de invisibilidad como commodity.',m:'Hacer explícita la centralidad: construir gobernanza visible alrededor de la función crítica.'},infraestructura:{r:'Posición de mayor solidez. El riesgo principal es la sobre-extracción de valor.',m:'Diseñar gobernanza que distribuya suficiente valor para que el sistema quiera seguir existiendo con este arquitecto.'}};
-    const pa=POS_ANALYSIS[S.matrix]||{r:'Posición no definida.',m:'Define primero tu posición en el sistema.'};
-    document.getElementById('res-body').innerHTML=`<p><strong>Tipo de sistema — ${ecoType}:</strong> ${eco<=5?'El análisis sugiere que el valor se crea principalmente a través de transacciones bilaterales. Antes de diseñar arquitecturas complejas, verifica si existen las tres condiciones básicas: co-especialización, interdependencia funcional y arquitectura de coordinación.':'Las tres condiciones del ecosistema están presentes con densidad significativa. El desafío es diseñar conscientemente las interdependencias en lugar de dejar que se formen por inercia.'}</p><p><strong>Posición arquitectónica — ${posLabel}:</strong> ${pa.r}</p><p><strong>Movimiento recomendado:</strong> ${pa.m}</p><p><strong>Estabilidad de incentivos — ${stability}:</strong> ${inc<=4?'La arquitectura de incentivos presenta fragilidades estructurales. El primer paso es identificar qué cambio en las reglas haría que cooperar fuera la estrategia dominante.':inc<=7?'La arquitectura es funcional pero tiene tensiones. Mapea qué actores perciben que reciben menos de lo que aportan — esa percepción es el origen de la contestación futura.':'La arquitectura de incentivos es robusta. El riesgo en esta posición es la sobre-confianza: los sistemas estables tienden a acumular inercia y resistir el rediseño cuando el entorno cambia.'}</p>`;
+function renderResult(posLabel,ecoType,stability,eco,inc,posScore,cvCount){
+  var rtEl=document.getElementById('res-title');
+  var rsEl=document.getElementById('res-sub');
+  var rscEl=document.getElementById('res-scores');
+  var rbEl=document.getElementById('res-body');
+  if(rtEl) rtEl.textContent=posLabel+' · '+ecoType;
+  if(rsEl) rsEl.textContent='Diagnóstico basado en los cuatro marcos analíticos de La Arquitectura de los Ecosistemas de Valor';
+  if(rscEl) rscEl.innerHTML='<div class="score"><div class="score-n">'+eco+'/10</div><div class="score-l">Densidad del ecosistema</div></div><div class="score"><div class="score-n">'+inc+'/10</div><div class="score-l">Estabilidad de incentivos</div></div><div class="score"><div class="score-n">'+stability+'</div><div class="score-l">Resiliencia sistémica</div></div>';
+  drawRadar({eco:eco,pos:posScore,inc:inc,cv:cvCount*1.25});
+  var POS_ANALYSIS={
+    capturado:{r:'Alta dependencia del sistema, baja influencia arquitectónica. Tu organización es vulnerable a cambios unilaterales en las reglas del sistema.',m:'Construir gradualmente influencia de segundo orden: identificar estándares o interfaces donde sea posible proponer definiciones que otros adopten.'},
+    orquestador:{r:'Alta dependencia y alta influencia, pero apoyado en arquitecturas que otros diseñan en capas más profundas.',m:'Profundizar el control de datos propios sobre el comportamiento del sistema para negociar desde posición más simétrica.'},
+    independiente:{r:'Resiliencia estructural alta pero riesgo de invisibilidad como commodity.',m:'Hacer explícita la centralidad: construir gobernanza visible alrededor de la función crítica.'},
+    infraestructura:{r:'Posición de mayor solidez. El riesgo principal es la sobre-extracción de valor.',m:'Diseñar gobernanza que distribuya suficiente valor para que el sistema quiera seguir existiendo con este arquitecto.'}
+  };
+  var pa=POS_ANALYSIS[S.matrix]||{r:'Posición no definida.',m:'Define primero tu posición en el sistema.'};
+  var ecoText=eco<=5?'El análisis sugiere que el valor se crea principalmente a través de transacciones bilaterales. Antes de diseñar arquitecturas complejas, verifica si existen las tres condiciones básicas: co-especialización, interdependencia funcional y arquitectura de coordinación.':'Las tres condiciones del ecosistema están presentes con densidad significativa. El desafío es diseñar conscientemente las interdependencias en lugar de dejar que se formen por inercia.';
+  var incText=inc<=4?'La arquitectura de incentivos presenta fragilidades estructurales. El primer paso es identificar qué cambio en las reglas haría que cooperar fuera la estrategia dominante.':inc<=7?'La arquitectura es funcional pero tiene tensiones. Mapea qué actores perciben que reciben menos de lo que aportan — esa percepción es el origen de la contestación futura.':'La arquitectura de incentivos es robusta. El riesgo en esta posición es la sobre-confianza: los sistemas estables tienden a acumular inercia y resistir el rediseño cuando el entorno cambia.';
+  var patronHtml='';
+  if(S_patron && PAT_DATA[S_patron]){
+    var pd=PAT_DATA[S_patron];
+    patronHtml='<p><strong>Patrón dominante — '+pd.name+':</strong> '+pd.impl+'</p>';
   }
-  document.getElementById('res').classList.add('on');
+  if(rbEl) rbEl.innerHTML='<p><strong>Tipo de sistema — '+ecoType+':</strong> '+ecoText+'</p><p><strong>Posición arquitectónica — '+posLabel+':</strong> '+pa.r+'</p><p><strong>Movimiento recomendado:</strong> '+pa.m+'</p><p><strong>Estabilidad de incentivos — '+stability+':</strong> '+incText+'</p>'+patronHtml;
+  var resEl=document.getElementById('res');
+  if(resEl) resEl.classList.add('on');
 }
 
 function resetDiag(){
-  S.step=0;S.deps.clear();S.matrix=null;S.impact=null;S.riesgo=null;
-  for(let i=0;i<=4;i++){document.getElementById('p'+i).classList.remove('on');const t=document.getElementById('tab-'+i);t.classList.remove('on','done');}
-  document.getElementById('p0').classList.add('on');document.getElementById('tab-0').classList.add('on');
-  document.getElementById('loading').classList.remove('on');document.getElementById('res').classList.remove('on');
-  ['s0','s1','s2','sg0','sg1','sg2'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=5;});
-  ['v0','v1','v2'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='5';});
-  ['ga0','ga1','ga2'].forEach((id,i)=>{updGauge(id,'gv'+i,5);});
-  updStab();updateMap();
+  S.step=0; S.deps.clear(); S.matrix=null; S.impact=null; S.riesgo=null; S.patron=null;
+  for(var ri=0;ri<=5;ri++){
+    var rp=document.getElementById('p'+ri); if(rp) rp.classList.remove('on');
+    var rt=document.getElementById('tab-'+ri); if(rt) rt.classList.remove('on','done');
+  }
+  var p0=document.getElementById('p0'); if(p0) p0.classList.add('on');
+  var t0=document.getElementById('tab-0'); if(t0) t0.classList.add('on');
+  var ld=document.getElementById('loading'); if(ld) ld.classList.remove('on');
+  var rs=document.getElementById('res'); if(rs) rs.classList.remove('on');
+  ['s0','s1','s2','sg0','sg1','sg2'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=5;});
+  ['v0','v1','v2'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='5';});
+  ['ga0','ga1','ga2'].forEach(function(id,i){updGauge(id,'gv'+i,5);});
+  updStab(); updateMap();
+  // Limpiar patrón
+  document.querySelectorAll('.pat-card').forEach(function(c){c.classList.remove('pat-selected');});
+  document.querySelectorAll('.pat-sel-dot').forEach(function(d){d.classList.remove('pat-dot-on');});
+  var pr=document.getElementById('pat-result'); if(pr) pr.style.display='none';
+  var pb=document.getElementById('pat-btn-next'); if(pb){pb.style.opacity='0.35';pb.style.pointerEvents='none';}
   document.querySelectorAll('.opt').forEach(o=>o.classList.remove('on'));
   document.querySelectorAll('.mc').forEach(c=>c.classList.remove('on'));
   document.querySelectorAll('.vmc').forEach(c=>c.classList.remove('hl'));
