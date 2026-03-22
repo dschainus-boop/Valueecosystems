@@ -1523,6 +1523,12 @@ document.addEventListener('DOMContentLoaded', function(){
         <div class="ida-interp-text" id="ida-interp-text"></div>
       </div>
 
+      <div id="ida-reset-wrap" style="display:none;margin-top:1.5rem;">
+        <button onclick="idaReset()" class="tip-restart-btn" style="width:100%;justify-content:center;padding:0.75rem 1rem;font-size:0.8rem;">
+          ↺ &nbsp;Reiniciar cálculo
+        </button>
+      </div>
+
     </div>
   </div>
   </div><!-- /acc-body ida -->
@@ -1764,6 +1770,8 @@ function idaUpdateResult() {
     if (userBar) userBar.style.width = '0%';
     if (userVal) userVal.textContent = '—';
     if (interp) interp.style.display = 'none';
+    var resetWrap = document.getElementById('ida-reset-wrap');
+    if (resetWrap) resetWrap.style.display = 'none';
     return;
   }
 
@@ -1796,7 +1804,28 @@ function idaUpdateResult() {
   }
   if (interpText) interpText.textContent = text;
   if (interp) interp.style.display = 'block';
+
+  // Mostrar botón de reinicio cuando hay resultado
+  var resetWrap = document.getElementById('ida-reset-wrap');
+  if (resetWrap) resetWrap.style.display = 'block';
 }
+
+/* ── Reiniciar cálculo IDA ── */
+function idaReset() {
+  actors = [];
+  var wrap = document.getElementById('ida-actors-wrap');
+  if (wrap) wrap.innerHTML = '';
+  var resetWrap = document.getElementById('ida-reset-wrap');
+  if (resetWrap) resetWrap.style.display = 'none';
+  // Restaurar estado inicial: 2 actores vacíos
+  if (typeof idaAddActor === 'function') { idaAddActor(); idaAddActor(); }
+  idaUpdateResult();
+  idaUpdateTable();
+  // Volver al inicio del desplegable
+  var section = document.getElementById('ida-section');
+  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.idaReset = idaReset;
 
 /* ── Actualizar tabla ── */
 function idaUpdateTable() {
