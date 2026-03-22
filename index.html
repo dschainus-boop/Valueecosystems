@@ -56,7 +56,7 @@ h1 em{font-style:italic;color:var(--warm);}
 .sec-lead{font-size:0.88rem;color:var(--mist);line-height:1.85;max-width:60ch;margin-bottom:3rem;}
 
 /* FRAMEWORK */
-.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);}
+.parts{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);}
 .part{background:var(--white);padding:2.5rem 2rem;transition:all 0.3s;cursor:default;}
 .part:hover{background:var(--charcoal);}
 .part:hover .part-n,.part:hover .part-title,.part:hover .part-body{color:var(--pearl) !important;}
@@ -269,6 +269,9 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;}
 .footer-copy{font-size:0.7rem;color:rgba(245,243,240,0.25);}
 
+@media(min-width:1025px) and (max-width:1280px){
+  .parts{grid-template-columns:repeat(2,1fr);}
+}
 /* RESPONSIVE */
 @media(max-width:1024px){
   nav{padding:1rem 2rem;}
@@ -315,6 +318,52 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
 @keyframes accIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:1024px){.acc-header{padding:2rem 2.5rem;}.acc-body{padding:0 2.5rem 2.5rem;}}
 @media(max-width:640px){.acc-header{padding:1.5rem;}.acc-body{padding:0 1.5rem 2rem;}}
+
+/* ── TIPOLOGÍA: COMPONENTE ─────────────────────── */
+.tip-diag{padding:0.5rem 0 2rem;}
+.tip-progress{display:flex;gap:4px;margin-bottom:2rem;}
+.tip-progress-seg{flex:1;height:2px;border-radius:2px;background:rgba(255,255,255,0.08);transition:background 0.35s;}
+.tip-progress-seg.done{background:var(--warm);}
+.tip-progress-seg.active{background:rgba(200,168,130,0.45);}
+.tip-q-screen{display:none;}
+.tip-q-screen.visible{display:block;animation:fi 0.28s ease both;}
+.tip-q-dimension{display:inline-block;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,243,240,0.35);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:3px 10px;margin-bottom:1rem;}
+.tip-q-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;line-height:1.5;margin-bottom:1.4rem;color:var(--pearl);}
+.tip-options{display:flex;flex-direction:column;gap:8px;}
+.tip-opt{display:flex;align-items:flex-start;gap:12px;padding:12px 15px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;background:rgba(255,255,255,0.02);cursor:pointer;font-size:0.81rem;line-height:1.55;color:rgba(245,243,240,0.62);text-align:left;transition:border-color 0.15s,background 0.15s;-webkit-tap-highlight-color:transparent;}
+.tip-opt:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.18);}
+.tip-opt.selected{border-color:var(--warm);background:rgba(200,168,130,0.07);color:var(--pearl);}
+.tip-opt-dot{width:15px;height:15px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:background 0.15s,border-color 0.15s;}
+.tip-opt.selected .tip-opt-dot{background:var(--warm);border-color:var(--warm);}
+.tip-opt.selected .tip-opt-dot::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--charcoal);}
+.tip-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.4rem;}
+.tip-counter{font-size:0.7rem;color:rgba(245,243,240,0.28);}
+.tip-next-btn{padding:9px 22px;border-radius:3px;border:1px solid var(--warm);background:var(--warm);color:var(--charcoal);font-size:0.82rem;font-weight:600;cursor:pointer;transition:opacity 0.15s;}
+.tip-next-btn:disabled{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(245,243,240,0.25);cursor:default;}
+.tip-next-btn:not(:disabled):hover{opacity:0.82;}
+.tip-result{display:none;animation:fi 0.35s ease both;}
+.tip-result.visible{display:block;}
+.tip-result-top{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.tip-quadrant-icon{width:46px;height:46px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.tip-result-meta{flex:1;min-width:200px;}
+.tip-result-badge{display:inline-block;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:20px;padding:4px 10px;margin-bottom:0.4rem;font-weight:600;}
+.tip-result-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:400;margin:0 0 0.3rem;line-height:1.25;color:var(--pearl);}
+.tip-result-subtitle{font-size:0.8rem;line-height:1.65;color:rgba(245,243,240,0.52);margin:0;}
+.tip-matrix-wrap{margin:1.4rem 0;border:1px solid rgba(255,255,255,0.08);overflow:hidden;background:rgba(255,255,255,0.02);}
+.tip-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);margin-bottom:1.4rem;}
+@media(max-width:600px){.tip-result-grid{grid-template-columns:1fr;}}
+.tip-result-card{padding:1rem 1.2rem;background:rgba(255,255,255,0.03);}
+.tip-result-card-label{font-size:0.54rem;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,243,240,0.28);margin-bottom:5px;font-weight:500;}
+.tip-result-card-text{font-size:0.79rem;line-height:1.7;color:rgba(245,243,240,0.6);}
+.tip-cases-section{margin-bottom:1.4rem;}
+.tip-cases-title{font-size:0.56rem;text-transform:uppercase;letter-spacing:0.12em;color:rgba(245,243,240,0.28);font-weight:500;margin-bottom:0.8rem;}
+.tip-cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:2px;background:rgba(255,255,255,0.06);}
+.tip-case-card{padding:0.9rem 1rem;background:rgba(255,255,255,0.03);}
+.tip-case-card-cap{font-size:0.56rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:3px;opacity:0.55;}
+.tip-case-card-name{font-size:0.88rem;font-weight:500;margin-bottom:3px;line-height:1.2;color:var(--pearl);}
+.tip-case-card-desc{font-size:0.72rem;line-height:1.55;color:rgba(245,243,240,0.48);}
+.tip-restart-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid rgba(255,255,255,0.1);border-radius:3px;background:transparent;color:rgba(245,243,240,0.38);font-size:0.76rem;cursor:pointer;transition:background 0.15s,color 0.15s;}
+.tip-restart-btn:hover{background:rgba(255,255,255,0.05);color:var(--pearl);}
 </style>
 </head>
 <body>
@@ -352,35 +401,41 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
 
 <!-- STATS -->
 <div class="stats">
-  <div class="stat"><div class="stat-n">24</div><div class="stat-l">Capítulos</div></div>
+  <div class="stat"><div class="stat-n">26</div><div class="stat-l">Capítulos</div></div>
   <div class="stat"><div class="stat-n">9</div><div class="stat-l">Casos de estudio</div></div>
-  <div class="stat"><div class="stat-n">3</div><div class="stat-l">Marcos analíticos</div></div>
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">Marcos analíticos</div></div>
   <div class="stat"><div class="stat-n">1</div><div class="stat-l">Tesis central</div></div>
 </div>
 
 <!-- FRAMEWORK -->
 <section id="framework" class="sec sec-alt">
   <div class="sec-tag">Estructura del libro</div>
-  <h2 class="sec-title">Tres partes para una disciplina</h2>
-  <p class="sec-lead">El libro construye la Ingeniería de la Interdependencia en tres movimientos: desde los fundamentos conceptuales, pasando por la anatomía empírica del poder, hasta los instrumentos de diseño práctico.</p>
+  <h2 class="sec-title">Cuatro partes para una disciplina</h2>
+  <p class="sec-lead">El libro construye la Ingeniería de la Interdependencia en cuatro movimientos: desde los fundamentos conceptuales, pasando por la anatomía empírica del poder y los marcos de intervención, hasta los instrumentos concretos de trabajo colectivo.</p>
   <div class="parts">
     <div class="part">
       <div class="part-n">I</div>
       <div class="part-tag">Parte I</div>
       <div class="part-title">Fundamentos</div>
-      <p class="part-body">Disuelve la inflación del término ecosistema y reconstruye su arquitectura desde sus raíces — desde Tansley hasta Jacobides. Introduce las tres confusiones fundacionales y la tríada <em>oikos / munus / immunitas</em> como anatomía de todo sistema interdependiente.</p>
+      <p class="part-body">Disuelve la inflación del término ecosistema y reconstruye su arquitectura desde sus raíces — desde Tansley hasta Jacobides. Introduce las tres confusiones fundacionales, la tríada <em>oikos / munus / immunitas</em> y el concepto de demanda compleja como condición ontológica que explica por qué los ecosistemas existen.</p>
     </div>
     <div class="part">
       <div class="part-n">II</div>
       <div class="part-tag">Parte II</div>
       <div class="part-title">Anatomía del Poder Sistémico</div>
-      <p class="part-body">Nueve casos paradigmáticos — Salesforce, AWS, Apple, ARM, Visa, Disney, y dos casos latinoamericanos originales — analizados con el mismo lente para revelar los cinco patrones transversales del poder arquitectónico.</p>
+      <p class="part-body">Nueve casos paradigmáticos — Salesforce, AWS, Apple, ARM, Visa, Disney, y dos casos latinoamericanos originales — analizados con el mismo lente para revelar los seis patrones transversales del poder arquitectónico.</p>
     </div>
     <div class="part">
       <div class="part-n">III</div>
       <div class="part-tag">Parte III</div>
       <div class="part-title">Ingeniería de la Interdependencia</div>
-      <p class="part-body">Marcos de diagnóstico, principios de diseño y herramientas concretas — el Canvas Arquitectónico y el Laboratorio — para intervenir con conciencia en la arquitectura de los sistemas donde se compite.</p>
+      <p class="part-body">Marcos para diagnosticar, posicionar y diseñar: tipología de ecosistemas, mapa de influencia estructural, análisis de dependencias, Matriz de Posición Arquitectónica, IDA y principios de diseño para intervenir con conciencia en la arquitectura de los sistemas donde se compite.</p>
+    </div>
+    <div class="part">
+      <div class="part-n">IV</div>
+      <div class="part-tag">Parte IV</div>
+      <div class="part-title">Instrumentos de Trabajo</div>
+      <p class="part-body">La disciplina en acción: el Canvas Arquitectónico de ocho bloques y el Laboratorio Arquitectónico en tres sesiones. No son herramientas independientes — son dispositivos para estructurar conversaciones estratégicas, alinear diagnósticos y diseñar intervenciones sobre sistemas reales.</p>
     </div>
   </div>
 </section>
@@ -435,6 +490,9 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
   </div>
   <div class="acc-body" id="body-tool">
     <p class="sec-lead">Cuatro herramientas del libro aplicadas a tu contexto. Sigue la misma progresión conceptual de la obra: ver el sistema, entender tu posición, evaluar la estabilidad y diseñar la arquitectura.</p>
+
+  <!-- PANEL ARQUITECTÓNICO (contenedor original) -->
+  <div id="diag-arquitectonico">
   <div class="tool-wrap">
     <div class="tabs">
       <div class="tab on" id="tab-0"><span class="tab-n">Paso 1</span>Mapa de Interdependencias</div>
@@ -734,6 +792,7 @@ footer{background:var(--graphite);color:var(--pearl);padding:3.5rem 4rem 2rem;}
       </div>
     </div>
   </div>
+  </div><!-- /tool-wrap -->
   </div><!-- /acc-body tool -->
 </section>
 
@@ -1338,6 +1397,23 @@ document.addEventListener('DOMContentLoaded', function(){
   .ida-actor-name-input { width: 130px; }
 }
 </style>
+
+<!-- ══ SECCIÓN TIPOLOGÍA DE ECOSISTEMA ═══════════════════════════════ -->
+<section id="tipologia-section" class="acc-section">
+  <div class="acc-header" onclick="accToggle('tipologia')">
+    <div>
+      <h2 class="sec-title" style="margin-bottom:0;">Diagnóstico de Tipología de Ecosistema</h2>
+    </div>
+    <div class="acc-chevron" id="chev-tipologia">+</div>
+  </div>
+  <div class="acc-body" id="body-tipologia">
+    <p class="sec-lead">Antes de aplicar cualquier instrumento de diseño arquitectónico es necesario identificar en qué tipo de ecosistema opera tu empresa. Responde 6 preguntas para ubicar tu ecosistema en la tipología de los cuatro cuadrantes.</p>
+    <div class="tool-wrap">
+      <div id="tip-root"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ SECCIÓN IDA ═══════════════════════════════════════════════════ -->
 <section id="ida-section" class="acc-section">
@@ -2440,6 +2516,11 @@ function accToggle(id) {
       var wrap = document.getElementById('ida-actors-wrap');
       if (wrap && wrap.children.length === 0) { idaAddActor(); idaAddActor(); }
     }
+    if (id === 'tipologia') {
+      setTimeout(function(){
+        if (typeof tipRender === 'function') tipRender();
+      }, 30);
+    }
     if (id === 'tool') {
       if (typeof dpaRender === 'function') {
         var qc = document.getElementById('dpa-qcontainer');
@@ -2460,9 +2541,6 @@ function accToggle(id) {
 }
 
 function accOpen(id) {
-  var body = document.getElementById('body-'+id);
-  if (!body) return;
-  if (body.style.display !== 'block') accToggle(id);
   setTimeout(function(){
     var secId = id === 'tool' ? 'tool' : id+'-section';
     var sec = document.getElementById(secId);
@@ -2796,3 +2874,421 @@ async function submitForm(e){
   }catch(err){msg.textContent='Error de conexión. Por favor intenta nuevamente.';msg.className='form-msg err';}
   finally{btn.disabled=false;btn.textContent='Unirme a la comunidad';}
 }
+
+/* ═══════════════════════════════════════════════════════
+   DIAGNÓSTICO DE TIPOLOGÍA DE ECOSISTEMA — Cap. 17
+   Versión 3 — display inline, sin dependencia de clases CSS
+   ═══════════════════════════════════════════════════════ */
+(function(){
+
+var Q = [
+  {
+    eje: 'Apertura del espacio de demanda',
+    txt: 'Cuando tu empresa resuelve el problema central de sus clientes, ¿qué ocurre con la demanda?',
+    ax: 'a',
+    ops: [
+      {v:0, t:'El problema se cierra: el cliente queda satisfecho y no genera nuevas preguntas relacionadas.'},
+      {v:1, t:'La solución es útil, pero surgen preguntas adicionales que van más allá del problema original.'},
+      {v:2, t:'Cada solución amplía el espacio: los clientes descubren necesidades que antes no sabían que tenían.'},
+      {v:3, t:'El éxito crea más demanda de la que satisface; el problema nunca se cierra del todo.'}
+    ]
+  },
+  {
+    eje: 'Apertura del espacio de demanda',
+    txt: '¿Cómo describirías el espacio de exploración en el que opera tu empresa?',
+    ax: 'a',
+    ops: [
+      {v:0, t:'Bien delimitado: todos saben qué tipo de soluciones son relevantes y cuándo una es buena.'},
+      {v:1, t:'Relativamente claro, aunque con zonas ambiguas en los bordes.'},
+      {v:2, t:'Amplio y creciente: la tecnología o el contexto lo expanden constantemente.'},
+      {v:3, t:'Abierto y expansivo: ningún conjunto finito de soluciones puede cubrirlo.'}
+    ]
+  },
+  {
+    eje: 'Apertura del espacio de demanda',
+    txt: 'Cuando imaginas la posición ideal de tu empresa en el ecosistema dentro de 5 años, ¿qué describe mejor esa ambición?',
+    ax: 'a',
+    ops: [
+      {v:0, t:'Consolidar un estándar indispensable: que todos los actores necesiten hablar nuestro lenguaje.'},
+      {v:1, t:'Ocupar la posición de árbitro neutral: ser el actor de confianza que ningún otro puede reemplazar sin coste institucional.'},
+      {v:2, t:'Ser la arquitectura de experiencia: que la exploración colectiva de valor pase por nuestra plataforma.'},
+      {v:3, t:'Construir la infraestructura que organiza cómo otros exploran: interfaces, APIs o módulos sobre los que los demás construyen.'}
+    ]
+  },
+  {
+    eje: 'Naturaleza de la demanda',
+    txt: '¿Cómo evalúan principalmente el valor tus clientes?',
+    ax: 'n',
+    ops: [
+      {v:0, t:'Con criterios precisos y medibles: velocidad, costo, fiabilidad, interoperabilidad.'},
+      {v:1, t:'Combinando criterios funcionales con elementos de confianza o reputación.'},
+      {v:2, t:'Por legitimidad institucional: el error tiene costos altos en salud, hogar o bienestar colectivo.'},
+      {v:3, t:'Por criterios experienciales: significado, identidad, autenticidad, sentido de pertenencia.'}
+    ]
+  },
+  {
+    eje: 'Naturaleza de la demanda',
+    txt: '¿Cuál es la naturaleza principal de la tensión que tu ecosistema explora?',
+    ax: 'n',
+    ops: [
+      {v:0, t:'Optimizar eficiencia y reducir fricción en procesos bien definidos.'},
+      {v:1, t:'Garantizar estándares de calidad o seguridad donde el error tiene costo alto.'},
+      {v:2, t:'Coordinar actores con incentivos divergentes en torno a experiencias o valor simbólico.'},
+      {v:3, t:'Expandir capacidades técnicas o creativas en espacios que la tecnología abre continuamente.'}
+    ]
+  },
+  {
+    eje: 'Naturaleza de la demanda',
+    txt: '¿Qué activo habilita principalmente la posición de tu empresa en el ecosistema?',
+    ax: 'n',
+    ops: [
+      {v:0, t:'Un estándar, protocolo o lenguaje común que todos los actores necesitan para coordinarse.'},
+      {v:1, t:'La legitimidad y neutralidad: ser el actor que nadie percibe como extractor de valor.'},
+      {v:2, t:'Una narrativa, identidad o arquitectura de experiencia que organiza la exploración colectiva.'},
+      {v:3, t:'Arquitectura modular: interfaces, APIs o conjuntos de instrucciones que otros construyen sobre.'}
+    ]
+  }
+];
+
+var CUADRANTES = {
+  CF: {
+    nom: 'Cerrado + Funcional', tag: 'Eficiencia en espacio bien definido', col: '#c8a882',
+    activo: 'El estándar y el esquema de confianza. Quien define el lenguaje que todos hablan controla las condiciones de participación sin necesitar controlar cada transacción.',
+    gov: 'Reglas claras, mecanismos de certificación y estándares de interoperabilidad. La apertura viene después de la inevitabilidad.',
+    err: 'Intentar abrir el espacio de demanda antes de consolidar el estándar. Los ecosistemas que quieren ser expansivos antes de ser inevitables rara vez logran ninguna de las dos cosas.',
+    pos: 'Infraestructura estructural: define las reglas del esquema global y captura una fracción de cada transacción sin depender de ningún actor específico.',
+    casos: [{cap:'Cap. 7', nom:'Salesforce', desc:'Define el modelo de datos y la ontología del CRM empresarial. Quien adopta Salesforce adopta una gramática sobre cómo entender la realidad comercial.'},{cap:'Cap. 15', nom:'Visa', desc:'Coordinación de pagos entre actores que no se conocen, con garantías que ninguno puede ofrecer individualmente.'}]
+  },
+  CE: {
+    nom: 'Cerrado + Experiencial', tag: 'Resolución crítica con legitimidad', col: '#8fad8f',
+    activo: 'La legitimidad y la neutralidad. El orquestador que nadie percibe como extractor puede ocupar posiciones que ningún actor con intereses propios puede sostener.',
+    gov: 'Construir legitimidad a través de neutralidad y transparencia. Cualquier movimiento percibido como extractor erosiona la posición antes de consolidarla.',
+    err: 'Intentar construir posición arquitectónica mediante extracción de valor. La confianza es el activo central: perderla es perderlo todo.',
+    pos: 'Orquestador sin mandato formal: ocupa el único lugar que ningún actor con intereses propios puede sostener. Su poder proviene de la neutralidad, no del control.',
+    casos: [{cap:'Cap. 10', nom:'El Roble', desc:'Resolver los problemas del hogar de familias que no saben a quién confiar. Posición construida desde legitimidad acumulada.'},{cap:'Cap. 13', nom:'CENS', desc:'Interoperabilidad de datos de salud en un sistema donde los incentivos de cada actor apuntan a la fragmentación.'}]
+  },
+  AE: {
+    nom: 'Abierto + Experiencial', tag: 'Identidad, sentido y exploración simbólica', col: '#c4a87a',
+    activo: 'La arquitectura de destino o de narrativa. Sin activos habilitantes propios, la exploración local genera valor que capturan actores externos que controlan la capa de distribución.',
+    gov: 'Proteger la diversidad de la exploración mientras se construyen activos habilitantes que distribuyen el valor localmente, no hacia plataformas globales.',
+    err: 'Confundir riqueza de exploración con posición arquitectónica. La exploración sin arquitectura propia es generosidad involuntaria.',
+    pos: 'Orquestador de experiencia: controla la coreografía del sistema mediante activos habilitantes que hacen invisible la coordinación para el participante.',
+    casos: [{cap:'Cap. 11', nom:'Disney', desc:'Narrativa inmersiva sin fricción: la magia de las franquicias se destruye cuando la logística interrumpe la experiencia.'},{cap:'Cap. 12', nom:'Destinos turísticos', desc:'Coordinar actores con incentivos divergentes para que el valor del destino no se concentre en quienes no lo crean.'}]
+  },
+  AF: {
+    nom: 'Abierto + Funcional', tag: 'Expansivo, modular y acumulativo', col: '#b89090',
+    activo: 'Arquitectura modular. El control no está en el contenido de la demanda sino en la infraestructura que organiza cómo esa demanda es explorada.',
+    gov: 'Calibrar la apertura para maximizar la densidad de exploración sin perder el control de la arquitectura. Apertura total disuelve la posición; cierre total la asfixia.',
+    err: 'Confundir control con apertura óptima. Apple abrió la App Store a millones pero mantuvo el control de las interfaces. ARM publicó documentación pero conservó la propiedad del conjunto de instrucciones.',
+    pos: 'Infraestructura estructural técnica: define las APIs, interfaces o gramáticas dentro de las cuales todos los demás diseñan. El costo de salida se acumula en capas de integración.',
+    casos: [{cap:'Cap. 8', nom:'AWS / Microsoft', desc:'Infraestructura técnica escalable para actores que necesitan construir capacidades digitales sin reconstruir la base desde cero.'},{cap:'Cap. 9', nom:'Apple / Google', desc:'Controla las interfaces cotidianas y la capa de distribución de aplicaciones. El poder se ejerce sobre cómo se explora la demanda.'},{cap:'Cap. 14', nom:'ARM', desc:'Define la gramática —el conjunto de instrucciones— dentro de la cual todos los demás diseñan. Cambiar de ISA es cambiar el idioma de todo el código.'}]
+  }
+};
+
+var ans = {}, cur = 0;
+
+var S = {
+  WARM: '#c8a882',
+  PEARL: '#2d2d2d',
+  DIM: '#5a5956',
+  DIM2: '#8a8880',
+  BG: 'rgba(26,26,26,0.04)',
+  BG2: 'rgba(26,26,26,0.07)',
+  BORDER: '1px solid rgba(26,26,26,0.15)',
+  BORDER_W: '1px solid #c8a882'
+};
+
+function el(id){ return document.getElementById(id); }
+
+function css(el, props){
+  for(var k in props) el.style[k] = props[k];
+}
+
+function tipRender(){
+  var root = el('tip-root');
+  if(!root) return;
+
+  root.innerHTML = '';
+  root.style.fontFamily = 'Jost, sans-serif';
+  root.style.color = S.PEARL;
+
+  // Progress bar
+  var prog = document.createElement('div');
+  css(prog, {display:'flex', gap:'4px', marginBottom:'1.8rem'});
+  prog.id = 'tip-prog';
+  for(var i=0;i<Q.length;i++){
+    var seg = document.createElement('div');
+    seg.id = 'tip-seg-'+i;
+    css(seg, {flex:'1', height:'2px', borderRadius:'2px', background:'rgba(26,26,26,0.12)', transition:'background 0.3s'});
+    prog.appendChild(seg);
+  }
+  root.appendChild(prog);
+
+  // Question container
+  var qwrap = document.createElement('div');
+  qwrap.id = 'tip-qwrap';
+  root.appendChild(qwrap);
+
+  // Result container (hidden)
+  var res = document.createElement('div');
+  res.id = 'tip-res';
+  res.style.display = 'none';
+  root.appendChild(res);
+
+  showQuestion(0);
+}
+
+function showQuestion(qi){
+  cur = qi;
+  var qwrap = el('tip-qwrap');
+  if(!qwrap) return;
+
+  // Update progress
+  for(var i=0;i<Q.length;i++){
+    var seg = el('tip-seg-'+i);
+    if(!seg) continue;
+    if(i < qi) seg.style.background = S.WARM;
+    else if(i === qi) seg.style.background = 'rgba(200,168,130,0.5)';
+    else seg.style.background = 'rgba(26,26,26,0.12)';
+  }
+
+  var q = Q[qi];
+  qwrap.innerHTML = '';
+
+  // Dimension label
+  var dim = document.createElement('div');
+  dim.textContent = q.eje;
+  css(dim, {
+    fontSize:'0.58rem', letterSpacing:'0.12em', textTransform:'uppercase',
+    color:S.DIM2, border:'1px solid rgba(26,26,26,0.15)',
+    borderRadius:'20px', padding:'3px 10px', display:'inline-block', marginBottom:'1rem'
+  });
+  qwrap.appendChild(dim);
+
+  // Question text
+  var qtxt = document.createElement('div');
+  qtxt.textContent = q.txt;
+  css(qtxt, {
+    fontFamily:"'Cormorant Garamond', serif", fontSize:'1.2rem',
+    lineHeight:'1.55', marginBottom:'1.4rem', color:S.PEARL
+  });
+  qwrap.appendChild(qtxt);
+
+  // Options
+  var optsDiv = document.createElement('div');
+  css(optsDiv, {display:'flex', flexDirection:'column', gap:'8px'});
+
+  q.ops.forEach(function(op, j){
+    var btn = document.createElement('button');
+    btn.textContent = op.t;
+    css(btn, {
+      display:'block', width:'100%', textAlign:'left',
+      padding:'12px 16px', border:S.BORDER, borderRadius:'3px',
+      background:S.BG, color:S.DIM, fontSize:'0.82rem', lineHeight:'1.6',
+      cursor:'pointer', transition:'border-color 0.15s, background 0.15s'
+    });
+    btn.onmouseover = function(){ if(!btn._sel){ btn.style.background=S.BG2; btn.style.borderColor='rgba(26,26,26,0.28)'; } };
+    btn.onmouseout  = function(){ if(!btn._sel){ btn.style.background=S.BG; btn.style.borderColor='rgba(26,26,26,0.15)'; } };
+    btn.onclick = function(){
+      // Deselect all in this group
+      optsDiv.querySelectorAll('button').forEach(function(b){
+        b._sel = false;
+        b.style.border = S.BORDER;
+        b.style.background = S.BG;
+        b.style.color = S.DIM;
+      });
+      // Select this
+      btn._sel = true;
+      btn.style.border = S.BORDER_W;
+      btn.style.background = 'rgba(200,168,130,0.08)';
+      btn.style.color = S.PEARL;
+      ans['q'+qi] = op.v;
+      // Enable next button
+      nextBtn.style.opacity = '1';
+      nextBtn.style.pointerEvents = 'auto';
+      nextBtn.style.background = S.WARM;
+      nextBtn.style.color = '#1a1a1a';
+      nextBtn.style.borderColor = S.WARM;
+    };
+    optsDiv.appendChild(btn);
+  });
+  qwrap.appendChild(optsDiv);
+
+  // Nav row
+  var nav = document.createElement('div');
+  css(nav, {display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:'1.5rem'});
+
+  var counter = document.createElement('span');
+  counter.textContent = (qi+1) + ' de ' + Q.length;
+  css(counter, {fontSize:'0.7rem', color:S.DIM2});
+  nav.appendChild(counter);
+
+  var nextBtn = document.createElement('button');
+  nextBtn.textContent = qi < Q.length-1 ? 'Siguiente →' : 'Ver resultado →';
+  css(nextBtn, {
+    padding:'9px 22px', borderRadius:'3px',
+    border:'1px solid rgba(26,26,26,0.15)',
+    background:'rgba(26,26,26,0.04)', color:'rgba(26,26,26,0.3)',
+    fontSize:'0.82rem', fontWeight:'600', cursor:'pointer',
+    opacity:'0.4', pointerEvents:'none', transition:'opacity 0.2s'
+  });
+  nextBtn.onclick = function(){
+    if(qi < Q.length-1){
+      showQuestion(qi+1);
+    } else {
+      showResult();
+    }
+  };
+  nav.appendChild(nextBtn);
+  qwrap.appendChild(nav);
+}
+
+function showResult(){
+  var qwrap = el('tip-qwrap');
+  var res   = el('tip-res');
+  if(!qwrap || !res) return;
+
+  // All progress done
+  for(var i=0;i<Q.length;i++){
+    var seg = el('tip-seg-'+i);
+    if(seg) seg.style.background = S.WARM;
+  }
+
+  qwrap.style.display = 'none';
+
+  // Compute quadrant
+  var sumA=0,cA=0,sumN=0,cN=0;
+  Q.forEach(function(q,i){
+    var v = ans['q'+i];
+    if(v===undefined) return;
+    if(q.ax==='a'){sumA+=v;cA++;}
+    else{sumN+=v;cN++;}
+  });
+  var avgA = cA ? sumA/cA : 0;
+  var avgN = cN ? sumN/cN : 0;
+  var key = (avgA>=1.5?'A':'C') + (avgN<1.5?'F':'E');
+  var C = CUADRANTES[key];
+
+  res.innerHTML = '';
+  res.style.display = 'block';
+
+  // Badge + title
+  var badge = document.createElement('div');
+  badge.textContent = C.nom;
+  css(badge, {
+    display:'inline-block', fontSize:'0.6rem', letterSpacing:'0.1em',
+    textTransform:'uppercase', borderRadius:'20px', padding:'4px 12px',
+    marginBottom:'0.5rem', fontWeight:'600',
+    background:'rgba(200,168,130,0.12)', color:C.col
+  });
+  res.appendChild(badge);
+
+  var title = document.createElement('div');
+  title.textContent = C.tag;
+  css(title, {
+    fontFamily:"'Cormorant Garamond', serif", fontSize:'1.5rem',
+    fontWeight:'400', color:S.PEARL, marginBottom:'0.4rem', lineHeight:'1.25'
+  });
+  res.appendChild(title);
+
+  var subtitle = document.createElement('div');
+  subtitle.innerHTML = 'Tu ecosistema opera con la lógica de <strong>' + C.casos.map(function(c){return c.nom;}).join(' y ') + '</strong>. Los instrumentos se aplican desde esta lógica.';
+  css(subtitle, {fontSize:'0.82rem', lineHeight:'1.65', color:S.DIM, marginBottom:'1.5rem'});
+  res.appendChild(subtitle);
+
+  // Matrix SVG
+  var matWrap = document.createElement('div');
+  css(matWrap, {marginBottom:'1.5rem', border:'1px solid rgba(26,26,26,0.12)', borderRadius:'4px', overflow:'hidden', background:'rgba(26,26,26,0.02)'});
+
+  var mx = 60 + (avgN/3)*280;
+  var my = 210 - (avgA/3)*185;
+  var qd = {
+    CF:{x:60, y:25, c:'#c8a882', l:'Cerrado + Funcional'},
+    AF:{x:200,y:25, c:'#b89090', l:'Abierto + Funcional'},
+    CE:{x:60, y:118,c:'#8fad8f', l:'Cerrado + Experiencial'},
+    AE:{x:200,y:118,c:'#c4a87a', l:'Abierto + Experiencial'}
+  };
+  var rects = Object.keys(qd).map(function(k){
+    var q2=qd[k], act=k===key;
+    return '<rect x="'+q2.x+'" y="'+q2.y+'" width="140" height="93" fill="'+q2.c+'" opacity="'+(act?'0.2':'0.05')+'"/>'
+          +'<text x="'+(q2.x+70)+'" y="'+(q2.y+16)+'" text-anchor="middle" font-size="9" fill="'+(act?q2.c:'rgba(26,26,26,0.3)')+'" font-weight="'+(act?'600':'400')+'">'+q2.l+'</text>';
+  }).join('');
+
+  matWrap.innerHTML = '<svg width="100%" viewBox="0 0 400 230" xmlns="http://www.w3.org/2000/svg" style="display:block;font-family:Jost,sans-serif">'
+    + rects
+    + '<rect x="60" y="25" width="280" height="186" fill="none" stroke="rgba(26,26,26,0.12)" stroke-width="0.75"/>'
+    + '<line x1="200" y1="25" x2="200" y2="211" stroke="rgba(26,26,26,0.1)" stroke-width="0.75" stroke-dasharray="3 3"/>'
+    + '<line x1="60" y1="118" x2="340" y2="118" stroke="rgba(26,26,26,0.1)" stroke-width="0.75" stroke-dasharray="3 3"/>'
+    + '<text x="90" y="222" font-size="8" fill="rgba(26,26,26,0.4)">Funcional</text>'
+    + '<text x="272" y="222" font-size="8" fill="rgba(26,26,26,0.4)">Experiencial</text>'
+    + '<text x="18" y="82" font-size="8" fill="rgba(26,26,26,0.4)" transform="rotate(-90,18,82)">Cerrado</text>'
+    + '<text x="18" y="175" font-size="8" fill="rgba(26,26,26,0.4)" transform="rotate(-90,18,175)">Abierto</text>'
+    + '<circle cx="'+mx+'" cy="'+my+'" r="13" fill="'+C.col+'" opacity="0.15"/>'
+    + '<circle cx="'+mx+'" cy="'+my+'" r="6" fill="'+C.col+'" opacity="0.9"/>'
+    + '<circle cx="'+mx+'" cy="'+my+'" r="13" fill="none" stroke="'+C.col+'" stroke-width="1.5" opacity="0.5"/>'
+    + '</svg>';
+  res.appendChild(matWrap);
+
+  // 4 info cards
+  var cards = [
+    {label:'Activo habilitante central', body:C.activo},
+    {label:'Gobernanza óptima',          body:C.gov},
+    {label:'El error más frecuente',     body:C.err},
+    {label:'Posición arquitectónica',    body:C.pos}
+  ];
+  var grid = document.createElement('div');
+  css(grid, {display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2px', background:'rgba(26,26,26,0.08)', marginBottom:'1.5rem'});
+
+  cards.forEach(function(c){
+    var card = document.createElement('div');
+    css(card, {background:'#f9f8f6', padding:'1rem 1.1rem'});
+    var lbl = document.createElement('div');
+    lbl.textContent = c.label;
+    css(lbl, {fontSize:'0.54rem', textTransform:'uppercase', letterSpacing:'0.12em', color:'#8a8880', marginBottom:'5px', fontWeight:'500'});
+    var body = document.createElement('div');
+    body.textContent = c.body;
+    css(body, {fontSize:'0.79rem', lineHeight:'1.7', color:'#3d3d3b'});
+    card.appendChild(lbl);
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+  res.appendChild(grid);
+
+  // Cases
+  var casesTitle = document.createElement('div');
+  casesTitle.textContent = 'Casos del libro en este cuadrante';
+  css(casesTitle, {fontSize:'0.56rem', textTransform:'uppercase', letterSpacing:'0.12em', color:'#8a8880', marginBottom:'0.8rem', fontWeight:'500'});
+  res.appendChild(casesTitle);
+
+  var casesGrid = document.createElement('div');
+  css(casesGrid, {display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(170px,1fr))', gap:'2px', background:'rgba(26,26,26,0.08)', marginBottom:'1.5rem'});
+  C.casos.forEach(function(c){
+    var card = document.createElement('div');
+    css(card, {background:'#f9f8f6', padding:'0.9rem 1rem'});
+    card.innerHTML = '<div style="font-size:0.56rem;text-transform:uppercase;letter-spacing:0.08em;color:'+C.col+';opacity:0.85;margin-bottom:3px;font-weight:600">'+c.cap+'</div>'
+      + '<div style="font-size:0.9rem;font-weight:500;color:#2d2d2d;margin-bottom:3px">'+c.nom+'</div>'
+      + '<div style="font-size:0.72rem;line-height:1.55;color:#5a5956">'+c.desc+'</div>';
+    casesGrid.appendChild(card);
+  });
+  res.appendChild(casesGrid);
+
+  // Restart button
+  var restBtn = document.createElement('button');
+  restBtn.textContent = '← Volver a responder';
+  css(restBtn, {
+    padding:'8px 16px', border:'1px solid rgba(26,26,26,0.18)', borderRadius:'3px',
+    background:'transparent', color:'#8a8880', fontSize:'0.78rem', cursor:'pointer'
+  });
+  restBtn.onmouseover = function(){ restBtn.style.color=S.PEARL; restBtn.style.background='rgba(26,26,26,0.05)'; };
+  restBtn.onmouseout  = function(){ restBtn.style.color='#8a8880'; restBtn.style.background='transparent'; };
+  restBtn.onclick = function(){ ans={}; cur=0; tipRender(); };
+  res.appendChild(restBtn);
+}
+
+// Exported entry point
+window.tipRender = tipRender;
+
+})();
+</script>
+</body>
+</html>
